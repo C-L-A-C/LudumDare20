@@ -198,11 +198,8 @@ public class Config{
 		
 		// Default configuration for keys
 		// Regarder la class Controle pour savoir l'ordre
-<<<<<<< HEAD
-		String[] keyDefaults = {"UP", "DOWN", "RIGHT", "LEFT", "SPACE", "ESCAPE"};
-=======
-		String[] keyDefaults = {"UP", "DOWN", "RIGHT", "LEFT", "C", "SPACE"};
->>>>>>> bc27eba39ae67c156b9aacedff2e37f029e2735d
+		String[] keyDefaults = {"UP", "DOWN", "RIGHT", "LEFT", "C", "SPACE", "ESCAPE"};
+
 		Controle[] controles = Controle.values();
 		
 		// On prend que les version "en mode appuye" de base des controles 

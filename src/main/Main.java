@@ -3,6 +3,7 @@ package main;
 import java.util.Random;
 
 import config.Config;
+import gui.EcranTitre;
 import gui.Jeu;
 import gui.SceneHandler;
 import utils.Utils;
@@ -10,7 +11,7 @@ import utils.Utils;
 public class Main {
 
 	public static void main(String[] args) {
-		SceneHandler.launch(new Jeu());
+		SceneHandler.launch(new EcranTitre());
 	}
 
 }
