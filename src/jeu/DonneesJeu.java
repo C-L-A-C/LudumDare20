@@ -25,6 +25,7 @@ public class DonneesJeu {
 	private Scroll scroll;
 	private List<Tapis> listeTapis;
 	private List<Produit> listeProduits;
+	private ControleurEvenements eCtrl;
 	private List<Machine> listeMachines;
 	
 	private MiniJeu miniJeuCourant;
@@ -32,7 +33,7 @@ public class DonneesJeu {
 	public DonneesJeu() {
 		int viewW = 640, viewH = 480;
 		joueur = new Joueur(0, 0);
-		scroll = new Scroll(viewW, viewH, viewW, viewH);
+		scroll = new Scroll(viewW * 2, viewH * 2, viewW, viewH);
 		listeTapis = new ArrayList<>();
 		listeProduits = new ArrayList<>();
 		
@@ -130,7 +131,12 @@ public class DonneesJeu {
 		return listeTapis;
 	}
 
-	
+	/*
+	 * définit le controleur d'événements pour la scène courante
+	 * */
+	public void setControleurEvenements(ControleurEvenements eventCtrl) {
+		this.eCtrl = eventCtrl;
+	}
 
 	public Produit getProduitZone(Rectangle zone, Set<TypeProduit> keySet) {
 		for (Produit p : listeProduits)
