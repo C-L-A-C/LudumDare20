@@ -28,6 +28,9 @@ public class DonneesJeu {
 		// test tapis
 		listeTapis.add(new Tapis(100, 100, 50, 50, TypeDirectionTapis.BAS));
 		listeTapis.add(new Tapis(100, 150, 50, 50, TypeDirectionTapis.DROITE));
+		listeTapis.add(new Tapis(150, 150, 50, 50, TypeDirectionTapis.HAUT));
+		listeTapis.add(new Tapis(150, 100, 50, 50, TypeDirectionTapis.GAUCHE));
+
 		//test produits
 		listeProduits.add(new Produit(110, 110, new AffichageRectangle(0)) {});
 		
