@@ -106,9 +106,13 @@ public class Rectangle extends Forme {
 	}
 	
 	public boolean checkInclusionIn(Rectangle out) {
+		return out.getX() < this.getX() && out.getY() < this.getY() && out.getX() + out.getW() > this.getX() + this.getH() && out.getY() + out.getH() > this.getY() + this.getH();
+	}
+	
+
+	public boolean checkInclusionInNearCenter(Rectangle out) {
 		//premiere version je sais que c'est pas une vraie inclusion calmez vous
-		System.out.println(out.getX() + "<" + this.getX() + "&&" +  this.getX() + "<" + out.getX() + out.getW() + "&&" + out.getY() + "<" + this.getY() + "&&" + this.getY()  + "<" + out.getY() + out.getH());
-		return out.getX() < this.getX() && this.getX() < out.getX() + out.getW() && out.getY() < this.getY() && this.getY() < out.getY() + out.getH();
+		return out.getCenter().x - out.getW() / 10 < this.getCenter().x && this.getCenter().x < out.getCenter().x + out.getW() / 10 && out.getCenter().y - out.getH() / 10 < this.getCenter().y && this.getCenter().y < out.getCenter().y + out.getH() / 10;
 	}
 	
 	

@@ -40,28 +40,38 @@ public class Produit extends EntiteMobile {
 	
 	public void testTapis(DonneesJeu donnees) {
 		//teste si le produit est sur un tapis, et sette sa vitesse si oui
+		boolean pleaseStop = true;
 		for (Tapis t : donnees.getListeTapis()) {
-			if (((Rectangle)this.getForme()).checkInclusionIn((Rectangle)t.getForme())) {
-				System.out.println("tic");
-				vitesse.x = 0;
-				vitesse.y = 0;
+			if (this.collision(t.getForme())) {
+				pleaseStop = false;
+			}
+			if (((Rectangle)this.getForme()).checkInclusionInNearCenter((Rectangle)t.getForme())) {
 				switch(t.getDirection()) {
 				case HAUT:
-					vitesse.y = -10;
-					return;
+					vitesse.y = -50;
+					vitesse.x =  0;
+					break;
 				case BAS:
-					vitesse.y = 10;
-					return;
+					vitesse.y = 50;
+					vitesse.x = 0;
+					break;
 				case GAUCHE:
-					vitesse.x = -10;
-					return;
+					vitesse.x = -50;
+					vitesse.y = 0;
+					break;
 				case DROITE:
-					vitesse.x = 10;
-					return;
+					vitesse.x = 50;
+					vitesse.y = 0;
+					break;
 				}
 			}
 		}
+		if (pleaseStop) {
+			vitesse.x = 0;
+			vitesse.y = 0;
+		}
 
 	}
+
 
 }
