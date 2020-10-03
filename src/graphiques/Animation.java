@@ -27,6 +27,7 @@ public class Animation implements Apparence {
 		frames = new ArrayList<>(_frames);
 		delay = 1000 / FPS;
 		paused = true;
+		index = 0;
 	}
 
 	/**
@@ -43,6 +44,7 @@ public class Animation implements Apparence {
 		
 		delay = 1000 / FPS;
 		paused = true;
+		index = 0;
 	}
 
 	/**
@@ -53,7 +55,7 @@ public class Animation implements Apparence {
 		wasReset = false;
 		long now = System.currentTimeMillis();
 		
-		if (paused) {
+		if (paused || lastTime == 0) {
 			index = 0;
 			lastTime = now;
 			paused = false;
@@ -66,6 +68,7 @@ public class Animation implements Apparence {
 			wasReset = index < prevIndex;
 			lastTime = now;
 		}
+		
 		return frames.get(index);
 	}
 
