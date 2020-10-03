@@ -95,7 +95,7 @@ public class DonneesJeu {
 			}
 		}
 		
-		if(t-tempsDernierProduitCree>5000) {
+		if(t-tempsDernierProduitCree>3000) {
 			Produit nouveauProduit = eCtrl.creerNouveauProduit();
 			if(nouveauProduit != null) {
 				System.out.println("Nouveau produit cree !");

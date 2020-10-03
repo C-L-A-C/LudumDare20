@@ -33,7 +33,7 @@ public class GenerateurEvenements {
 	
 	private Point choisirEntree() {
 		if(seed==1) {
-			int i = (int) ((Math.random() * (entrees.size()-1)));
+			int i = (int) ((Math.random() * (entrees.size())));
 			return entrees.get(i);
 		}
 		return new Point(1,1);
