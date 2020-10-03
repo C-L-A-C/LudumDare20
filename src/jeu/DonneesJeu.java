@@ -69,5 +69,9 @@ public class DonneesJeu {
 	public Joueur getJoueur() {
 		return joueur;
 	}
+	
+	public void setListeTapis(List<Tapis> tapis) {
+		this.listeTapis = tapis;
+	}
 
 }

@@ -1,16 +1,16 @@
 package jeu;
 
-import java.util.ArrayList;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class ControleurNiveau {
 	// donnees du jeu
-	private DonneesJeu donnees_jeu;
+	private DonneesJeu donneesJeu;
+	private ControleurEvenements eCtrl;
 	
 	public ControleurNiveau(DonneesJeu jeu) {
-		this.donnees_jeu = jeu;
+		this.donneesJeu = jeu;
 	}
 	
 	/*
@@ -19,14 +19,19 @@ public class ControleurNiveau {
 	 * */
 	private void parseNiveau(String nom) {
 		// TODO chemin du fichier des niveaux
-		String chemin_niveaux = "";
+		String cheminNiveaux = "";
 		
 		try {
-		      File fichier_niveaux = new File(chemin_niveaux);
-		      Scanner scanner = new Scanner(fichier_niveaux);
+		      File fichierNiveaux = new File(cheminNiveaux);
+		      Scanner scanner = new Scanner(fichierNiveaux);
 		      while (scanner.hasNextLine()) {
-		        String data = scanner.nextLine();
-		        // TODO faire l'analyse syntaxique
+		        String ligne = scanner.nextLine();
+		        
+		        if(ligne == "niveau="+nom+"\n" ) {
+		        	// TODO faire l'analyse syntaxique du niveau
+		        	
+		        	
+		        }
 		      }
 		      scanner.close();
 		    } catch (FileNotFoundException e) {
@@ -35,7 +40,11 @@ public class ControleurNiveau {
 		    }
 	}
 	
+	/*
+	 * définit quel niveau on joue
+	 * */
 	public void setNiveauCourant(String nom) {
+		// récupère les données du jeu
 		parseNiveau(nom);
 	}
 }
