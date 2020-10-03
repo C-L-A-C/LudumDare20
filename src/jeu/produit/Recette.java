@@ -7,6 +7,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import jeu.mini.TypeMiniJeu;
+
 public class Recette {
 	
 	/**
@@ -26,15 +28,18 @@ public class Recette {
 	 */
 	private int nbDechets;
 	
+	private TypeMiniJeu miniJeu;
+	
 	
 	/** 
 	 * Crée une recette vide
 	 */
-	public Recette(int nbDechets, int duree) {
+	public Recette(int nbDechets, int duree, TypeMiniJeu type) {
 		ingredients = new HashMap<>();
 		this.duree = duree;
 		this.nbDechets = nbDechets;
 		produits = new HashMap<>();
+		this.miniJeu = type;
 	}
 	
 	public void ajouterIngredient(TypeProduit ingredient, int nb)
@@ -85,6 +90,10 @@ public class Recette {
 		 Set<Entry<TypeProduit, Integer>> set = new HashSet<>();
 		 set.add(new HashMap.SimpleEntry<>(TypeProduit.DECHET, getNbDechets()));
 		 return set;
+	}
+
+	public TypeMiniJeu getTypeMiniJeu() {
+		return miniJeu;
 	}
 
 }
