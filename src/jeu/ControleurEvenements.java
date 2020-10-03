@@ -42,19 +42,24 @@ public class ControleurEvenements {
 				PVector vitesse = new PVector();
 				
 				// définit le point d'apparition exact
-				x = (entree.getW()-0.5f)*tailleCasePixels;
-				y = (entree.getH()-0.5f)*tailleCasePixels;
+				
+				x = (entree.getCenter().x+0.25f)*tailleCasePixels;
+				y = (entree.getCenter().y-1.25f)*tailleCasePixels;
 				
 				// définit les vitesses initiales
-				if(entree.getH()==-1) {
+				if(x<0) {
 					vitesse.x = 50;
-				} else {
+					vitesse.y = 0;
+				} else if(x>y){
 					vitesse.x = -50;
+					vitesse.y = 0;
 				}
 				
-				if(entree.getW()==-1) {
+				if(y<0) {
+					vitesse.x = 0;
 					vitesse.y = 50;
-				} else {
+				} else if(y>x){
+					vitesse.x = 0;
 					vitesse.y = -50;
 				}
 				

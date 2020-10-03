@@ -1,5 +1,5 @@
 package jeu;
 
 public enum TypeDirectionTapis {
-	HAUT, BAS, GAUCHE, DROITE;
+	BAS, DROITE, HAUT, GAUCHE;
 }
