@@ -76,7 +76,13 @@ public class DonneesJeu {
 		}
 		
 		if (estEnMiniJeu())
-			miniJeuCourant.evoluer();
+		{
+			if (!miniJeuCourant.evoluer())
+			{
+				miniJeuCourant.getMachine().finirActivation(miniJeuCourant.estReussi());
+				miniJeuCourant = null;
+			}
+		}
 	}
 
 	public void afficher(PApplet p) {
