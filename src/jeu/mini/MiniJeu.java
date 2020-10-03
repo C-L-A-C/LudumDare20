@@ -16,6 +16,8 @@ public abstract class MiniJeu {
 	{
 		switch(type)
 		{
+			case RANGE_PRODUITS:
+				return new RangeProduits(machine);
 			default:
 				return null;
 		}
@@ -29,9 +31,9 @@ public abstract class MiniJeu {
 	public abstract void afficher(PApplet p);
 	public abstract boolean evoluer();
 	
-	public void keyPressed() {};
-	public void keyReleased() {};
-	public void mouseReleased() {};
-	public void mousePressed() {};
+	public void keyPressed(int key) {};
+	public void keyReleased(int key) {};
+	public void mouseReleased(int x, int y, int button) {};
+	public void mousePressed(int x, int y, int button) {};
 	
 }
