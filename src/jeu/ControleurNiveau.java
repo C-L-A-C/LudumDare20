@@ -4,6 +4,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
+import collision.Point;
+import jeu.produit.TypeProduit;
+
 public class ControleurNiveau {
 	// donnees du jeu
 	private DonneesJeu donneesJeu;
@@ -15,6 +18,9 @@ public class ControleurNiveau {
 	
 	public ControleurNiveau(DonneesJeu jeu) {
 		this.donneesJeu = jeu;
+		
+		eCtrl = new ControleurEvenements();
+		
 		tailleCasePixels = 50;
 	}
 	
@@ -22,10 +28,13 @@ public class ControleurNiveau {
 	 * récupère le niveau de nom "nom"
 	 * dans le fichier des niveaux
 	 * */
-	private void parseNiveau(String nom) {
+	private boolean parseNiveau(String nom) {
+		boolean caSestBienPasse = false;
 		// chemin du fichier des niveaux
 		String cheminNiveaux = "assets/niveaux.txt";
-		boolean parcourir = true;
+		
+		//variables pour parser les différentes parties d'un niveau
+		boolean parcourirFichier = true;
 		boolean analyseTerrain = false;
 		boolean analyseGenerateurs = false;
 		largeur = 0;
@@ -34,93 +43,113 @@ public class ControleurNiveau {
 		try {
 		      File fichierNiveaux = new File(cheminNiveaux);
 		      Scanner scanner = new Scanner(fichierNiveaux);
-		      while (parcourir && scanner.hasNextLine()) {
+		      while (parcourirFichier && scanner.hasNextLine()) {
 		        String ligne = scanner.nextLine();
 		        
-		        if(ligne.equals("niveau="+nom)) {
-		        	// on sort de la boucle while
-		        	parcourir = false;
+		        if(ligne.equals(nom)) {
+		        	// on sort de la boucle while après l'analyse du niveau
+		        	parcourirFichier = false;
 		        	ligne = scanner.nextLine();
-		        	
-		        	if(ligne.substring(0,6).equals("width=")) {
-		        		// récupère la largeur spécifiée sur le fichier
-		        		String larg = "";
-		        		for(int i=6;i<ligne.length();i++) {
-		        			char c = ligne.charAt(i);
-		        			if(c != '\n') {
-		        				larg += c;
-		        			}
-		        		}
-		        		largeur = Integer.parseInt(larg);
+		        	if(ligne.equals("taille")) {
+		        		
 		        		ligne = scanner.nextLine();
 		        		
-		        		if(ligne.substring(0,7).equals("height=")) {
-			        		// récupère la hauteur spécifiée sur le fichier
-			        		String haut = "";
-			        		for(int i=7;i<ligne.length();i++) {
-			        			char c = ligne.charAt(i);
-			        			if(c != '\n') {
-			        				haut += c;
-			        			}
-			        		}
-			        		hauteur = Integer.parseInt(haut);
-			        		ligne = scanner.nextLine();
-			        		
-			        		// analyse de la composition du terrain
-			        		if(ligne.equals("terrain")) {
-			        			analyseTerrain = true;
-			        		} else {
-			        			System.out.println("Erreur dans la lecture du fichier des niveaux : pas de terrain specifie");
-			        		}
-			        		
+		        		ligne.replace("\n", "");
+		        		String[] taille = ligne.split(" ",2);
+		        		
+			        	largeur = Integer.parseInt(taille[0]);
+			        	hauteur = Integer.parseInt(taille[1]);
+			        	
+			        	ligne = scanner.nextLine();
+			        	if(ligne.equals("terrain")) {
+			        		analyseTerrain = true;
 			        	} else {
-			        		System.out.println("Erreur dans la lecture du fichier des niveaux : pas de hauteur specifiee");
+			        		System.out.println("Erreur dans la lecture du fichier des niveaux : pas de terrain specifie");
 			        	}
 		        		
 		        	} else {
-		        		System.out.println("Erreur dans la lecture du fichier des niveaux : pas de largeur specifiee");
+		        		System.out.println("Erreur dans la lecture du fichier des niveaux : pas de taille specifiee");
 		        	}
 		        }
 		        
 		        if(analyseTerrain) {
 					for(int j=0;j<hauteur;j++) {
 						ligne = scanner.nextLine();
-						int i = 0;
-						int charPos = 0;
-						char c = ligne.charAt(charPos);
+						ligne.replace("\n", "");
 						
-						while(i<largeur) {
-							String chaineLue = "";
-							while(c != ';' && c != '\n') {
-								System.out.println("char at pos : "+charPos+" = "+c);
-								chaineLue += c;
-								charPos++;
-								c = ligne.charAt(charPos);
-							}
-							
-							charPos++;
-							if(charPos != ligne.length()) {
-								c = ligne.charAt(charPos);
-							}
-							
-							// crée l'objet associé à la chaîne
-							analyseChaine(chaineLue,i,j);
-							i++;
+						String[] entites = ligne.split(";", largeur);
+						for(int i=0;i<largeur;i++) {
+							String chaineLue = entites[i];
+							analyseEntite(chaineLue,i,j);
 						}
 					}
+					
 					ligne = scanner.nextLine();
+					
 					if(ligne.equals("gevents")) {
 						analyseGenerateurs = true;
 					} else {
 		        		System.out.println("Erreur dans la lecture du fichier des niveaux : "
-		        				+ "taille du terrain incorrecte ou pas de generateur d'evenements specifie");
+		        				+ "taille du terrain incorrecte ou pas de generateur d'evenements specifies");
 		        	}
 				}
 		        
+		        
 		        if(analyseGenerateurs) {
-		        	ligne = scanner.nextLine();
+		        	int nbrGEvents = 0;
+		        	
 		        	while(scanner.hasNextLine() && !ligne.equals("fin niveau")) {
 		        		ligne = scanner.nextLine();
+		        		ligne.replace("\n", "");
+		        		
+		        		// tableau contenant normalement "generator", le type du produit et la graine
+		        		String[] s = ligne.split(" ",3);
+		        		
+		        		if(s[0].equals("generator")) {
+		        			GenerateurEvenements gevents = new GenerateurEvenements(
+		        					this.produitCorrespondant(s[1]),
+		        					Integer.parseInt(s[2]));
+		        			
+		        			ligne = scanner.nextLine();
+			        		ligne.replace("\n", "");
+			        		String[] entrees = ligne.split(";",0);
+			        		if(entrees[0].equals("entrees") && entrees.length>1) {
+			        			for(int i=1;i<entrees.length;i++) {
+				        			String[] coords = entrees[i].split(" ",2);
+				        			
+				        			gevents.addEntree(new Point(Integer.parseInt(coords[0]),
+				        				Integer.parseInt(coords[1])));
+			        			}
+			        		} else {
+			        			System.out.println("Erreur dans la lecture du fichier des niveaux : mauvaise syntaxe "
+			        			 		+ "des entrees des generateurs d'evenements");
+			        		}
+			        		
+			        		ligne = scanner.nextLine();
+			        		ligne.replace("\n", "");
+			        		String[] sorties = ligne.split(";",0);
+			        		if(sorties[0].equals("sorties") && sorties.length>1) {
+			        			for(int i=1;i<sorties.length;i++) {
+			        				String[] coords = sorties[i].split(" ",2);
+			        				System.out.println("Sortie : ("+coords[0]+";"+coords[1]+")");
+			        				
+			        				eCtrl.addSortie(new Point(Integer.parseInt(coords[0]),
+			        						Integer.parseInt(coords[1])));
+			        			}
+			        		} else {
+			        			System.out.println("Erreur dans la lecture du fichier des niveaux : mauvaise syntaxe "
+			        			 		+ "des sorties des generateurs d'evenements");
+			        		}
+		        		} else {
+		        			 System.out.println("Erreur dans la lecture du fichier des niveaux : mauvaise syntaxe "
+		        			 		+ "des generateurs d'evenements");
+		        		}
+		        			
+		        		nbrGEvents++;
+		        	}
+		        	
+		        	if(ligne.equals("fin niveau")) {
+		        		caSestBienPasse = true;
 		        	}
 		        }
 		        
@@ -130,9 +159,21 @@ public class ControleurNiveau {
 		      System.out.println("Erreur dans la lecture du fichier des niveaux");
 		      e.printStackTrace();
 		    }
+		
+		return caSestBienPasse;
 	}
 	
-	private void analyseChaine(String chaineLue,int i, int j) {
+	private TypeProduit produitCorrespondant(String produit) {
+		switch(produit) {
+			case "METAL":
+				return TypeProduit.METAL;
+			default:
+		}
+		System.out.println("Erreur dans la lecture du fichier des niveaux : produit inconnu, mauvaise syntaxe du produit");
+		return TypeProduit.METAL;
+	}
+	
+	private void analyseEntite(String chaineLue,int i, int j) {
 		TypeDirectionTapis direction = TypeDirectionTapis.DROITE;
 		boolean aUneDirection = true;
 		System.out.println("chaine lue : " +chaineLue);
@@ -171,10 +212,11 @@ public class ControleurNiveau {
 	}
 	
 	/*
+	 * @return si 'false', le niveau a mal été récupéré
 	 * définit quel niveau on joue
 	 * */
-	public void setNiveauCourant(String nom) {
+	public boolean setNiveauCourant(String nom) {
 		// récupère les données du jeu
-		parseNiveau(nom);
+		return parseNiveau(nom);
 	}
 }
