@@ -9,6 +9,7 @@ import controles.Controle;
 import graphiques.Assets;
 import graphiques.Animation;
 import graphiques.Tileset;
+import jeu.machine.Machine;
 
 
 public class Joueur extends EntiteMobile implements Controlable {
@@ -24,6 +25,7 @@ public class Joueur extends EntiteMobile implements Controlable {
 	@Override
 	public void action(Controle c, DonneesJeu jeu) {		
 		float vitesseMax = 140;
+		Machine m = null;
 		
 		switch(c)
 		{
@@ -47,9 +49,16 @@ public class Joueur extends EntiteMobile implements Controlable {
 		case BAS:
 			vitesse.y = vitesseMax;
 			break;
-		case ACTIVE_MACHINE_RELACHE:
-			System.out.println(pos);
-			// A mettre le mini jeu ou autre
+		case ACTIVE_MACHINE:
+			m = jeu.getNearestMachine(this);
+			if (m != null)
+				m.activer(jeu);
+			break;
+		case CHARGER_MACHINE:
+			m = jeu.getNearestMachine(this);
+			if (m != null)
+				m.prendreIngredient(jeu);
+				
 			break;
 		default:
 			break;

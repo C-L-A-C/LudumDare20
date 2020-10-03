@@ -3,6 +3,7 @@ package jeu;
 import processing.core.PApplet;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,10 +19,13 @@ import jeu.produit.Produit;
 import jeu.produit.TypeProduit;
 
 public class DonneesJeu {
+	private static final float MAX_DISTANCE_MACHINE = 50;
+	
 	private Joueur joueur;
 	private Scroll scroll;
 	private List<Tapis> listeTapis;
 	private List<Produit> listeProduits;
+	private List<Machine> listeMachines;
 	
 	private MiniJeu miniJeuCourant;
 
@@ -35,14 +39,9 @@ public class DonneesJeu {
 		miniJeuCourant = null;
 		
 		// test tapis
-		listeTapis.add(new Tapis(100, 100, 50, 50, TypeDirectionTapis.BAS));
-		listeTapis.add(new Tapis(100, 150, 50, 50, TypeDirectionTapis.DROITE));
-		listeTapis.add(new Tapis(150, 150, 50, 50, TypeDirectionTapis.HAUT));
-		listeTapis.add(new Tapis(150, 100, 50, 50, TypeDirectionTapis.GAUCHE));
-
-		//test produits
-		listeProduits.add(new Produit(111, 111, TypeProduit.METAL));
 		
+		//test produits
+		listeProduits.add(new Produit(60, 110, TypeProduit.METAL));
 
 	}
 
@@ -75,7 +74,13 @@ public class DonneesJeu {
 		}
 		
 		if (estEnMiniJeu())
-			miniJeuCourant.evoluer();
+		{
+			if (!miniJeuCourant.evoluer())
+			{
+				miniJeuCourant.getMachine().finirActivation(miniJeuCourant.estReussi());
+				miniJeuCourant = null;
+			}
+		}
 	}
 
 	public void afficher(PApplet p) {
@@ -109,6 +114,14 @@ public class DonneesJeu {
 	public Joueur getJoueur() {
 		return joueur;
 	}
+	
+	public void setListeTapis(List<Tapis> tapis) {
+		this.listeTapis = tapis;
+	}
+	
+	public void addTapis(Tapis tapis) {
+		this.listeTapis.add(tapis);
+	}
 
 	/**
 	 * @return the listeTapis
@@ -138,6 +151,18 @@ public class DonneesJeu {
 
 	public MiniJeu getMiniJeu() {
 		return miniJeuCourant;
+	}
+
+	public Machine getNearestMachine(Entite e) {
+		return listeMachines.stream()
+				.filter(m -> m.distanceA(e) < MAX_DISTANCE_MACHINE)
+				.min(new Comparator<Entite>() {
+					@Override
+					public int compare(Entite e1, Entite e2) {
+						return  (int) (e1.distanceA(e) - e2.distanceA(e));
+					}
+				})
+				.orElse(null);
 	}
 
 }
