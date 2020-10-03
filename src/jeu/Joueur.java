@@ -47,6 +47,10 @@ public class Joueur extends EntiteMobile implements Controlable {
 		case BAS:
 			vitesse.y = vitesseMax;
 			break;
+		case ACTIVE_MACHINE_RELACHE:
+			System.out.println(pos);
+			// A mettre le mini jeu ou autre
+			break;
 		default:
 			break;
 		}
