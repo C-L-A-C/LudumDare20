@@ -88,6 +88,7 @@ public class ControleurNiveau {
 					
 					if(ligne.equals("gevents")) {
 						analyseGenerateurs = true;
+						ligne = scanner.nextLine();
 					} else {
 		        		System.out.println("Erreur dans la lecture du fichier des niveaux : "
 		        				+ "taille du terrain incorrecte ou pas de generateur d'evenements specifies");
@@ -99,7 +100,6 @@ public class ControleurNiveau {
 		        	int nbrGEvents = 0;
 		        	
 		        	while(scanner.hasNextLine() && !ligne.equals("fin niveau")) {
-		        		ligne = scanner.nextLine();
 		        		ligne.replace("\n", "");
 		        		
 		        		// tableau contenant normalement "generator", le type du produit et la graine
@@ -131,7 +131,6 @@ public class ControleurNiveau {
 			        		if(sorties[0].equals("sorties") && sorties.length>1) {
 			        			for(int i=1;i<sorties.length;i++) {
 			        				String[] coords = sorties[i].split(" ",2);
-			        				System.out.println("Sortie : ("+coords[0]+";"+coords[1]+")");
 			        				
 			        				eCtrl.addSortie(new Point(Integer.parseInt(coords[0]),
 			        						Integer.parseInt(coords[1])));
@@ -146,6 +145,7 @@ public class ControleurNiveau {
 		        		}
 		        			
 		        		nbrGEvents++;
+		        		ligne = scanner.nextLine();
 		        	}
 		        	
 		        	if(ligne.equals("fin niveau")) {
@@ -167,6 +167,8 @@ public class ControleurNiveau {
 		switch(produit) {
 			case "METAL":
 				return TypeProduit.METAL;
+			case "CABLE":
+				return TypeProduit.CABLE;
 			default:
 		}
 		System.out.println("Erreur dans la lecture du fichier des niveaux : produit inconnu, mauvaise syntaxe du produit");
@@ -176,7 +178,6 @@ public class ControleurNiveau {
 	private void analyseEntite(String chaineLue,int i, int j) {
 		TypeDirectionTapis direction = TypeDirectionTapis.DROITE;
 		boolean aUneDirection = true;
-		System.out.println("chaine lue : " +chaineLue);
 		
 		switch(chaineLue.charAt(0)) {
 		case '^':
