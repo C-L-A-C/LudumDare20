@@ -12,6 +12,7 @@ public class SceneHandler extends PApplet {
 
 	public static PApplet pAppletInstance;
 	private static Scene runningScene;
+	
 
 	public static void launch(Scene scene) {
 		// Launch le main de processing
@@ -25,6 +26,10 @@ public class SceneHandler extends PApplet {
 
 		runningScene = s;
 		s.setup(pAppletInstance);
+	}
+	
+	public static void setRunningWithoutClosing(Scene s) {
+		runningScene = s;
 	}
 
 	public void settings() {

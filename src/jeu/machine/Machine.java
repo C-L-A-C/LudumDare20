@@ -132,4 +132,5 @@ public abstract class Machine extends Entite {
 	protected void faireCollision(Entite collider, DonneesJeu d) {		
 	}
 
+
 }

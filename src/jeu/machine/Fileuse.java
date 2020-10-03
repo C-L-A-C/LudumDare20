@@ -17,7 +17,7 @@ public class Fileuse extends Machine {
 
 	@Override
 	protected Recette creerRecette() {
-		Recette r = new Recette(2, 10, TypeMiniJeu.RANGE_PRODUIT);
+		Recette r = new Recette(2, 10, TypeMiniJeu.RANGE_PRODUITS);
 		r.ajouterIngredient(TypeProduit.METAL);
 		r.ajouterProduit(TypeProduit.CABLE);
 		return r;

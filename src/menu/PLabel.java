@@ -36,7 +36,7 @@ public class PLabel extends PComponent{
 	public void refreshSize(PApplet p)
 	{
 		w = computeWidth(p, textSize, label);
-		h = computeWidth(p, textSize, label);
+		h = computeHeight(p, textSize, label);
 	}
 	
 	public void setColor(int c)
@@ -68,7 +68,7 @@ public class PLabel extends PComponent{
 		p.noStroke();
 		p.fill(invalid ? p.lerpColor(color, Utils.color(255, 0, 0), .8f): color);
 		
-		p.text(label, x + w/2, y + h/2 - 10, w, h);
+		p.text(label, x, y, w + 10, h);
 		
 		if (invalid && System.currentTimeMillis() > validTime)
 		{

@@ -24,6 +24,36 @@ public abstract class PComponent {
 		return new Rectangle(new PVector(this.x, this.y), getWidth(), getHeight()).collision(new Point(x, y));
 	}
 
+	
+	
+	/**
+	 * @return the x
+	 */
+	public float getX() {
+		return x;
+	}
+
+	/**
+	 * @param x the x to set
+	 */
+	public void setX(float x) {
+		this.x = x;
+	}
+
+	/**
+	 * @return the y
+	 */
+	public float getY() {
+		return y;
+	}
+
+	/**
+	 * @param y the y to set
+	 */
+	public void setY(float y) {
+		this.y = y;
+	}
+
 	public float getHeight() {
 		return h;
 	}
