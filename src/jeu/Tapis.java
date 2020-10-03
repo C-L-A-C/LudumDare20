@@ -38,6 +38,27 @@ public class Tapis extends Entite {
 	}
 		
 
+	/**
+	 * @return the w
+	 */
+	public float getW() {
+		return w;
+	}
+
+	/**
+	 * @return the h
+	 */
+	public float getH() {
+		return h;
+	}
+
+	/**
+	 * @return the direction
+	 */
+	public TypeDirectionTapis getDirection() {
+		return direction;
+	}
+
 	@Override
 	protected void faireCollision(Entite collider, DonneesJeu d) {
 		// TODO Auto-generated method stub
