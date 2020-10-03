@@ -28,11 +28,15 @@ public abstract class Entite{
 	 */
 	protected Apparence apparence;
 	
+	int layer;
+	
 	protected Entite(float x, float y, Apparence a)
 	{
 		pos = new PVector(x, y);
 		detruit = false;
 		apparence = a;
+		//par défaut
+		layer = 0;
 	}
 	
 	/**
@@ -56,7 +60,7 @@ public abstract class Entite{
 	 * @return vrai s'il y a collision
 	 */
 	public boolean collision(Entite e) {
-		return e.getForme() != null && !e.estDetruit() && collision(e.getForme());
+		return e.getForme() != null && !e.estDetruit() && this.layer == e.layer && collision(e.getForme());
 	}
 	/**
 	 * Permet de faire la collision avec cette forme
@@ -116,4 +120,11 @@ public abstract class Entite{
 		pos.x = x;
 	}
 	
+	public int getLayer() {
+		return layer;
+	}
+	
+	public void setLayer(int layer) {
+		this.layer = layer;
+	}
 }

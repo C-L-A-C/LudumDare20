@@ -105,6 +105,12 @@ public class Rectangle extends Forme {
 		return pos.y;
 	}
 	
+	public boolean checkInclusionIn(Rectangle out) {
+		//premiere version je sais que c'est pas une vraie inclusion calmez vous
+		System.out.println(out.getX() + "<" + this.getX() + "&&" +  this.getX() + "<" + out.getX() + out.getW() + "&&" + out.getY() + "<" + this.getY() + "&&" + this.getY()  + "<" + out.getY() + out.getH());
+		return out.getX() < this.getX() && this.getX() < out.getX() + out.getW() && out.getY() < this.getY() && this.getY() < out.getY() + out.getH();
+	}
+	
 	
 
 }

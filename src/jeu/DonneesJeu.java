@@ -8,19 +8,27 @@ import java.util.List;
 import java.util.Map;
 
 import collision.Rectangle;
+import graphiques.AffichageRectangle;
+import jeu.produit.Produit;
 
 public class DonneesJeu {
 	private Joueur joueur;
 	private Scroll scroll;
 	private List<Tapis> listeTapis;
+	private List<Produit> listeProduits;
 
 	public DonneesJeu() {
 		int viewW = 640, viewH = 480;
 		joueur = new Joueur(0, 0);
 		scroll = new Scroll(viewW, viewH, viewW, viewH);
-		// test tapis
 		listeTapis = new ArrayList<>();
+		listeProduits = new ArrayList<>();
+		// test tapis
 		listeTapis.add(new Tapis(100, 100, 50, 50, TypeDirectionTapis.BAS));
+		listeTapis.add(new Tapis(100, 150, 50, 50, TypeDirectionTapis.DROITE));
+		//test produits
+		listeProduits.add(new Produit(110, 110, new AffichageRectangle(0)) {});
+		
 
 	}
 
@@ -46,8 +54,12 @@ public class DonneesJeu {
 
 	public void evoluer() {
 		long t = System.currentTimeMillis();
-
 		joueur.evoluer(t, this);
+		//changement des vitesses des rpoduits
+		for (Produit p : listeProduits) {
+			p.testTapis(this);
+			p.evoluer(t, this);
+		}
 	}
 
 	public void afficher(PApplet p) {
@@ -62,6 +74,10 @@ public class DonneesJeu {
 		for (Tapis t : listeTapis) {
 			t.afficher(p);
 		}
+		
+		for (Produit prod: listeProduits) {
+			prod.afficher(p);
+		}
 
 		p.popMatrix();
 	}
@@ -69,5 +85,14 @@ public class DonneesJeu {
 	public Joueur getJoueur() {
 		return joueur;
 	}
+
+	/**
+	 * @return the listeTapis
+	 */
+	public List<Tapis> getListeTapis() {
+		return listeTapis;
+	}
+
+	
 
 }
