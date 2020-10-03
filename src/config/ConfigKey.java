@@ -21,9 +21,7 @@ public enum ConfigKey {
 	TOUCHE_BAS("ToucheBas"),
 	TOUCHE_DROITE("ToucheDroite"),
 	TOUCHE_GAUCHE("ToucheGauche"),
-	TOUCHE_POSER_MUR("TouchePoserMur"), 
-	MAP_DIRECTORY("MapsDirectory"),
-	TOUCHE_MINER("ToucheMiner");
+	TOUCHE_MACHINE("ToucheActiveMachine");
 	
 	
 	private final static Map<String, String> noms = new HashMap<>();
