@@ -29,7 +29,7 @@ public class DonneesJeu {
 		listeTapis.add(new Tapis(100, 100, 50, 50, TypeDirectionTapis.BAS));
 		listeTapis.add(new Tapis(100, 150, 50, 50, TypeDirectionTapis.DROITE));
 		//test produits
-		listeProduits.add(new Produit(110, 110, new AffichageRectangle(0)) {});
+		listeProduits.add(new Produit(110, 110, TypeProduit.METAL));
 		
 
 	}

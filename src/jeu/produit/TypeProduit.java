@@ -1,5 +1,5 @@
 package jeu.produit;
 
 public enum TypeProduit {
-	DECHET
+	DECHET, METAL, CABLE
 }
