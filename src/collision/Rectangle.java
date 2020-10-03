@@ -112,7 +112,7 @@ public class Rectangle extends Forme {
 
 	public boolean checkInclusionInNearCenter(Rectangle out) {
 		//premiere version je sais que c'est pas une vraie inclusion calmez vous
-		return out.getCenter().x - out.getW() / 10 < this.getCenter().x && this.getCenter().x < out.getCenter().x + out.getW() / 10 && out.getCenter().y - out.getH() / 10 < this.getCenter().y && this.getCenter().y < out.getCenter().y + out.getH() / 10;
+		return out.getCenter().x - out.getW() / 5 < this.getCenter().x && this.getCenter().x < out.getCenter().x + out.getW() / 5 && out.getCenter().y - out.getH() / 5 < this.getCenter().y && this.getCenter().y < out.getCenter().y + out.getH() / 5;
 	}
 	
 	
