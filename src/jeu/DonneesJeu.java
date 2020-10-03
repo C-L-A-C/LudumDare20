@@ -6,10 +6,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import collision.Rectangle;
 import graphiques.AffichageRectangle;
 import jeu.produit.Produit;
+import jeu.produit.TypeProduit;
 
 public class DonneesJeu {
 	private Joueur joueur;
@@ -81,6 +83,10 @@ public class DonneesJeu {
 
 		p.popMatrix();
 	}
+	
+	public void ajouterProduit(Produit produit) {
+		listeProduits.add(produit);
+	}
 
 	public Joueur getJoueur() {
 		return joueur;
@@ -94,5 +100,14 @@ public class DonneesJeu {
 	}
 
 	
+
+	public Produit getProduitZone(Rectangle zone, Set<TypeProduit> keySet) {
+		for (Produit p : listeProduits)
+		{
+			if (keySet.contains(p.getType()) && p.collision(zone))
+				return p;
+		}
+		return null;
+	}
 
 }

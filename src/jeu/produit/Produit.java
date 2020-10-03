@@ -6,13 +6,38 @@ import jeu.DonneesJeu;
 import jeu.EntiteMobile;
 import jeu.Tapis;
 import processing.core.PApplet;
+import processing.core.PImage;
+import graphiques.Assets;
+import graphiques.AffichageImage;
 
-public abstract class Produit extends EntiteMobile {
+public class Produit extends EntiteMobile {
+	
+	private TypeProduit type;
+	
+	public Produit(float x, float y, TypeProduit type)
+	{
+		this(x, y, new AffichageImage(getImage(type)));
+		this.type = type;
+	}
 
 	protected Produit(float x, float y, Apparence a) {
 		super(x, y, a);
 		forme = new Rectangle(pos, 30, 30);
 		this.setLayer(1);
+	}
+
+
+	private static PImage getImage(TypeProduit type) {
+		switch(type)
+		{
+			default:
+				return Assets.getImage("default");
+		}
+	}
+	
+	public TypeProduit getType()
+	{
+		return type;
 	}
 	
 	
