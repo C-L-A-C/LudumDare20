@@ -12,16 +12,19 @@ public class ControleurNiveau {
 	private DonneesJeu donneesJeu;
 	private ControleurEvenements eCtrl;
 	
+	// taille d'une case en pixels
 	private int tailleCasePixels;
+	// taille du niveau en nombre de cases
 	private int largeur;
 	private int hauteur;
 	
 	public ControleurNiveau(DonneesJeu jeu) {
 		this.donneesJeu = jeu;
 		
-		eCtrl = new ControleurEvenements();
-		
 		tailleCasePixels = 50;
+		
+		eCtrl = new ControleurEvenements(tailleCasePixels);
+		jeu.setControleurEvenements(eCtrl);
 	}
 	
 	/*
@@ -85,9 +88,13 @@ public class ControleurNiveau {
 					}
 					
 					ligne = scanner.nextLine();
+					ligne.replace("\n", "");
+					// sépare le mot "gevents" et la graine du controleur d'événements
+					String[] s = ligne.split(" ",2);
 					
-					if(ligne.equals("gevents")) {
+					if(s[0].equals("gevents")) {
 						analyseGenerateurs = true;
+						eCtrl.setGraine(Integer.parseInt(s[1]));
 						ligne = scanner.nextLine();
 					} else {
 		        		System.out.println("Erreur dans la lecture du fichier des niveaux : "
@@ -97,7 +104,6 @@ public class ControleurNiveau {
 		        
 		        
 		        if(analyseGenerateurs) {
-		        	int nbrGEvents = 0;
 		        	
 		        	while(scanner.hasNextLine() && !ligne.equals("fin niveau")) {
 		        		ligne.replace("\n", "");
@@ -143,8 +149,6 @@ public class ControleurNiveau {
 		        			 System.out.println("Erreur dans la lecture du fichier des niveaux : mauvaise syntaxe "
 		        			 		+ "des generateurs d'evenements");
 		        		}
-		        			
-		        		nbrGEvents++;
 		        		ligne = scanner.nextLine();
 		        	}
 		        	

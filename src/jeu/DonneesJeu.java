@@ -21,6 +21,9 @@ import jeu.produit.TypeProduit;
 public class DonneesJeu {
 	private static final float MAX_DISTANCE_MACHINE = 50;
 	
+	private int largeurNiveauPixels;
+	private int hauteurNiveauPixels;
+	
 	private Joueur joueur;
 	private Scroll scroll;
 	private List<Tapis> listeTapis;
@@ -31,9 +34,12 @@ public class DonneesJeu {
 	private MiniJeu miniJeuCourant;
 
 	public DonneesJeu() {
-		int viewW = 640, viewH = 480;
+		int viewW = 640*2, viewH = 480*2;
+		largeurNiveauPixels = viewW;
+		hauteurNiveauPixels = viewH;
+		
 		joueur = new Joueur(0, 0);
-		scroll = new Scroll(viewW * 2, viewH * 2, viewW, viewH);
+		scroll = new Scroll(viewW, viewH, viewW, viewH);
 		listeTapis = new ArrayList<>();
 		listeProduits = new ArrayList<>();
 		
@@ -49,7 +55,7 @@ public class DonneesJeu {
 	public Entite checkCollision(Entite e) {
 		float eW = e.getForme().getW(), eH = e.getForme().getH();
 
-		int width = 640, height = 480;
+		int width = largeurNiveauPixels, height = hauteurNiveauPixels;
 		Rectangle rectMonde = new Rectangle(eW, eH, width - 2 * eW + 1, height - 2 * eH + 1);
 		if (!e.collision(rectMonde))
 			return new Mur(0, 0, 0, 0);
@@ -132,7 +138,7 @@ public class DonneesJeu {
 	}
 
 	/*
-	 * définit le controleur d'événements pour la scène courante
+	 * définit le controleur des événements (apparition des produits) pour la scène courante
 	 * */
 	public void setControleurEvenements(ControleurEvenements eventCtrl) {
 		this.eCtrl = eventCtrl;
