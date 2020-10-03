@@ -75,7 +75,8 @@ public class PButton extends PLabel{
 		
 		if (this.colorButton != null) {
 			p.fill(this.colorButton);
-			p.rect(x + w / 2, y + h / 2, w, h);
+			p.rectMode(PApplet.CENTER);
+			p.rect(x, y, w, h);
 		}
 		
 		if (label != null)

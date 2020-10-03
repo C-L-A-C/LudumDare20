@@ -92,7 +92,6 @@ public class ControleurNiveau {
 						while(i<largeur) {
 							String chaineLue = "";
 							while(c != ';' && c != '\n') {
-								System.out.println("char at pos : "+charPos+" = "+c);
 								chaineLue += c;
 								charPos++;
 								c = ligne.charAt(charPos);
@@ -135,7 +134,6 @@ public class ControleurNiveau {
 	private void analyseChaine(String chaineLue,int i, int j) {
 		TypeDirectionTapis direction = TypeDirectionTapis.DROITE;
 		boolean aUneDirection = true;
-		System.out.println("chaine lue : " +chaineLue);
 		
 		switch(chaineLue.charAt(0)) {
 		case '^':

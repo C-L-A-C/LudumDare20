@@ -21,7 +21,7 @@ public abstract class PComponent {
 	
 	public boolean contient(int x, int y)
 	{
-		return new Rectangle(new PVector(this.x, this.y), getWidth(), getHeight()).collision(new Point(x, y));
+		return new Rectangle(new PVector(this.x, this.y).sub(getWidth() / 2, getHeight() / 2), getWidth(), getHeight()).collision(new Point(x, y));
 	}
 
 	
