@@ -1,0 +1,16 @@
+niveau=niveau 1
+width=10
+height=10
+terrain
+f;^t;f;f;f;f;f;f;f;f;
+f;^t;f;f;f;f;f;f;f;f;
+f;^t;f;f;f;f;f;f;f;f;
+f;^t;f;f;f;f;f;f;f;f;
+f;^t;f;f;f;f;f;f;f;f;
+f;^t;f;f;f;f;f;f;f;f;
+f;^t;f;f;f;f;f;f;f;f;
+f;^t;f;f;f;f;f;f;f;f;
+f;^t;f;f;f;f;f;f;f;f;
+f;^t;f;f;f;f;f;f;f;f;
+gevents
+fin niveau

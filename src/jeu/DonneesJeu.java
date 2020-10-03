@@ -26,11 +26,14 @@ public class DonneesJeu {
 		listeTapis = new ArrayList<>();
 		listeProduits = new ArrayList<>();
 		// test tapis
+		
+		
+		/*
 		listeTapis.add(new Tapis(100, 100, 50, 50, TypeDirectionTapis.BAS));
 		listeTapis.add(new Tapis(100, 150, 50, 50, TypeDirectionTapis.DROITE));
+		*/
 		//test produits
-		listeProduits.add(new Produit(110, 110, TypeProduit.METAL));
-		
+		listeProduits.add(new Produit(60, 110, TypeProduit.METAL));
 
 	}
 
@@ -94,6 +97,10 @@ public class DonneesJeu {
 	
 	public void setListeTapis(List<Tapis> tapis) {
 		this.listeTapis = tapis;
+	}
+	
+	public void addTapis(Tapis tapis) {
+		this.listeTapis.add(tapis);
 	}
 
 	/**
