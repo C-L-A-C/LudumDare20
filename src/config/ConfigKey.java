@@ -21,6 +21,7 @@ public enum ConfigKey {
 	TOUCHE_BAS("ToucheBas"),
 	TOUCHE_DROITE("ToucheDroite"),
 	TOUCHE_GAUCHE("ToucheGauche"),
+	TOUCHE_PRODUIT("ToucheChargerMachine"),
 	TOUCHE_MACHINE("ToucheActiveMachine");
 	
 	
