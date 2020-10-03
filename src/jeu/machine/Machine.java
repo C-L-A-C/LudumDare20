@@ -32,13 +32,12 @@ public abstract class Machine extends Entite {
 	
 	private boolean machineActivee;
 	
-	private Rectangle zoneIngredients;
-	
+	private Rectangle zoneIngredients;	
 
 	protected Machine(float x, float y, Apparence a) {
 		super(x, y, a);
-		remplirRecette();
 		
+		recette = creerRecette();
 		//TODO: faire ça propre
 		int w = 32, h = 32, wZone = 100, hZone = 100;
 		forme = new Rectangle(pos, w, h);
@@ -47,7 +46,7 @@ public abstract class Machine extends Entite {
 		zoneIngredients = new Rectangle(x - wZone / 2 + w / 2, y - hZone / 2 + h / 2, wZone, hZone);
 	}
 	
-	protected abstract void remplirRecette();
+	protected abstract Recette creerRecette();
 
 	@Override
 	public void evoluer(long t, DonneesJeu j)
@@ -129,6 +128,8 @@ public abstract class Machine extends Entite {
 		}
 	}
 	
-	
+	@Override
+	protected void faireCollision(Entite collider, DonneesJeu d) {		
+	}
 
 }
