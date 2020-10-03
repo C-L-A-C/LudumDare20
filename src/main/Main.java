@@ -1,6 +1,7 @@
 package main;
 
 import gui.EcranTitre;
+import gui.SceneHandler;
 
 public class Main {
 
