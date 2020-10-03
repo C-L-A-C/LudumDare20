@@ -39,8 +39,6 @@ public class Jeu extends Scene {
 	public void draw() {
 		p.background(0);
 		p.rectMode(PApplet.CORNER);
-		controleur.doActions(jeu);
-
 
 		if (! jeu.estEnMiniJeu())
 			controleur.doActions(jeu);

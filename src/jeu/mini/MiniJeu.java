@@ -23,6 +23,11 @@ public abstract class MiniJeu {
 		}
 	}
 	
+	public static void jaiPerdu(PApplet p) {
+		p.fill(255, 0, 0, 50);
+		p.rect(0, 0, p.width, p.height);
+	}
+	
 	public Machine getMachine()
 	{
 		return machine;
