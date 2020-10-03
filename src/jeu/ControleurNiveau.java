@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 import collision.Point;
+import jeu.machine.Toleuse;
 import jeu.produit.TypeProduit;
 
 public class ControleurNiveau {
@@ -120,7 +121,6 @@ public class ControleurNiveau {
 							if (entrees[0].equals("entrees") && entrees.length > 1) {
 								for (int i = 1; i < entrees.length; i++) {
 									String[] coords = entrees[i].split(" ", 2);
-
 									gevents.addEntree(new Point((float) Integer.parseInt(coords[0]) * 1.0f,
 											(float) Integer.parseInt(coords[1]) * 1.0f));
 								}
@@ -201,10 +201,14 @@ public class ControleurNiveau {
 			chaineLue = chaineLue.substring(1);
 		}
 
+		int x = i * this.tailleCasePixels, y = j * this.tailleCasePixels;
+
 		switch (chaineLue) {
 		case "t":
-			donneesJeu.addTapis(new Tapis(i * this.tailleCasePixels, j * this.tailleCasePixels, direction));
+			donneesJeu.addTapis(new Tapis(x, y, direction));
 			break;
+		case "Tol":
+			donneesJeu.addMachine(new Toleuse(x, y));
 		default:
 		}
 	}

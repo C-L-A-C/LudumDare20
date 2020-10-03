@@ -5,7 +5,7 @@ terrain
 f;^t;f;vt;f;f;f;f;f;f
 f;^t;<t;<t;<t;<t;<t;<t;<t;<t
 f;^t;f;f;f;f;f;f;f;f
-f;^t;f;f;f;f;f;f;f;f
+f;^t;<Tol;f;f;f;f;f;f;f
 f;^t;f;f;f;f;f;f;f;f
 f;^t;f;f;f;f;f;f;f;f
 f;^t;f;f;f;f;f;f;f;f
