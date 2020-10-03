@@ -1,12 +1,6 @@
 package main;
 
-import java.util.Random;
-
-import config.Config;
 import gui.EcranTitre;
-import gui.Jeu;
-import gui.SceneHandler;
-import utils.Utils;
 
 public class Main {
 
