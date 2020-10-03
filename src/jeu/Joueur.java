@@ -12,10 +12,10 @@ import jeu.machine.Machine;
 
 public class Joueur extends EntiteMobile implements Controlable {
 	
-	public final static int W = 48, H = 48;	
+	public final static int W = 35, H = 35;	
 
 	public Joueur(float x, float y) {
-		super(x, y, new AnimationSet(new Tileset(Assets.getImage("perso"), 4, 4), 5, 0));
+		super(x, y, new AnimationSet(new Tileset("perso", 4, 4), 5, 0));
 		forme = new Rectangle(pos, W, H);
 	}
 	

@@ -1,57 +1,52 @@
 package jeu;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import collision.Rectangle;
-import graphiques.AffichageRectangle;
+import graphiques.Animation;
+import graphiques.Assets;
+import graphiques.Tileset;
 import processing.core.PApplet;
+import processing.core.PImage;
 
 public class Tapis extends Entite {
 	
-	protected float w, h;
-	protected TypeDirectionTapis direction;
+	public static final int W = 40, H = 40;
 	
-	public Tapis(float x, float y, float w, float h, TypeDirectionTapis direction) {
-		super(x, y, new AffichageRectangle(0));
-		this.w = w;
-		this.h = h;
-		this.forme = new Rectangle(pos, this.w, this.h);
+	protected TypeDirectionTapis direction;
+	protected static Map<TypeDirectionTapis, Animation> animations;
+	
+	public Tapis(float x, float y, TypeDirectionTapis direction) {
+		super(x, y, null);
+		
+		initAnimations();
+	
+		this.forme = new Rectangle(pos, W, H);
 		this.direction = direction;
 	}
 	
-	public void afficher(PApplet p) {
-		p.fill(255, 255, 255);
-		p.rect(pos.x, pos.y, w, h);
-		p.fill(255, 0, 0);
-		switch(this.direction) {
-			case HAUT:
-				p.triangle(pos.x, pos.y + h, pos.x + w, pos.y + h, pos.x + w / 2, pos.y);
-				break;
-			case BAS:
-				p.triangle(pos.x,  pos.y,  pos.x + w,  pos.y,  pos.x + w / 2,  pos.y + h);
-				break;
-			case GAUCHE:
-				p.triangle(pos.x + w, pos.y, pos.x + w, pos.y + h, pos.x, pos.y + h / 2);
-				break;
-			case DROITE:
-				p.triangle(pos.x,  pos.y,  pos.x + w,  pos.y + h / 2,  pos.x,  pos.y + h);				
-				break;
+	private static void initAnimations() {
+		if (animations == null)
+		{
+			animations = new HashMap<>();
+			Tileset tileset = new Tileset("tapis_roulant", 5, 4);
+			for (int i = 0; i < 4; i++)
+			{
+				Animation animation = new Animation(tileset, i * 5, i * 5 + 4, 15);
+				animation.setBegining(System.currentTimeMillis());
+				animations.put(TypeDirectionTapis.values()[i], animation);
+			}
 		}
 	}
+	
+	@Override
+	public void afficher(PApplet p)
+	{
+		PImage img = animations.get(direction).getFrame();
+		p.image(img, getX(), getY(), getForme().getW(), getForme().getH());
+	}
 		
-
-	/**
-	 * @return the w
-	 */
-	public float getW() {
-		return w;
-	}
-
-	/**
-	 * @return the h
-	 */
-	public float getH() {
-		return h;
-	}
-
 	/**
 	 * @return the direction
 	 */

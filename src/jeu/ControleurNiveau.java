@@ -21,7 +21,7 @@ public class ControleurNiveau {
 	public ControleurNiveau(DonneesJeu jeu) {
 		this.donneesJeu = jeu;
 		
-		tailleCasePixels = 50;
+		tailleCasePixels = Tapis.W;		
 		
 		eCtrl = new ControleurEvenements(tailleCasePixels);
 		jeu.setControleurEvenements(eCtrl);
@@ -170,15 +170,12 @@ public class ControleurNiveau {
 	}
 	
 	private TypeProduit produitCorrespondant(String produit) {
-		switch(produit) {
-			case "METAL":
-				return TypeProduit.METAL;
-			case "CABLE":
-				return TypeProduit.CABLE;
-			default:
+		TypeProduit type = TypeProduit.getFromName(produit);
+		if (type == null) {
+			type = TypeProduit.DECHET;
+			System.out.println("Erreur dans la lecture du fichier des niveaux : produit inconnu, mauvaise syntaxe du produit");
 		}
-		System.out.println("Erreur dans la lecture du fichier des niveaux : produit inconnu, mauvaise syntaxe du produit");
-		return TypeProduit.METAL;
+		return type;
 	}
 	
 	private void analyseEntite(String chaineLue,int i, int j) {
@@ -210,8 +207,6 @@ public class ControleurNiveau {
 			donneesJeu.addTapis(new Tapis(
 					i*this.tailleCasePixels,
 					j*this.tailleCasePixels,
-					this.tailleCasePixels,
-					this.tailleCasePixels,
 					direction));
 			break;
 		default:

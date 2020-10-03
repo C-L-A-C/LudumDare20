@@ -24,11 +24,10 @@ public class Produit extends EntiteMobile {
 
 
 	private static PImage getImage(TypeProduit type) {
-		switch(type)
-		{
-			default:
-				return Assets.getImage("default");
-		}
+		String name = type.getSpriteName();
+		if (name == null)
+			name = "default";
+		return Assets.getImage(name);
 	}
 	
 	public TypeProduit getType()
