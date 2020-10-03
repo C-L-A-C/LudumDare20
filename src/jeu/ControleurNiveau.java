@@ -123,8 +123,8 @@ public class ControleurNiveau {
 			        			for(int i=1;i<entrees.length;i++) {
 				        			String[] coords = entrees[i].split(" ",2);
 				        			
-				        			gevents.addEntree(new Point(Integer.parseInt(coords[0]),
-				        				Integer.parseInt(coords[1])));
+				        			gevents.addEntree(new Point((float) Integer.parseInt(coords[0])*1.0f,
+				        				(float) Integer.parseInt(coords[1])*1.0f));
 			        			}
 			        		} else {
 			        			System.out.println("Erreur dans la lecture du fichier des niveaux : mauvaise syntaxe "
@@ -145,6 +145,8 @@ public class ControleurNiveau {
 			        			System.out.println("Erreur dans la lecture du fichier des niveaux : mauvaise syntaxe "
 			        			 		+ "des sorties des generateurs d'evenements");
 			        		}
+			        		
+			        		eCtrl.addGenerateurEvenements(gevents);
 		        		} else {
 		        			 System.out.println("Erreur dans la lecture du fichier des niveaux : mauvaise syntaxe "
 		        			 		+ "des generateurs d'evenements");

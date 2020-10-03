@@ -23,6 +23,7 @@ public class DonneesJeu {
 	
 	private int largeurNiveauPixels;
 	private int hauteurNiveauPixels;
+	private long tempsDernierProduitCree;
 	
 	private Joueur joueur;
 	private Scroll scroll;
@@ -34,12 +35,13 @@ public class DonneesJeu {
 	private MiniJeu miniJeuCourant;
 
 	public DonneesJeu() {
-		int viewW = 640*2, viewH = 480*2;
+		int viewW = 640, viewH = 480;
 		largeurNiveauPixels = viewW;
 		hauteurNiveauPixels = viewH;
+		tempsDernierProduitCree = 0;
 		
 		joueur = new Joueur(0, 0);
-		scroll = new Scroll(viewW, viewH, viewW, viewH);
+		scroll = new Scroll(viewW*2, viewH*2, viewW, viewH);
 		listeTapis = new ArrayList<>();
 		listeProduits = new ArrayList<>();
 		
@@ -57,7 +59,7 @@ public class DonneesJeu {
 
 		int width = largeurNiveauPixels, height = hauteurNiveauPixels;
 		Rectangle rectMonde = new Rectangle(eW, eH, width - 2 * eW + 1, height - 2 * eH + 1);
-		if (!e.collision(rectMonde))
+		if (e != joueur && !e.collision(rectMonde))
 			return new Mur(0, 0, 0, 0);
 
 		if (e != joueur && e.collision(joueur))
@@ -87,6 +89,20 @@ public class DonneesJeu {
 				miniJeuCourant.getMachine().finirActivation(miniJeuCourant.estReussi());
 				miniJeuCourant = null;
 			}
+		}
+		
+		if(t-tempsDernierProduitCree>5000) {
+			Produit nouveauProduit = eCtrl.creerNouveauProduit();
+			if(nouveauProduit != null) {
+				System.out.println("Nouveau produit cree !");
+				System.out.println("Coordonnees : ("+nouveauProduit.getX()+";"+
+						nouveauProduit.getY()+"), vitesse : ("+nouveauProduit.getVitesse().x+
+						";"+nouveauProduit.getVitesse().y+")");
+				listeProduits.add(nouveauProduit);
+				
+			}
+			
+			tempsDernierProduitCree = t;
 		}
 	}
 
