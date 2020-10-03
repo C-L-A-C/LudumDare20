@@ -1,16 +1,22 @@
-niveau=niveau 1
-width=10
-height=10
+niveau 1
+taille
+10 10
 terrain
-f;^t;f;f;f;f;f;f;f;f;
-f;^t;f;f;f;f;f;f;f;f;
-f;^t;f;f;f;f;f;f;f;f;
-f;^t;f;f;f;f;f;f;f;f;
-f;^t;f;f;f;f;f;f;f;f;
-f;^t;f;f;f;f;f;f;f;f;
-f;^t;f;f;f;f;f;f;f;f;
-f;^t;f;f;f;f;f;f;f;f;
-f;^t;f;f;f;f;f;f;f;f;
-f;^t;f;f;f;f;f;f;f;f;
+f;^t;f;f;f;f;f;f;f;f
+f;^t;f;f;f;f;f;f;f;f
+f;^t;f;f;f;f;f;f;f;f
+f;^t;f;f;f;f;f;f;f;f
+f;^t;f;f;f;f;f;f;f;f
+f;^t;f;f;f;f;f;f;f;f
+f;^t;f;f;f;f;f;f;f;f
+f;^t;f;f;f;f;f;f;f;f
+f;^t;<t;<t;f;f;f;f;f;f
+f;^t;f;^t;f;f;f;f;f;f
 gevents
+generator METAL 1
+entrees;1 9;3 9
+sorties;1 0
+generator CABLE 1
+entrees;1 9
+sorties;1 0
 fin niveau

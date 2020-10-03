@@ -1,6 +1,9 @@
 package jeu;
 
 import java.util.List;
+
+import collision.Point;
+
 import java.util.ArrayList;
 
 /*
@@ -10,12 +13,19 @@ import java.util.ArrayList;
  * */
 public class ControleurEvenements {
 	private List<GenerateurEvenements> listeGenerateurs;
+	private List<Point> sorties;
+	
 	
 	public ControleurEvenements() {
-		listeGenerateurs = new ArrayList<>();
+		listeGenerateurs = new ArrayList<GenerateurEvenements>();
+		sorties = new ArrayList<Point>();
 	}
 	
-	public void add(GenerateurEvenements gevent) {
+	public void addGenerateurEvenements(GenerateurEvenements gevent) {
 		listeGenerateurs.add(gevent);
+	}
+	
+	public void addSortie(Point sortie) {
+		this.sorties.add(sortie);
 	}
 }

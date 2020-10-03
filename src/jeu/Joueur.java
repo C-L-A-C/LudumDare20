@@ -1,23 +1,21 @@
 package jeu;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import collision.Rectangle;
 import controles.Controlable;
 import controles.Controle;
 import graphiques.Assets;
 import graphiques.Animation;
+import graphiques.AnimationSet;
 import graphiques.Tileset;
 import jeu.machine.Machine;
 
 
 public class Joueur extends EntiteMobile implements Controlable {
 	
-	public final static int W = 32, H = 32;	
+	public final static int W = 48, H = 48;	
 
 	public Joueur(float x, float y) {
-		super(x, y, new Animation(new Tileset(Assets.getImage("spritesheet1"), 12, 8), 0, 2, 3));
+		super(x, y, new AnimationSet(new Tileset(Assets.getImage("perso"), 4, 4), 5, 0));
 		forme = new Rectangle(pos, W, H);
 	}
 	
@@ -26,6 +24,8 @@ public class Joueur extends EntiteMobile implements Controlable {
 	public void action(Controle c, DonneesJeu jeu) {		
 		float vitesseMax = 140;
 		Machine m = null;
+		
+		int animation = -1;
 		
 		switch(c)
 		{
@@ -39,15 +39,19 @@ public class Joueur extends EntiteMobile implements Controlable {
 			break;
 		case DROITE:
 			vitesse.x = vitesseMax;
+			animation = 2;
 			break;
 		case GAUCHE:
 			vitesse.x = -vitesseMax;
+			animation = 1;
 			break;
 		case HAUT:
 			vitesse.y = -vitesseMax;
+			animation = 3;
 			break;
 		case BAS:
 			vitesse.y = vitesseMax;
+			animation = 0;
 			break;
 		case ACTIVE_MACHINE:
 			m = jeu.getNearestMachine(this);
@@ -58,11 +62,14 @@ public class Joueur extends EntiteMobile implements Controlable {
 			m = jeu.getNearestMachine(this);
 			if (m != null)
 				m.prendreIngredient(jeu);
-				
 			break;
 		default:
 			break;
 		}
+		
+		//TODO: rendre ça plus propre
+		if (animation != -1)
+			((AnimationSet) apparence).change(animation);
 		
 		vitesse.limit(vitesseMax);
 
