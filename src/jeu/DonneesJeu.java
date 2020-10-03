@@ -13,7 +13,7 @@ public class DonneesJeu {
 	public DonneesJeu() {
 		int viewW = 640, viewH = 480;
 		joueur = new Joueur(0, 0);
-		// scroll = new Scroll(carte.getPixelWidth(), carte.getPixelHeight(), viewW, viewH);
+		scroll = new Scroll(viewW, viewH, viewW, viewH);
 	}
 
 	public Entite checkCollision(Entite e) {

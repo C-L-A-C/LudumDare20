@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.lang.reflect.Field;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Set;
 import java.util.TreeSet;
@@ -178,7 +179,7 @@ public class Config{
 	// Charge les valeurs par defaut et les checks de type de la configuration
 	private static void loadDefaults() {
 		Predicate<String> checkString = str -> str != null && !str.isEmpty();
-		Predicate<String> checkDir = str -> str != null && Files.isDirectory(Path.of(str));
+		Predicate<String> checkDir = str -> str != null && Files.isDirectory(Paths.get(str));
 		Predicate<String> checkInt = str -> {
 			try {
 				Integer.parseInt(str);
