@@ -1,6 +1,7 @@
 package jeu;
 
 import processing.core.PApplet;
+import processing.core.PVector;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -13,6 +14,7 @@ import collision.Rectangle;
 import controles.ControleurClavier;
 import graphiques.AffichageRectangle;
 import jeu.machine.Machine;
+import jeu.machine.Toleuse;
 import jeu.mini.MiniJeu;
 import jeu.mini.TypeMiniJeu;
 import jeu.produit.Produit;
@@ -46,15 +48,11 @@ public class DonneesJeu {
 		scroll = new Scroll(viewW*2, viewH*2, viewW, viewH);
 		listeTapis = new ArrayList<>();
 		listeProduits = new ArrayList<>();
-
-		miniJeuCourant = null;
-
-		// test tapis
-
-		// test produits
-		listeProduits.add(new Produit(60, 110, TypeProduit.METAL));
 		
 		this.failedMinijeu = false;
+		listeMachines = new ArrayList<>();
+		
+		miniJeuCourant = null;
 
 	}
 
@@ -72,6 +70,12 @@ public class DonneesJeu {
 		for (Tapis t : listeTapis) {
 			if (e != t && e.collision(t)) {
 				return t;
+			}
+		}
+		
+		for (Machine m : listeMachines) {
+			if (e != m && e.collision(m)) {
+				return m;
 			}
 		}
 
@@ -118,15 +122,19 @@ public class DonneesJeu {
 		p.pushMatrix();
 		p.translate(-(int) scroll.getX(), -(int) scroll.getY());
 
-		joueur.afficher(p);
-
 		for (Tapis t : listeTapis) {
 			t.afficher(p);
 		}
-
-		for (Produit prod : listeProduits) {
+		
+		for (Produit prod: listeProduits) {
 			prod.afficher(p);
 		}
+
+		for (Machine machine: listeMachines) {
+			machine.afficher(p);
+		}
+
+		joueur.afficher(p);
 
 		p.popMatrix();
 
@@ -152,13 +160,13 @@ public class DonneesJeu {
 	public Joueur getJoueur() {
 		return joueur;
 	}
-
-	public void setListeTapis(List<Tapis> tapis) {
-		this.listeTapis = tapis;
-	}
-
+	
 	public void addTapis(Tapis tapis) {
 		this.listeTapis.add(tapis);
+	}
+
+	public void addMachine(Machine m) {
+		listeMachines.add(m);		
 	}
 
 	/**
@@ -186,6 +194,7 @@ public class DonneesJeu {
 
 	public void setMiniJeu(Machine machine, TypeMiniJeu type) {
 		miniJeuCourant = MiniJeu.createMiniJeu(type, machine);
+		joueur.setVitesse(new PVector(0, 0));
 	}
 
 	public boolean estEnMiniJeu() {
