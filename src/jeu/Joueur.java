@@ -1,7 +1,9 @@
 package jeu;
 
 import java.util.HashMap;
+import jeu.mini.TypeMiniJeu;
 import java.util.Map;
+import jeu.DonneesJeu;
 
 import collision.Rectangle;
 import controles.Controlable;
@@ -48,7 +50,7 @@ public class Joueur extends EntiteMobile implements Controlable {
 			vitesse.y = vitesseMax;
 			break;
 		case ACTIVE_MACHINE_RELACHE:
-			System.out.println(pos);
+			//jeu.setMiniJeu(null, TypeMiniJeu.RANGE_PRODUITS);
 			// A mettre le mini jeu ou autre
 			break;
 		default:
