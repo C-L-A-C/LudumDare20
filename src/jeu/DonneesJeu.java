@@ -3,6 +3,7 @@ package jeu;
 import processing.core.PApplet;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,10 +19,13 @@ import jeu.produit.Produit;
 import jeu.produit.TypeProduit;
 
 public class DonneesJeu {
+	private static final float MAX_DISTANCE_MACHINE = 50;
+	
 	private Joueur joueur;
 	private Scroll scroll;
 	private List<Tapis> listeTapis;
 	private List<Produit> listeProduits;
+	private List<Machine> listeMachines;
 	
 	private MiniJeu miniJeuCourant;
 
@@ -61,8 +65,7 @@ public class DonneesJeu {
 		return null;
 	}
 
-	public void evoluer() {
-		long t = System.currentTimeMillis();
+	public void evoluer(long t) {
 		joueur.evoluer(t, this);
 		//changement des vitesses des produits
 		for (Produit p : listeProduits) {
@@ -148,6 +151,18 @@ public class DonneesJeu {
 
 	public MiniJeu getMiniJeu() {
 		return miniJeuCourant;
+	}
+
+	public Machine getNearestMachine(Entite e) {
+		return listeMachines.stream()
+				.filter(m -> m.distanceA(e) < MAX_DISTANCE_MACHINE)
+				.min(new Comparator<Entite>() {
+					@Override
+					public int compare(Entite e1, Entite e2) {
+						return  (int) (e1.distanceA(e) - e2.distanceA(e));
+					}
+				})
+				.orElse(null);
 	}
 
 }

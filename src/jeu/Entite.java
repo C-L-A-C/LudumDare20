@@ -127,4 +127,12 @@ public abstract class Entite{
 	public void setLayer(int layer) {
 		this.layer = layer;
 	}
+	
+	public float distanceA(Entite e) {
+		return pos.dist(e.pos);
+	}
+
+	public PVector getPos() {
+		return pos.copy();
+	}
 }

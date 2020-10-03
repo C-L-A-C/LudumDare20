@@ -8,10 +8,12 @@ public class PButton extends PLabel{
 
 	private PImage img, hoverImg;
 	private boolean hoverable;
+	private Integer colorButton;
 	
 	public PButton(float x, float y, float w, float h, String str)
 	{
 		this(x, y, w, h, str, null);
+		this.colorButton = Utils.color(128);
 	}
 	
 	public PButton(float x, float y, float w, float h, PImage img)
@@ -67,12 +69,20 @@ public class PButton extends PLabel{
 		
 		p.tint(color);
 
-		if (toDisplay != null)
+		if (toDisplay != null) {
 			p.image(toDisplay, x, y, w, h);
+		}
+		
+		if (this.colorButton != null) {
+			p.fill(this.colorButton);
+			p.rect(x + w / 2, y + h / 2, w, h);
+		}
 		
 		if (label != null)
 			super.afficher(p);
 		
 		setColor(prevC);
 	}
+	
+	
 }

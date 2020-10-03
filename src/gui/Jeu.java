@@ -1,5 +1,7 @@
 package gui;
 
+import config.Config;
+import config.ConfigKey;
 import controles.ControleurClavier;
 import graphiques.Assets;
 import jeu.ControleurNiveau;
@@ -32,6 +34,8 @@ public class Jeu extends Scene {
 	@Override
 	public void draw() {
 		p.background(0);
+		p.rectMode(PApplet.CORNER);
+		controleur.doActions(jeu);
 
 
 		if (! jeu.estEnMiniJeu())
@@ -40,12 +44,17 @@ public class Jeu extends Scene {
 		jeu.afficher(p);
 		clock.afficher(p);
 		
-		jeu.evoluer();
+		jeu.evoluer((long) (clock.getSeconds() * 1000));
 	}
 	
 	@Override
 	public void keyPressed() {
 		controleur.keyPressed(p.keyCode);
+		if (p.keyCode == Config.readKey(ConfigKey.TOUCHE_PAUSE)) {
+			MenuPause pause = new MenuPause(p, this);
+			this.clock.stopClock();
+			SceneHandler.setRunning(pause);
+		}
 		
 		if (jeu.estEnMiniJeu())
 			jeu.getMiniJeu().keyPressed(p.keyCode);
@@ -70,5 +79,14 @@ public class Jeu extends Scene {
 		if (jeu.estEnMiniJeu())
 			jeu.getMiniJeu().mousePressed(p.mouseX, p.mouseY, p.mouseButton);
 	}
+
+	/**
+	 * @return the clock
+	 */
+	public Horloge getClock() {
+		return clock;
+	}
+	
+	
 
 }
