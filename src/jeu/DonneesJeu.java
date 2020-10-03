@@ -95,13 +95,9 @@ public class DonneesJeu {
 			}
 		}
 		
-		if(t-tempsDernierProduitCree>3000) {
+		if(t-tempsDernierProduitCree>5000) {
 			Produit nouveauProduit = eCtrl.creerNouveauProduit();
 			if(nouveauProduit != null) {
-				System.out.println("Nouveau produit cree !");
-				System.out.println("Coordonnees : ("+nouveauProduit.getX()+";"+
-						nouveauProduit.getY()+"), vitesse : ("+nouveauProduit.getVitesse().x+
-						";"+nouveauProduit.getVitesse().y+")");
 				listeProduits.add(nouveauProduit);
 				
 			}
