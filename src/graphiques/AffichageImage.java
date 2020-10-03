@@ -17,6 +17,10 @@ public class AffichageImage implements Apparence {
 		p.image(img, x, y, w, h);
 	}
 	
-	
-
+	public int getWidth() {
+		return img.width;
+	}
+	public int getHeight() {
+		return img.height;
+	}
 }

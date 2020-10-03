@@ -16,14 +16,10 @@ public class Produit extends EntiteMobile {
 	
 	public Produit(float x, float y, TypeProduit type)
 	{
-		this(x, y, new AffichageImage(getImage(type)));
-		this.type = type;
-	}
-
-	protected Produit(float x, float y, Apparence a) {
-		super(x, y, a);
-		forme = new Rectangle(pos, 30, 30);
+		super(x, y, new AffichageImage(getImage(type)));
+		forme = new Rectangle(pos, 20, 20);
 		this.setLayer(1);
+		this.type = type;
 	}
 
 
@@ -76,14 +72,6 @@ public class Produit extends EntiteMobile {
 		}
 
 	}
-	
-	
-	@Override
-	public void afficher(PApplet p) {
-		if (estDetruit())
-			return; 
-		p.fill(0, 255, 0);
-		p.rect(pos.x, pos.y, 30, 30);
-	}
+
 
 }

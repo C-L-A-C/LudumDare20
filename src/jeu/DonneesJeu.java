@@ -32,7 +32,7 @@ public class DonneesJeu {
 		listeTapis.add(new Tapis(150, 100, 50, 50, TypeDirectionTapis.GAUCHE));
 
 		//test produits
-		listeProduits.add(new Produit(110, 110, new AffichageRectangle(0)) {});
+		listeProduits.add(new Produit(111, 111, TypeProduit.METAL));
 		
 
 	}

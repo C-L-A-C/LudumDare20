@@ -3,18 +3,21 @@ package gui;
 import controles.ControleurClavier;
 import graphiques.Assets;
 import jeu.DonneesJeu;
+import jeu.Horloge;
 import processing.core.PApplet;
 
 public class Jeu extends Scene {
 	
 	private DonneesJeu jeu;
 	private ControleurClavier controleur;
+	private Horloge clock;
 
 	@Override
 	public void setup(PApplet p) {
 		super.setup(p);
 		
 		Assets.init(p);
+		clock = new Horloge(80);
 		
 		jeu = new DonneesJeu();
 		controleur = new ControleurClavier(jeu.getJoueur());
@@ -27,6 +30,7 @@ public class Jeu extends Scene {
 		controleur.doActions(jeu);
 		
 		jeu.afficher(p);
+		clock.afficher(p);
 		
 		jeu.evoluer();
 	}
