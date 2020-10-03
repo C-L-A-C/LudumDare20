@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.Set;
 
 import collision.Rectangle;
+import controles.ControleurClavier;
 import graphiques.AffichageRectangle;
 import jeu.machine.Machine;
 import jeu.mini.MiniJeu;
@@ -74,7 +75,7 @@ public class DonneesJeu {
 			p.evoluer(t, this);
 		}
 		
-		if (miniJeuCourant != null)
+		if (estEnMiniJeu())
 			miniJeuCourant.evoluer();
 	}
 
@@ -98,7 +99,7 @@ public class DonneesJeu {
 
 		p.popMatrix();
 		
-		if (miniJeuCourant != null)
+		if (estEnMiniJeu())
 			miniJeuCourant.afficher(p);
 	}
 	
@@ -130,6 +131,14 @@ public class DonneesJeu {
 
 	public void setMiniJeu(Machine machine, TypeMiniJeu type) {
 		miniJeuCourant = MiniJeu.createMiniJeu(type, machine);
+	}
+
+	public boolean estEnMiniJeu() {
+		return getMiniJeu() != null;
+	}
+
+	public MiniJeu getMiniJeu() {
+		return miniJeuCourant;
 	}
 
 }

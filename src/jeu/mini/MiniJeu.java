@@ -29,7 +29,12 @@ public abstract class MiniJeu {
 	}
 
 	public abstract void afficher(PApplet p);
+	/**
+	 * Retourne faux si jamais le minijeu est fini
+	 * @return
+	 */
 	public abstract boolean evoluer();
+	public abstract boolean estReussi();
 	
 	public void keyPressed(int key) {};
 	public void keyReleased(int key) {};

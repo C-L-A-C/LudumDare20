@@ -27,7 +27,9 @@ public class Jeu extends Scene {
 	public void draw() {
 		p.background(0);
 
-		controleur.doActions(jeu);
+
+		if (! jeu.estEnMiniJeu())
+			controleur.doActions(jeu);
 		
 		jeu.afficher(p);
 		clock.afficher(p);
@@ -38,11 +40,29 @@ public class Jeu extends Scene {
 	@Override
 	public void keyPressed() {
 		controleur.keyPressed(p.keyCode);
+		
+		if (jeu.estEnMiniJeu())
+			jeu.getMiniJeu().keyPressed(p.keyCode);
 	}
 	
 	@Override
 	public void keyReleased() {
 		controleur.keyReleased(p.keyCode);
+		
+		if (jeu.estEnMiniJeu())
+			jeu.getMiniJeu().keyReleased(p.keyCode);
+	}
+
+	@Override
+	public void mouseReleased() {
+		if (jeu.estEnMiniJeu())
+			jeu.getMiniJeu().mouseReleased(p.mouseX, p.mouseY, p.mouseButton);
+	}
+
+	@Override
+	public void mousePressed() {
+		if (jeu.estEnMiniJeu())
+			jeu.getMiniJeu().mousePressed(p.mouseX, p.mouseY, p.mouseButton);
 	}
 
 }
