@@ -104,7 +104,7 @@ public abstract class Machine extends Entite {
 			return false;
 		
 		//TODO: activation mini-jeu
-		//jeu.setProcessing(recette.getMiniJeu());
+		j.setMiniJeu(this, recette.getTypeMiniJeu());
 		
 		return true;
 	}

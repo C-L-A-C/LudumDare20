@@ -10,6 +10,9 @@ import java.util.Set;
 
 import collision.Rectangle;
 import graphiques.AffichageRectangle;
+import jeu.machine.Machine;
+import jeu.mini.MiniJeu;
+import jeu.mini.TypeMiniJeu;
 import jeu.produit.Produit;
 import jeu.produit.TypeProduit;
 
@@ -18,6 +21,8 @@ public class DonneesJeu {
 	private Scroll scroll;
 	private List<Tapis> listeTapis;
 	private List<Produit> listeProduits;
+	
+	private MiniJeu miniJeuCourant;
 
 	public DonneesJeu() {
 		int viewW = 640, viewH = 480;
@@ -25,6 +30,9 @@ public class DonneesJeu {
 		scroll = new Scroll(viewW, viewH, viewW, viewH);
 		listeTapis = new ArrayList<>();
 		listeProduits = new ArrayList<>();
+		
+		miniJeuCourant = null;
+		
 		// test tapis
 		listeTapis.add(new Tapis(100, 100, 50, 50, TypeDirectionTapis.BAS));
 		listeTapis.add(new Tapis(100, 150, 50, 50, TypeDirectionTapis.DROITE));
@@ -60,14 +68,18 @@ public class DonneesJeu {
 	public void evoluer() {
 		long t = System.currentTimeMillis();
 		joueur.evoluer(t, this);
-		//changement des vitesses des rpoduits
+		//changement des vitesses des produits
 		for (Produit p : listeProduits) {
 			p.testTapis(this);
 			p.evoluer(t, this);
 		}
+		
+		if (miniJeuCourant != null)
+			miniJeuCourant.evoluer();
 	}
 
 	public void afficher(PApplet p) {
+		
 		scroll.update(joueur);
 		p.noStroke();
 
@@ -85,6 +97,9 @@ public class DonneesJeu {
 		}
 
 		p.popMatrix();
+		
+		if (miniJeuCourant != null)
+			miniJeuCourant.afficher(p);
 	}
 	
 	public void ajouterProduit(Produit produit) {
@@ -111,6 +126,10 @@ public class DonneesJeu {
 				return p;
 		}
 		return null;
+	}
+
+	public void setMiniJeu(Machine machine, TypeMiniJeu type) {
+		miniJeuCourant = MiniJeu.createMiniJeu(type, machine);
 	}
 
 }
