@@ -88,13 +88,13 @@ public abstract class Machine extends Entite {
 	public boolean prendreIngredient(DonneesJeu j) {
 		// Si non est plein && si non en processing
 		if (machineActivee || estPrete() || !sortieMachine.isEmpty()) {
-			SceneHandler.playSound("assets/sounds/negative_beep.mp3", (float)0.3, 1);
+			SceneHandler.playSound("assets/sounds/negative_beep.mp3", (float)0.3, 1, 0, false);
 			return false;
 		}
 
 		Produit p = j.prendreProduitZone(zoneIngredients, getProduitsManquants().keySet());
 		if (p == null) {
-			SceneHandler.playSound("assets/sounds/negative_beep.mp3", (float)0.3, 1);
+			SceneHandler.playSound("assets/sounds/negative_beep.mp3", (float)0.3, 1, 0, false);
 			return false;
 		}
 

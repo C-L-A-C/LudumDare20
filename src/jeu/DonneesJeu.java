@@ -69,6 +69,10 @@ public class DonneesJeu {
 		miniJeuCourant = null;
 
 		tileset = new Tileset("tileset", 10, 10);
+		
+		// Preloading sounds
+		SceneHandler.preloadSound("assets/sounds/failed.mp3");
+		SceneHandler.preloadSound("assets/sounds/positive_beep.wav");
 	}
 	public void ajouterObjectif(TypeProduit type, int nb)
 	{
@@ -232,9 +236,9 @@ public class DonneesJeu {
 		}
 
 		if (playSound==-1)
-			SceneHandler.playSound("assets/sounds/failed.mp3", (float)0.3, 1);
+			SceneHandler.playSound("assets/sounds/failed.mp3", (float)0.3, 1, 0, true);
 		else if(playSound==1)
-			SceneHandler.playSound("assets/sounds/positive_beep.wav", (float)0.3, 1);
+			SceneHandler.playSound("assets/sounds/positive_beep.wav", (float)0.3, 1, 0, true);
 		playSound = 0;
 	}
 

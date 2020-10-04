@@ -47,12 +47,17 @@ public class SceneHandler extends PApplet {
 		runningScene.draw();
 	}
 	
-	public static SoundFile playSound(String path, float amp, float rate) {
-		if(sound!=null && sound.isPlaying())
+	public static SoundFile preloadSound(String path) {
+		return new SoundFile(pAppletInstance, path);
+	}
+	
+	public static SoundFile playSound(String path, float amp, float rate, float offset, boolean replay) {
+		if(!replay && sound!=null && sound.isPlaying())
 			return null;
 		
 		sound = new SoundFile(pAppletInstance, path);
 		sound.amp(amp);
+		sound.cue(offset);
 		sound.rate(rate);
 		sound.play();
 		return sound;
