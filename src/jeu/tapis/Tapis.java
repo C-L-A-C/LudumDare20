@@ -26,7 +26,7 @@ public class Tapis extends Entite {
 		super(x, y, null);
 		
 		initAnimations();
-		vitesse = 40;
+		vitesse = 160;
 	
 		this.forme = new Rectangle(pos, W, H);
 		this.direction = direction;
