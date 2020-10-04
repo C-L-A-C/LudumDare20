@@ -16,7 +16,6 @@ import java.util.ArrayList;
 public class ControleurEvenements {
 	private List<GenerateurEvenements> listeGenerateurs;
 	List<Produit> produits;
-	private List<Point> sorties;
 	
 	private int seed;
 	
@@ -25,7 +24,6 @@ public class ControleurEvenements {
 	
 	public ControleurEvenements(int tailleCase) {
 		listeGenerateurs = new ArrayList<GenerateurEvenements>();
-		sorties = new ArrayList<Point>();
 		tailleCasePixels = tailleCase;
 		produits = new ArrayList<Produit>();
 	}
@@ -99,9 +97,5 @@ public class ControleurEvenements {
 	
 	public void addGenerateurEvenements(GenerateurEvenements gevent) {
 		listeGenerateurs.add(gevent);
-	}
-	
-	public void addSortie(Point sortie) {
-		this.sorties.add(sortie);
 	}
 }

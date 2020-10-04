@@ -21,8 +21,8 @@ public class Horloge {
 		 * Affiche une horloge en haut à droite de l'écran.
 		 * L'heure va de 9AM à 5PM en this.nbSecondes secondes.
 		 */
+		p.clip(0, 0, p.width, p.height);
 		if(!this.paused) {
-			p.strokeWeight(2);
 			final float time =  getSeconds();
 			final double speed = (4/3.)*12*Math.PI/this.nbSecondes;//(float)8/this.nbSecondes;
 			AffichageImage clock = new AffichageImage(Assets.getImage("clock"));

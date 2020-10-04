@@ -4,12 +4,16 @@ import processing.core.PApplet;
 import processing.core.PVector;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
+import collision.Forme;
+import collision.Point;
 import collision.Rectangle;
 import controles.ControleurClavier;
 import graphiques.AffichageRectangle;
@@ -104,6 +108,7 @@ public class DonneesJeu {
 		}
 
 		if (t - tempsDernierProduitCree > 5000) {
+
 			Produit nouveauProduit = eCtrl.creerNouveauProduit();
 			if (nouveauProduit != null) {
 				listeProduits.add(nouveauProduit);
@@ -121,6 +126,9 @@ public class DonneesJeu {
 
 		p.pushMatrix();
 		p.translate(-(int) scroll.getX(), -(int) scroll.getY());
+		
+		// On separe les tapis devant les produits de derriere les produits
+		Map<Boolean, List<Tapis>> listeTapisEstDevant = listeTapis.stream().collect(Collectors.partitioningBy(t -> t.getLayer() != 0));	
 
 		for (int i = 0; i <= scroll.getTotalW() / tileset.getTileW(); i++) {
 			for (int j = 0; j <= scroll.getTotalH() / tileset.getTileH(); j++) {
@@ -129,12 +137,17 @@ public class DonneesJeu {
 		}
 
 
-		for (Tapis t : listeTapis) {
+		//for (Tapis t : listeTapis) {
+		for (Tapis t : listeTapisEstDevant.get(false)) {
 			t.afficher(p);
 		}
 
 		for (Produit prod : listeProduits) {
 			prod.afficher(p);
+		}
+		
+		for (Tapis t : listeTapisEstDevant.get(true)) {
+			t.afficher(p);
 		}
 
 		for (Machine machine : listeMachines) {
@@ -192,10 +205,14 @@ public class DonneesJeu {
 		this.eCtrl = eventCtrl;
 	}
 
-	public Produit getProduitZone(Rectangle zone, Set<TypeProduit> keySet) {
+	public Produit prendreProduitZone(Rectangle zone, Set<TypeProduit> types) {
 		for (Produit p : listeProduits) {
-			if (keySet.contains(p.getType()) && p.collision(zone))
+
+			if (types.contains(p.getType()) && p.collision(zone))
+			{
+				listeProduits.remove(p);
 				return p;
+			}
 		}
 		return null;
 	}
@@ -220,6 +237,29 @@ public class DonneesJeu {
 				return (int) (e1.distanceA(e) - e2.distanceA(e));
 			}
 		}).orElse(null);
+	}
+
+	public Tapis getTapisInDirection(int x, int y, TypeDirectionTapis direction) {
+		Point p = new Point(x, y);
+		PVector depl = new PVector();
+		switch(direction)
+		{
+		case HAUT:
+			depl.set(0, 1);
+			break;
+		case BAS:
+			depl.set(0, -1);
+			break;
+		case DROITE:
+			depl.set(1, 0);
+			break;
+		case GAUCHE:
+			depl.set(-1, 0);
+			break;
+		}
+		depl.mult(Tapis.W);
+		Forme collider = p.getTranslation(depl);
+		return listeTapis.stream().filter(t -> t.collision(collider)).findAny().orElse(null);
 	}
 
 }

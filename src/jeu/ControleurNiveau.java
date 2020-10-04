@@ -38,6 +38,7 @@ public class ControleurNiveau {
 
 		// variables pour parser les différentes parties d'un niveau
 		boolean parcourirFichier = true;
+		boolean analyseSpawn = false;
 		boolean analyseTerrain = false;
 		boolean analyseGenerateurs = false;
 		largeur = 0;
@@ -53,16 +54,34 @@ public class ControleurNiveau {
 					// on sort de la boucle while après l'analyse du niveau
 					parcourirFichier = false;
 					ligne = scanner.nextLine();
-					if (ligne.equals("taille")) {
+					
+					String[] taille = ligne.split(" ", 3);
+					
+					if (taille[0].equals("taille")) {
 
-						ligne = scanner.nextLine();
+						largeur = Integer.parseInt(taille[1]);
+						hauteur = Integer.parseInt(taille[2]);
 
-						ligne.replace("\n", "");
-						String[] taille = ligne.split(" ", 2);
+						analyseSpawn = true;
 
-						largeur = Integer.parseInt(taille[0]);
-						hauteur = Integer.parseInt(taille[1]);
-
+					} else {
+						System.out.println("Erreur dans la lecture du fichier des niveaux : pas de taille specifiee");
+					}
+				}
+				
+				if(analyseSpawn) {
+					ligne = scanner.nextLine();
+					
+					String[] s = ligne.split(" ", 2);
+					if (s[0].equals("joueur")) {
+						
+						String[] coords= s[1].replace("(","").replace(")","").split(";",2);
+						
+						int joueur_x = tailleCasePixels*Integer.parseInt(coords[0]);
+						int joueur_y = tailleCasePixels*Integer.parseInt(coords[1]);
+						donneesJeu.getJoueur().setX(joueur_x);
+						donneesJeu.getJoueur().setY(joueur_y);
+						
 						ligne = scanner.nextLine();
 						if (ligne.equals("terrain")) {
 							analyseTerrain = true;
@@ -70,18 +89,18 @@ public class ControleurNiveau {
 							System.out
 									.println("Erreur dans la lecture du fichier des niveaux : pas de terrain specifie");
 						}
-
+						
 					} else {
-						System.out.println("Erreur dans la lecture du fichier des niveaux : pas de taille specifiee");
+						System.out
+								.println("Erreur dans la lecture du fichier des niveaux : pas d'apparition du joueur specifie");
 					}
 				}
 
 				if (analyseTerrain) {
 					for (int j = 0; j < hauteur; j++) {
 						ligne = scanner.nextLine();
-						ligne.replace("\n", "");
-						System.out.println(j);
-						String[] entites = ligne.split(";", largeur);
+
+						String[] entites = ligne.replaceAll("[ \t]+", " ").split(" ", largeur);
 						for (int i = 0; i < largeur; i++) {
 							System.out.println(entites[i]);
 							String chaineLue = entites[i];
@@ -90,7 +109,6 @@ public class ControleurNiveau {
 					}
 
 					ligne = scanner.nextLine();
-					ligne.replace("\n", "");
 					// sépare le mot "gevents" et la graine du controleur d'événements
 					String[] s = ligne.split(" ", 2);
 
@@ -106,8 +124,7 @@ public class ControleurNiveau {
 
 				if (analyseGenerateurs) {
 
-					while (scanner.hasNextLine() && !ligne.equals("fin niveau")) {
-						ligne.replace("\n", "");
+					while (scanner.hasNextLine() && !ligne.split(" ",1)[0].equals("sorties")) {
 
 						// tableau contenant normalement "generator", le type du produit et la graine
 						String[] s = ligne.split(" ", 3);
@@ -117,32 +134,16 @@ public class ControleurNiveau {
 									Integer.parseInt(s[2]));
 
 							ligne = scanner.nextLine();
-							ligne.replace("\n", "");
-							String[] entrees = ligne.split(";", 0);
+							String[] entrees = ligne.split(" ", 0);
 							if (entrees[0].equals("entrees") && entrees.length > 1) {
 								for (int i = 1; i < entrees.length; i++) {
-									String[] coords = entrees[i].split(" ", 2);
+									String[] coords = entrees[i].replace("(","").replace(")","").split(";", 2);
 									gevents.addEntree(new Point((float) Integer.parseInt(coords[0]) * 1.0f,
 											(float) Integer.parseInt(coords[1]) * 1.0f));
 								}
 							} else {
 								System.out.println("Erreur dans la lecture du fichier des niveaux : mauvaise syntaxe "
 										+ "des entrees des generateurs d'evenements");
-							}
-
-							ligne = scanner.nextLine();
-							ligne.replace("\n", "");
-							String[] sorties = ligne.split(";", 0);
-							if (sorties[0].equals("sorties") && sorties.length > 1) {
-								for (int i = 1; i < sorties.length; i++) {
-									String[] coords = sorties[i].split(" ", 2);
-
-									eCtrl.addSortie(
-											new Point(Integer.parseInt(coords[0]), Integer.parseInt(coords[1])));
-								}
-							} else {
-								System.out.println("Erreur dans la lecture du fichier des niveaux : mauvaise syntaxe "
-										+ "des sorties des generateurs d'evenements");
 							}
 
 							eCtrl.addGenerateurEvenements(gevents);
@@ -155,6 +156,8 @@ public class ControleurNiveau {
 
 					if (ligne.equals("fin niveau")) {
 						caSestBienPasse = true;
+					} else {
+						System.out.println("Erreur dans la lecture du fichier des niveaux : pas de sortie(s) definie(s)");
 					}
 				}
 
@@ -215,7 +218,7 @@ public class ControleurNiveau {
 			donneesJeu.addTapis(new PontTapis(x, y, direction));
 			break;
 		case "Tol":
-			donneesJeu.addMachine(new Toleuse(x, y));
+			donneesJeu.addMachine(new Toleuse(x, y, direction));
 		default:
 		}
 	}
