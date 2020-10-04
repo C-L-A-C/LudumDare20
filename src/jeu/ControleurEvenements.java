@@ -81,6 +81,7 @@ public class ControleurEvenements {
 					
 					Produit p = new Produit(x,y,gevent.getTypeProduit());
 					p.setVitesse(vitesse);
+					l.add(p);
 				}
 			}
 		} else {
