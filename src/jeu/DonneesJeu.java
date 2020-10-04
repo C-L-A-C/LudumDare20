@@ -4,11 +4,13 @@ import processing.core.PApplet;
 import processing.core.PVector;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import collision.Rectangle;
 import controles.ControleurClavier;
@@ -117,13 +119,20 @@ public class DonneesJeu {
 
 		p.pushMatrix();
 		p.translate(-(int) scroll.getX(), -(int) scroll.getY());
+		
+		// On separe les tapis devant les produits de derriere les produits
+		Map<Boolean, List<Tapis>> listeTapisEstDevant = listeTapis.stream().collect(Collectors.partitioningBy(t -> t.getLayer() != 0));	
 
-		for (Tapis t : listeTapis) {
+		for (Tapis t : listeTapisEstDevant.get(false)) {
 			t.afficher(p);
 		}
 		
 		for (Produit prod: listeProduits) {
 			prod.afficher(p);
+		}
+		
+		for (Tapis t : listeTapisEstDevant.get(true)) {
+			t.afficher(p);
 		}
 
 		for (Machine machine: listeMachines) {
