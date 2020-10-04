@@ -11,7 +11,7 @@ import processing.core.PApplet;
 import processing.core.PImage;
 
 public class RangeProduits extends MiniJeu {
-	static int nbFoisMinijeu;
+	private static int nbFoisMinijeu;
 	static final int WIDTH_TAPIS_ROULANT = 200;
 	static final int HEIGHT_TAPIS_ROULANT = 320;
 	private List<ProduitsRanges> produits;
@@ -126,5 +126,9 @@ public class RangeProduits extends MiniJeu {
 	@Override
 	public boolean estReussi() {
 		return reussi;
+	}
+	
+	public static void resetDifficulty() {
+		nbFoisMinijeu = 0;
 	}
 }

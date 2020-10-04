@@ -11,6 +11,7 @@ public class EcranTitre extends Scene {
 	
 	public void setup(PApplet p) {
 		super.setup(p);
+		SceneHandler.playSoundMusique("assets/sounds/musique.wav", (float)1);
 	}
 	
 	@Override
