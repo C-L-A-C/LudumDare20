@@ -4,6 +4,7 @@ import collision.Rectangle;
 import graphiques.Apparence;
 import jeu.DonneesJeu;
 import jeu.EntiteMobile;
+import jeu.PontTapis;
 import jeu.Tapis;
 import jeu.TypeDirectionTapis;
 import processing.core.PApplet;
@@ -42,12 +43,15 @@ public class Produit extends EntiteMobile {
 		// teste si le produit est sur un tapis, et sette sa vitesse si oui
 		for (Tapis t : donnees.getListeTapis()) {
 
-			boolean enCollision = ((Rectangle) this.getForme()).collision((Rectangle) t.getForme());
+
+			//if (t instanceof PontTapis) System.out.println(getForme() + " <=> " + t.getForme());
+			boolean enCollision = this.getForme().collision(t.getForme());
 
 			if (enCollision)
 				shouldStop = false;
 			else 
 				continue;
+			
 			
 			boolean adherence = false;
 			// Si on est dans la continuite
