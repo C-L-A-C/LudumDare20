@@ -1,6 +1,7 @@
 package gui;
 
 import processing.core.PApplet;
+import processing.sound.SoundFile;
 
 /**
  * Gere la fenetre graphique et la scene couramment affichee
@@ -12,6 +13,7 @@ public class SceneHandler extends PApplet {
 
 	public static PApplet pAppletInstance;
 	private static Scene runningScene;
+	private static SoundFile sound;
 	
 
 	public static void launch(Scene scene) {
@@ -43,6 +45,17 @@ public class SceneHandler extends PApplet {
 
 	public void draw() {
 		runningScene.draw();
+	}
+	
+	public static SoundFile playSound(String path, float amp, float rate) {
+		if(sound!=null && sound.isPlaying())
+			return null;
+		
+		sound = new SoundFile(pAppletInstance, path);
+		sound.amp(amp);
+		sound.rate(rate);
+		sound.play();
+		return sound;
 	}
 
 	public void keyPressed() {

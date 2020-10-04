@@ -80,8 +80,9 @@ public class ControleurClavier extends Controleur{
 		int offsetAppuye = controles.length / 2;
 		for (int i = 0; i < touches.length; i++)
 		{
-			if (touches[i] == ETAT_APPUYE)
+			if (touches[i] == ETAT_APPUYE) {
 				joueur.action(controles[i], d);
+			}
 			else if (touches[i] == ETAT_RELACHE)
 			{
 				joueur.action(controles[i + offsetAppuye], d);

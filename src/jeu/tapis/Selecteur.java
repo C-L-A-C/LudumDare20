@@ -21,9 +21,7 @@ public class Selecteur extends Tapis {
 	
 
 	public TypeDirectionTapis getDirectionFor(TypeProduit type) {
-		TypeDirectionTapis t = produitsFiltres.contains(type) ? directionFiltree : getDirection();
-		System.out.println(t);
-		return t;
+		return produitsFiltres.contains(type) ? directionFiltree : getDirection();
 	}
 	
 	@Override

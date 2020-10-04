@@ -14,6 +14,7 @@ import collision.Forme;
 import collision.Point;
 import collision.Rectangle;
 import graphiques.Tileset;
+import gui.SceneHandler;
 import jeu.machine.Machine;
 import jeu.mini.MiniJeu;
 import jeu.mini.TypeMiniJeu;
@@ -23,11 +24,11 @@ import jeu.tapis.Selecteur;
 import jeu.tapis.Tapis;
 import jeu.tapis.TypeDirectionTapis;
 
+import processing.sound.*;
+
 public class DonneesJeu {
 	private static final float MAX_DISTANCE_MACHINE = 50;
 
-	private int largeurNiveauPixels;
-	private int hauteurNiveauPixels;
 	private long failedMinijeut0;
 	private boolean failedMinijeu;
 	private long tempsDernierProduitCree;
@@ -39,6 +40,7 @@ public class DonneesJeu {
 	private List<Produit> listeProduits;
 	private List<Machine> listeMachines;
 	private List<Sortie> listeSorties;
+	private int playSound;
 	private List<Selecteur> listeSelecteurs;
 
 	private Tileset tileset;
@@ -46,19 +48,19 @@ public class DonneesJeu {
 
 	private MiniJeu miniJeuCourant;
 
+	//private PVector debugPos;
+
 	public DonneesJeu() {
 		int viewW = 640, viewH = 480;
-		largeurNiveauPixels = viewW;
-		hauteurNiveauPixels = viewH;
 		tempsDernierProduitCree = 0;
 
 		joueur = new Joueur(0, 0);
-		scroll = new Scroll(viewW * 2, viewH * 2, viewW, viewH);
+		scroll = new Scroll(viewW, viewH, viewW, viewH);
 		listeTapis = new ArrayList<>();
 		listeProduits = new ArrayList<>();
 		listeSorties = new ArrayList<>();
+		playSound = 0;
 		listeSelecteurs = new ArrayList<>();
-		
 		
 		this.failedMinijeu = false;
 		listeMachines = new ArrayList<>();
@@ -67,9 +69,7 @@ public class DonneesJeu {
 		miniJeuCourant = null;
 
 		tileset = new Tileset("tileset", 10, 10);
-
 	}
-	
 	public void ajouterObjectif(TypeProduit type, int nb)
 	{
 		objectifs.ajouterObjectif(type, nb);
@@ -81,7 +81,7 @@ public class DonneesJeu {
 	public Entite checkCollision(Entite e) {
 		float eW = e.getForme().getW(), eH = e.getForme().getH();
 
-		int width = largeurNiveauPixels, height = hauteurNiveauPixels;
+		int width = (int) scroll.getTotalW(), height = (int) scroll.getTotalH();
 		Rectangle rectMonde = new Rectangle(eW, eH, width - 2 * eW + 1, height - 2 * eH + 1);
 		if (e == joueur && !e.collision(rectMonde))
 			return new Entite(0, 0, null) {protected void faireCollision(Entite collider, DonneesJeu d) {}}; //TODO: pas propre
@@ -96,6 +96,12 @@ public class DonneesJeu {
 		}
 
 		for (Machine m : listeMachines) {
+			if (e != m && e.collision(m)) {
+				return m;
+			}
+		}
+		
+		for (Produit m : listeProduits) {
 			if (e != m && e.collision(m)) {
 				return m;
 			}
@@ -138,9 +144,11 @@ public class DonneesJeu {
 				if(!miniJeuCourant.estReussi()) {
 					failedMinijeut0 = System.currentTimeMillis();
 					failedMinijeu = true;
+					playSound = -1;
 				} else {
 					miniJeuCourant.getMachine().finirActivation(miniJeuCourant.estReussi());
 					miniJeuCourant = null;
+					playSound = 1;
 				}
 			} 
 			
@@ -212,20 +220,33 @@ public class DonneesJeu {
 		
 
 		joueur.afficher(p);
+		
+		/*if (debugPos != null)
+		{
+			p.fill(255, 0, 0);
+			p.ellipse(debugPos.x,  debugPos.y, 10, 10);
+		}*/
 
 		p.popMatrix();
 
 		if (estEnMiniJeu())
 			miniJeuCourant.afficher(p);
-
+		
 		if (failedMinijeu) {
 			p.fill(255, 0, 0, Math.min((float) (System.currentTimeMillis() - this.failedMinijeut0) / 100 * 128, 128));
 			p.rect(0, 0, p.width, p.height);
 		}
+
+		if (playSound==-1)
+			SceneHandler.playSound("assets/sounds/failed.mp3", (float)0.3, 1);
+		else if(playSound==1)
+			SceneHandler.playSound("assets/sounds/positive_beep.wav", (float)0.3, 1);
+		playSound = 0;
 	}
 
 	public void ajouterProduit(Produit produit) {
-		listeProduits.add(produit);
+		if (checkCollision(produit) == null)
+			listeProduits.add(produit);
 	}
 
 	public Joueur getJoueur() {
@@ -303,10 +324,10 @@ public class DonneesJeu {
 		PVector depl = new PVector();
 		switch (direction) {
 		case HAUT:
-			depl.set(0, 1);
+			depl.set(0, -1);
 			break;
 		case BAS:
-			depl.set(0, -1);
+			depl.set(0, 1);
 			break;
 		case DROITE:
 			depl.set(1, 0);
@@ -317,7 +338,14 @@ public class DonneesJeu {
 		}
 		depl.mult(Tapis.W);
 		Forme collider = p.getTranslation(depl);
+		//debugPos = collider.getCenter();
 		return listeTapis.stream().filter(t -> t.collision(collider)).findAny().orElse(listeTapis.get(0));
+	}
+	
+	public void setMapDimensions(int w, int h)
+	{
+		scroll.setTotalW(w);
+		scroll.setTotalH(h);
 	}
 
 }
