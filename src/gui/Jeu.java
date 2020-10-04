@@ -47,6 +47,12 @@ public class Jeu extends Scene {
 		clock.afficher(p);
 		
 		jeu.evoluer((long) (clock.getSeconds() * 1000));
+		
+		if (clock.journeeFinie())
+		{
+			System.out.println("Le jeu est fini, on a " + (jeu.estGagne() ? "gagné" : "perdu"));
+			// Charger niveau suivant ou afficher menu niveau
+		}
 	}
 	
 	@Override

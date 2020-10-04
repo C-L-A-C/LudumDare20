@@ -1,6 +1,6 @@
 package collision;
 
-import jeu.TypeDirectionTapis;
+import jeu.tapis.TypeDirectionTapis;
 import processing.core.PVector;
 import utils.Utils;
 

@@ -62,4 +62,8 @@ public class Horloge {
 	public boolean isPaused() {
 		return this.paused;
 	}
+
+	public boolean journeeFinie() {
+		return getSeconds() > nbSecondes;
+	}
 }

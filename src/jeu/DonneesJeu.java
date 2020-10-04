@@ -15,15 +15,14 @@ import java.util.stream.Collectors;
 import collision.Forme;
 import collision.Point;
 import collision.Rectangle;
-import controles.ControleurClavier;
-import graphiques.AffichageRectangle;
 import graphiques.Tileset;
 import jeu.machine.Machine;
-import jeu.machine.Toleuse;
 import jeu.mini.MiniJeu;
 import jeu.mini.TypeMiniJeu;
 import jeu.produit.Produit;
 import jeu.produit.TypeProduit;
+import jeu.tapis.Tapis;
+import jeu.tapis.TypeDirectionTapis;
 
 public class DonneesJeu {
 	private static final float MAX_DISTANCE_MACHINE = 50;
@@ -41,6 +40,7 @@ public class DonneesJeu {
 	private ControleurEvenements eCtrl;
 	private List<Machine> listeMachines;
 	private Tileset tileset;
+	private Objectif objectifs;
 
 	private MiniJeu miniJeuCourant;
 
@@ -57,6 +57,7 @@ public class DonneesJeu {
 
 		this.failedMinijeu = false;
 		listeMachines = new ArrayList<>();
+		objectifs = new Objectif();
 
 		miniJeuCourant = null;
 
@@ -70,7 +71,7 @@ public class DonneesJeu {
 		int width = largeurNiveauPixels, height = hauteurNiveauPixels;
 		Rectangle rectMonde = new Rectangle(eW, eH, width - 2 * eW + 1, height - 2 * eH + 1);
 		if (e == joueur && !e.collision(rectMonde))
-			return new Mur(0, 0, 0, 0);
+			return new Entite(0, 0, null) {protected void faireCollision(Entite collider, DonneesJeu d) {}}; //TODO: pas propre
 
 		if (e != joueur && e.collision(joueur))
 			return joueur;
@@ -130,6 +131,11 @@ public class DonneesJeu {
 
 			tempsDernierProduitCree = t;
 		}
+	}
+	
+	public boolean estGagne()
+	{
+		return objectifs.sontSatisfaits();
 	}
 
 	public void afficher(PApplet p) {

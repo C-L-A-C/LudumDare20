@@ -28,7 +28,7 @@ public abstract class Entite{
 	 */
 	protected Apparence apparence;
 	
-	int layer;
+	protected int layer;
 	
 	protected Entite(float x, float y, Apparence a)
 	{

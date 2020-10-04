@@ -11,11 +11,11 @@ import collision.Rectangle;
 import graphiques.Apparence;
 import jeu.DonneesJeu;
 import jeu.Entite;
-import jeu.Tapis;
-import jeu.TypeDirectionTapis;
 import jeu.produit.Produit;
 import jeu.produit.Recette;
 import jeu.produit.TypeProduit;
+import jeu.tapis.Tapis;
+import jeu.tapis.TypeDirectionTapis;
 
 public abstract class Machine extends Entite {
 
