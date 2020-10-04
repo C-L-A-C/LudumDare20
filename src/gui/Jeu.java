@@ -22,7 +22,7 @@ public class Jeu extends Scene {
 	public Jeu(int numeroNiveau) {
 		// créé le niveau courant
 		jeu = new DonneesJeu();
-
+		
 		clock = new Horloge(60);
 		
 		controleur = new ControleurClavier(jeu.getJoueur());
@@ -32,6 +32,9 @@ public class Jeu extends Scene {
 		if(!niveau.setNiveauCourant("niveau " + numeroNiveau)) {
 			System.out.println("Erreur : le niveau n'a pas pu etre recupere");
 		}
+		
+		clock = jeu.getHorloge();
+		
 		SceneHandler.playSoundAmbiance("assets/sounds/factory.wav", (float)0.2);
 		RangeProduits.resetDifficulty();
 		BoutonsMemoire.resetDifficulty();

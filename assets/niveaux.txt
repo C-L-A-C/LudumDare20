@@ -1,7 +1,7 @@
 niveau 1
 taille 10 10
 joueur (7;7)
-temps 10
+temps 100
 terrain
 f	s  f   	vt f  f  f  f  f  f
 f	^T <t 	<t <t <t <t <t <t <t

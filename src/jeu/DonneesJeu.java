@@ -33,6 +33,8 @@ public class DonneesJeu {
 
 	private long failedMinijeut0;
 	private boolean failedMinijeu;
+	
+	private Horloge clock;
 
 	private Joueur joueur;
 	private Scroll scroll;
@@ -318,6 +320,14 @@ public class DonneesJeu {
 	
 	public void addSortie(Sortie s) {
 		listeSorties.add(s);
+	}
+	
+	public Horloge getHorloge() {
+		return clock;
+	}
+	
+	public void setTimer(int secondes) {
+		clock = new Horloge(secondes);
 	}
 
 	/**

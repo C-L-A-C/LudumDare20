@@ -28,7 +28,6 @@ public class ControleurNiveau {
 	// taille du niveau en nombre de cases
 	private int largeur;
 	private int hauteur;
-	private int tempsNiveau;
 
 	public ControleurNiveau(DonneesJeu jeu) {
 		this.donneesJeu = jeu;
@@ -104,7 +103,6 @@ public class ControleurNiveau {
 						} else {
 							System.out
 									.println("Erreur dans la lecture du fichier des niveaux : pas de temps de niveau specifie");
-							tempsNiveau = 60;
 						}
 						
 					} else {
@@ -114,7 +112,8 @@ public class ControleurNiveau {
 				}
 				
 				if(analyseTempsNiveau) {
-					tempsNiveau = Integer.parseInt(ligne.split(" ",2)[1]);
+					int tempsNiveau = Integer.parseInt(ligne.split(" ",2)[1]);
+					donneesJeu.setTimer(tempsNiveau);
 					
 					ligne = scanner.nextLine();
 					if (ligne.equals("terrain")) {
