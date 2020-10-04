@@ -36,6 +36,7 @@ f f ^t f f f f f vt f
 f f ^t f f f f f vt f
 f f ^t f f vTol f f vt f
 f f ^t <t <t <t <t <t <t f
+objectifs (TOLE;5)
 gevents 1
 generator METAL 1
 entrees (-1;4)

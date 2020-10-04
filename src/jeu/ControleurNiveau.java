@@ -127,15 +127,16 @@ public class ControleurNiveau {
 				if (analyseObjectifs) {
 					String[] objectifs = ligne.split(" ", 0);
 					
-					if (objectifs[0].equals("objectifs") && objectifs.length > 1) {
+					
+					if (objectifs[0].equals("objectifs")) {
 						for (int i = 1; i < objectifs.length; i++) {
 							String[] objectif = objectifs[i].replace("(","").replace(")","").split(";", 2);
-							//DonneesJeu.setObjectif(TypeProduit.getFromName(objectif[0]),
-														//Integer.parseInt(objectif[1]));
+							donneesJeu.ajouterObjectif(TypeProduit.getFromName(objectif[0]),
+														Integer.parseInt(objectif[1]));
 						}
 					} else {
 						System.out.println("Erreur dans la lecture du fichier des niveaux : mauvaise syntaxe "
-								+ "des entrees des generateurs d'evenements");
+								+ "des objectifs du niveau");
 					}
 					
 					ligne = scanner.nextLine();
@@ -154,7 +155,7 @@ public class ControleurNiveau {
 
 				if (analyseGenerateurs) {
 
-					while (scanner.hasNextLine() && !ligne.split(" ",1)[0].equals("sorties")) {
+					while (scanner.hasNextLine() && !ligne.split(" ",1)[0].equals("fin niveau")) {
 
 						// tableau contenant normalement "generator", le type du produit et la graine
 						String[] s = ligne.split(" ", 3);
