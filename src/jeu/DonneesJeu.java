@@ -13,6 +13,7 @@ import java.util.Set;
 import collision.Rectangle;
 import controles.ControleurClavier;
 import graphiques.AffichageRectangle;
+import graphiques.Tileset;
 import jeu.machine.Machine;
 import jeu.machine.Toleuse;
 import jeu.mini.MiniJeu;
@@ -28,13 +29,14 @@ public class DonneesJeu {
 	private long failedMinijeut0;
 	private boolean failedMinijeu;
 	private long tempsDernierProduitCree;
-	
+
 	private Joueur joueur;
 	private Scroll scroll;
 	private List<Tapis> listeTapis;
 	private List<Produit> listeProduits;
 	private ControleurEvenements eCtrl;
 	private List<Machine> listeMachines;
+	private Tileset tileset;
 
 	private MiniJeu miniJeuCourant;
 
@@ -43,16 +45,18 @@ public class DonneesJeu {
 		largeurNiveauPixels = viewW;
 		hauteurNiveauPixels = viewH;
 		tempsDernierProduitCree = 0;
-		
+
 		joueur = new Joueur(0, 0);
-		scroll = new Scroll(viewW*2, viewH*2, viewW, viewH);
+		scroll = new Scroll(viewW * 2, viewH * 2, viewW, viewH);
 		listeTapis = new ArrayList<>();
 		listeProduits = new ArrayList<>();
-		
+
 		this.failedMinijeu = false;
 		listeMachines = new ArrayList<>();
-		
+
 		miniJeuCourant = null;
+
+		tileset = new Tileset("tileset", 10, 10);
 
 	}
 
@@ -72,7 +76,7 @@ public class DonneesJeu {
 				return t;
 			}
 		}
-		
+
 		for (Machine m : listeMachines) {
 			if (e != m && e.collision(m)) {
 				return m;
@@ -92,41 +96,48 @@ public class DonneesJeu {
 
 		if (estEnMiniJeu()) {
 			if (!miniJeuCourant.evoluer()) {
-				if(!miniJeuCourant.estReussi() && !failedMinijeu) {
+				if (!miniJeuCourant.estReussi() && !failedMinijeu) {
 					failedMinijeut0 = System.currentTimeMillis();
 					failedMinijeu = true;
 				}
 			}
 		}
-		
-		if(t-tempsDernierProduitCree>5000) {
+
+		if (t - tempsDernierProduitCree > 5000) {
 			Produit nouveauProduit = eCtrl.creerNouveauProduit();
-			if(nouveauProduit != null) {
+			if (nouveauProduit != null) {
 				listeProduits.add(nouveauProduit);
-				
+
 			}
-			
+
 			tempsDernierProduitCree = t;
 		}
 	}
+	
 
 	public void afficher(PApplet p) {
-
 		scroll.update(joueur);
 		p.noStroke();
 
 		p.pushMatrix();
 		p.translate(-(int) scroll.getX(), -(int) scroll.getY());
 
+		for (int i = 0; i <= scroll.getTotalW() / tileset.getTileW(); i++) {
+			for (int j = 0; j <= scroll.getTotalH() / tileset.getTileH(); j++) {
+				p.image(tileset.get(11), i * tileset.getTileW(), j * tileset.getTileW());
+			}
+		}
+
+
 		for (Tapis t : listeTapis) {
 			t.afficher(p);
 		}
-		
-		for (Produit prod: listeProduits) {
+
+		for (Produit prod : listeProduits) {
 			prod.afficher(p);
 		}
 
-		for (Machine machine: listeMachines) {
+		for (Machine machine : listeMachines) {
 			machine.afficher(p);
 		}
 
@@ -136,15 +147,16 @@ public class DonneesJeu {
 
 		if (estEnMiniJeu())
 			miniJeuCourant.afficher(p);
-		
-		if(failedMinijeu) {
-			if(this.failedMinijeut0 + 1000 < System.currentTimeMillis()) {
+
+		if (failedMinijeu) {
+			if (this.failedMinijeut0 + 1000 < System.currentTimeMillis()) {
 				failedMinijeu = false;
 				miniJeuCourant.getMachine().finirActivation(miniJeuCourant.estReussi());
 				miniJeuCourant = null;
 			} else {
-				p.fill(255, 0, 0, Math.min((float)(System.currentTimeMillis() - this.failedMinijeut0)/100*128, 128));
-				p.rect(0, 0, p.width,  p.height);
+				p.fill(255, 0, 0,
+						Math.min((float) (System.currentTimeMillis() - this.failedMinijeut0) / 100 * 128, 128));
+				p.rect(0, 0, p.width, p.height);
 			}
 		}
 	}
@@ -156,13 +168,13 @@ public class DonneesJeu {
 	public Joueur getJoueur() {
 		return joueur;
 	}
-	
+
 	public void addTapis(Tapis tapis) {
 		this.listeTapis.add(tapis);
 	}
 
 	public void addMachine(Machine m) {
-		listeMachines.add(m);		
+		listeMachines.add(m);
 	}
 
 	/**

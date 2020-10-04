@@ -80,9 +80,10 @@ public class ControleurNiveau {
 					for (int j = 0; j < hauteur; j++) {
 						ligne = scanner.nextLine();
 						ligne.replace("\n", "");
-
+						System.out.println(j);
 						String[] entites = ligne.split(";", largeur);
 						for (int i = 0; i < largeur; i++) {
+							System.out.println(entites[i]);
 							String chaineLue = entites[i];
 							analyseEntite(chaineLue, i, j);
 						}
