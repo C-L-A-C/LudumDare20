@@ -31,7 +31,7 @@ f f ^t f f ^Tol f f vt f
 f f ^t f f f f f vt f
 f f ^t f f f f f vt f
 >t >t ^t f f f f f vt f
-<t <t <t f f f f f vt f
+<t <t ^S< f f f f f vt f
 f f ^t f f f f f vt f
 f f ^t f f f f f vt f
 f f ^t f f vTol f f vt f

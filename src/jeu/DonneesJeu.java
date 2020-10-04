@@ -4,9 +4,7 @@ import processing.core.PApplet;
 import processing.core.PVector;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -21,6 +19,7 @@ import jeu.mini.MiniJeu;
 import jeu.mini.TypeMiniJeu;
 import jeu.produit.Produit;
 import jeu.produit.TypeProduit;
+import jeu.tapis.Selecteur;
 import jeu.tapis.Tapis;
 import jeu.tapis.TypeDirectionTapis;
 
@@ -40,6 +39,7 @@ public class DonneesJeu {
 	private List<Produit> listeProduits;
 	private List<Machine> listeMachines;
 	private List<Sortie> listeSorties;
+	private List<Selecteur> listeSelecteurs;
 
 	private Tileset tileset;
 	private Objectif objectifs;
@@ -57,6 +57,7 @@ public class DonneesJeu {
 		listeTapis = new ArrayList<>();
 		listeProduits = new ArrayList<>();
 		listeSorties = new ArrayList<>();
+		listeSelecteurs = new ArrayList<>();
 		
 		
 		this.failedMinijeu = false;
@@ -72,6 +73,9 @@ public class DonneesJeu {
 	public void ajouterObjectif(TypeProduit type, int nb)
 	{
 		objectifs.ajouterObjectif(type, nb);
+		System.out.println(type);
+		for (Selecteur s: listeSelecteurs)
+			s.ajouterProduitFiltre(type);
 	}
 
 	public Entite checkCollision(Entite e) {
@@ -231,6 +235,12 @@ public class DonneesJeu {
 
 	public void addTapis(Tapis tapis) {
 		this.listeTapis.add(tapis);
+	}
+
+	public void addSelecteurFin(int x, int y, TypeDirectionTapis direction, TypeDirectionTapis directionFiltree) {
+		Selecteur s = new Selecteur(x, y, direction, directionFiltree);
+		addTapis(s);
+		listeSelecteurs.add(s);
 	}
 
 	public void addMachine(Machine m) {
