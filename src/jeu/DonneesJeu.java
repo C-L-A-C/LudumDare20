@@ -64,6 +64,11 @@ public class DonneesJeu {
 		tileset = new Tileset("tileset", 10, 10);
 
 	}
+	
+	public void ajouterObjectif(TypeProduit type, int nb)
+	{
+		objectifs.ajouterObjectif(type, nb);
+	}
 
 	public Entite checkCollision(Entite e) {
 		float eW = e.getForme().getW(), eH = e.getForme().getH();
