@@ -101,6 +101,10 @@ public class Jeu extends Scene {
 		return clock;
 	}
 	
+	public int getNumeroNiveau() {
+		return numeroNiveau;
+	}
+	
 	
 
 }
