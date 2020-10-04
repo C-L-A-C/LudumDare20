@@ -115,7 +115,14 @@ public class DonneesJeu {
 		}
 		
 		for (Sortie s: listeSorties) {
-			s.reduireCollisions(listeProduits);
+			List<Produit> produitsSortis = new ArrayList<>();
+			produitsSortis = s.reduireCollisions(listeProduits, t);
+			if (produitsSortis != null) {
+				for (Produit p : produitsSortis) {
+					objectifs.ajouterProduitReussi(p.getType());
+					listeProduits.remove(p);
+				}
+			}
 		}
 		
 		for (Machine m : listeMachines)

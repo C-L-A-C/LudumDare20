@@ -1,6 +1,8 @@
 package jeu;
 
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import collision.Rectangle;
@@ -11,27 +13,40 @@ import jeu.produit.Produit;
 public class Sortie extends Entite {
 
 	public static int W = 40, H = 40;
+	private long derniereReduction;
+	private boolean updateTempsReduction;
 	
 	public Sortie(float x, float y) {
 		super(x, y, new AffichageImage(Assets.getImage("default")));
-		
+		derniereReduction = 0;
+		updateTempsReduction = false;
 	
 		this.forme = new Rectangle(pos, W, H);
 	}
 
-	public void reduireCollisions(List<Produit> l) {
-		for(Produit p: l) {
-			if (p.collision(this)) {
+	/*
+	 * @return liste des produits qui sont bien sortis
+	 * */
+	public List<Produit> reduireCollisions(List<Produit> l, long t) {
+		List<Produit> produitsSortis = new ArrayList<>();
+		for(Produit p : l) {
+			if (p.collision(this.forme) && t-derniereReduction>10) {
+				updateTempsReduction = true;
 				float w = p.getForme().getW() -2;
 				float h = p.getForme().getH() -2;
-				if (w<=0 || h<=0) {
+				if (w<=2 || h<=2) {
 					p.detruire();
-					l.remove(p);
+					produitsSortis.add(p);
 				} else {
 					p.setTaille(w, h);
 				}
 			}
 		}
+		if( updateTempsReduction) {
+			updateTempsReduction = false;
+			derniereReduction = t;
+		}
+		return produitsSortis;
 	}
 	
 	@Override
