@@ -15,6 +15,8 @@ public class SceneHandler extends PApplet {
 	public static PApplet pAppletInstance;
 	private static Scene runningScene;
 	private static SoundFile sound;
+	private static SoundFile soundAmbiance;
+	private static SoundFile soundMusique;
 	
 
 	public static void launch(Scene scene) {
@@ -54,20 +56,34 @@ public class SceneHandler extends PApplet {
 	}
 	
 	public static SoundFile playSound(String path, float amp, float rate, float offset, boolean replay) {
-		if(!replay && sound!=null && sound.isPlaying())
-			return null;
-		
 		sound = new SoundFile(pAppletInstance, path);
 		sound.amp(amp);
 		sound.cue(offset);
 		sound.rate(rate);
-		sound.play();
+		if(replay)
+			sound.loop();
+		else
+			sound.play();
 		return sound;
+	}
+	
+	public static SoundFile playSoundAmbiance(String path, float amp) {	
+		soundAmbiance = new SoundFile(pAppletInstance, path);
+		soundAmbiance.amp(amp);
+		soundAmbiance.loop();
+		return soundAmbiance;
+	}
+	
+	public static SoundFile playSoundMusique(String path, float amp) {	
+		soundMusique = new SoundFile(pAppletInstance, path);
+		soundMusique.amp(amp);
+		soundMusique.loop();
+		return soundMusique;
 	}
 
 	public void keyPressed() {
 		runningScene.keyPressed();
-		key = 0; // Avoid ESC key to terminte program
+		key = 0; // Avoid ESC key to terminate program
 	}
 
 	public void keyReleased() {
