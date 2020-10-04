@@ -22,6 +22,7 @@ public class RangeProduits extends MiniJeu {
 	
 	public RangeProduits(Machine machine) {
 		super(machine);
+		ProduitsRanges.resetDefaultSpeed();
 		produits = new LinkedList<ProduitsRanges> ();
 		pPafs = new LinkedList<ProduitsRanges> ();
 		this.timeNextProduit = System.currentTimeMillis();

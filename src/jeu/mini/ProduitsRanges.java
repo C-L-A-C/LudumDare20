@@ -9,7 +9,7 @@ import utils.Utils;
 public class ProduitsRanges {
 	private static final int HEIGHT_WINDOW = 480;
 	private static final int WIDTH_WINDOW = 640;
-	private static int DEFAULT_SPEED_Y = -4;
+	private static int DEFAULT_SPEED_Y;
 	private static final int DEFAULT_SPEED_X = 0;
 	private int width;
 	private int height;
@@ -63,23 +63,7 @@ public class ProduitsRanges {
 	}
 	
 	public void afficher(PApplet p) {
-		//AffichageImage image = new AffichageImage(clipToplevel(p, 50, 50, p.width-100, p.height-100));
-		//image.afficher(p, x, y, this.width, this.height);
 		p.image(this.img, this.x, this.y);
-	}
-	
-	private PImage clipToplevel(PApplet p, int topx, int topy, int topw, int toph) {
-		final int rx = x<topx ? topx-x : 0;
-		final int ry = y<topy ? topy-y : 0;
-		final int rw = Math.max(0, Math.min(x+width, topx+topw) - Math.max(topx, x));
-		final int rh = Math.max(0, Math.min(y+height, topy+toph) - Math.max(topy, y));
-		if(rx !=0 || ry !=0 || rw!=32) {
-			System.out.print(rx+" ");
-			System.out.print(ry+" ");
-			System.out.print(rw+" ");
-			System.out.println(rh+" ");
-		}
-		return img.get(rx, ry, rw, rh);
 	}
 	
 	public int getType() {
@@ -107,5 +91,9 @@ public class ProduitsRanges {
 		this.speedx /= div;
 		this.speedy /= div;
 		DEFAULT_SPEED_Y /= div;
+	}
+	
+	public static void resetDefaultSpeed() {
+		DEFAULT_SPEED_Y = -4;
 	}
 }
