@@ -52,6 +52,8 @@ public class DonneesJeu {
 	
 	private boolean afficherOverlay;
 
+	private boolean toutPeteParcequeCestBloque;
+
 	//private PVector debugPos;
 
 	public DonneesJeu() {
@@ -71,6 +73,7 @@ public class DonneesJeu {
 			
 		miniJeuCourant = null;
 		afficherOverlay = false;
+		toutPeteParcequeCestBloque = false;
 		
 		// Preloading sounds
 		SceneHandler.preloadSound("assets/sounds/failed.mp3");
@@ -143,7 +146,13 @@ public class DonneesJeu {
 		}
 		
 		for (Machine m : listeMachines)
+		{
 			m.evoluer(t, this);
+			if (m.getTempsBloque(t) > 5000)
+			{
+				toutPeteParcequeCestBloque = true;
+			}
+		}
 
 		if (estEnMiniJeu()) {	
 			
@@ -172,7 +181,13 @@ public class DonneesJeu {
 	
 	public boolean estGagne()
 	{
-		return objectifs.sontSatisfaits();
+		return !toutPeteParcequeCestBloque && objectifs.sontSatisfaits();
+	}
+	
+	public boolean estFini()
+	{
+		return toutPeteParcequeCestBloque || objectifs.sontSatisfaits();
+
 	}
 
 	public void afficher(PApplet p) {
