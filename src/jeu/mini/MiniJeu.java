@@ -20,8 +20,8 @@ public abstract class MiniJeu {
 				return new RangeProduits(machine);
 			case VISSE_VIS:
 				return new VisseVis(machine);
-			case PUZZLE:
-				return null; //new Puzzle(machine);
+			case BUZZER:
+				return new Buzzer(machine);
 			case BOUTONS_MEMOIRE:
 				return new BoutonsMemoire(machine);
 			default:

@@ -75,6 +75,7 @@ public class DonneesJeu {
 		SceneHandler.preloadSound("assets/sounds/failed.mp3");
 		SceneHandler.preloadSound("assets/sounds/positive_beep.wav");
 	}
+	
 	public void ajouterObjectif(TypeProduit type, int nb)
 	{
 		objectifs.ajouterObjectif(type, nb);
