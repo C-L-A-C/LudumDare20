@@ -70,10 +70,10 @@ f  f   ^t  f   f   f   f   f   f   f   f   f   f   f   f   f   f   f   f   vt
 f  f  <t  <t  <t  <t  <t  <t  <t  <t  <t  <t  <t  <t  <t  <t  <t  <t  <t  <t
 objectifs (TOLE;5)
 gevents 1
-generator MOUTON 1
+generator METAL 1
 entrees (1;9)
-generator POISON 1
-entrees (7;9)
+generator METAL 1
+entrees (7;11)
 fin niveau
 
 
