@@ -1,21 +1,16 @@
 niveau 1
-taille 10 10
-joueur (7;7)
+taille 6 5
+joueur (2;2)
 terrain
-f	s  f   	vt f  f  f  f  f  f
-f	^T <t 	<t <t <t <t <t <t <t
-f	^T f    f  f  f  f  f  f  f
-f	^T <Tol f  f  f  f  f  f  f
-f	^T f	f  f  f  f  f  f  f
-f	^T f 	f  f  f  f  f  f  f
-f	^T f 	f  f  f  f  f  f  f
-f	^T f 	f  f  f  f  f  f  f
->t	^T <t 	<t f  f  f  f  f  f
-f	^t f 	^t f  f  f  f  f  f
-objectifs (TOLE;1)
+f   f   f   f   f   f
+f   >t  >t  vt  f   f
+f   ^t  f   vS> >t  s
+f   ^t  vTol vt <t  f
+f   ^t  <t  <t  f   f
+objectifs (TOLE;2)
 gevents 1
 generator METAL 1
-entrees (10;1) (3;-1) (3;10)
+entrees (5;3)
 fin niveau
 
 
@@ -25,18 +20,18 @@ taille 10 10
 joueur (5;5)
 terrain
 f f >t >t >t >t >t >t vt f
-f f ^t f f ^Tol f f vt f
+f f ^t f f ^Cui f f vt f
 f f ^t f f f f f vt f
 f f ^t f f f f f vt f
 >t >t ^t f f f f f vt f
-<t <t ^S< f f f f f vt f
+s <t ^S< f f f f f vt f
 f f ^t f f f f f vt f
 f f ^t f f f f f vt f
-f f ^t f f vTol f f vt f
+f f ^t f f vTon f f vt f
 f f ^t <t <t <t <t <t <t f
-objectifs (TOLE;5)
+objectifs (LAINE;2) (VIANDE;1)
 gevents 1
-generator METAL 1
+generator MOUTON 1
 entrees (-1;4)
 fin niveau
 

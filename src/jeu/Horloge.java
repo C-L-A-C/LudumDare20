@@ -66,4 +66,8 @@ public class Horloge {
 	public boolean journeeFinie() {
 		return getSeconds() > nbSecondes;
 	}
+	
+	public void setNbSecondes(int n) {
+		this.nbSecondes = n;
+	}
 }

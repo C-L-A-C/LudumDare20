@@ -3,6 +3,7 @@ package gui;
 import menu.PLabel;
 import processing.core.PApplet;
 import utils.Utils;
+import graphiques.Assets;
 import gui.MenuPrincipal;
 
 public class EcranTitre extends Scene {
