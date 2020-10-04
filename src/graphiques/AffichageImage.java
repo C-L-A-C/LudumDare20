@@ -16,7 +16,7 @@ public class AffichageImage implements Apparence {
 	public void afficher(PApplet p, int x, int y, int w, int h) {
 		p.image(img, x, y, w, h);
 	}
-	
+		
 	public int getWidth() {
 		return img.width;
 	}

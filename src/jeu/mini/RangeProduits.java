@@ -12,6 +12,7 @@ public class RangeProduits extends MiniJeu {
 	static final int WIDTH_TAPIS_ROULANT = 200;
 	static final int HEIGHT_TAPIS_ROULANT = 320;
 	private List<ProduitsRanges> produits;
+	private List<ProduitsRanges> pPafs; // Produits lancés (paf) dans le bon contenant (en cours d'animation)
 	private boolean reussi;
 	private long timeNextProduit;
 	private int nbEl;
@@ -20,6 +21,7 @@ public class RangeProduits extends MiniJeu {
 	public RangeProduits(Machine machine) {
 		super(machine);
 		produits = new LinkedList<ProduitsRanges> ();
+		pPafs = new LinkedList<ProduitsRanges> ();
 		this.timeNextProduit = System.currentTimeMillis();
 		this.reussi = true;
 		this.nbEl = 10 + (int)(Math.random()*(20 - 10));
@@ -31,16 +33,15 @@ public class RangeProduits extends MiniJeu {
 	
 	@Override
 	public void afficher(PApplet p) {
+		p.clip(50, 50, p.width-100, p.height-100);
 		p.fill(128);
-		p.rect(50, 50, p.width-100, p.height-100);
+		p.rect(50, 50, p.width-100, p.height-100, 10);
 		p.fill(255, 0, 0);
 		p.rect(300, 200, 50, 50);
 		p.fill(20, 20, 40);
 		p.rect((p.width-WIDTH_TAPIS_ROULANT)/2, p.height-HEIGHT_TAPIS_ROULANT, WIDTH_TAPIS_ROULANT, HEIGHT_TAPIS_ROULANT);
 		p.fill(10);
 		p.rect((p.width-WIDTH_TAPIS_ROULANT)/2, p.height-HEIGHT_TAPIS_ROULANT-40, WIDTH_TAPIS_ROULANT, 40, 10, 10, 0, 0);
-		
-		drawArrow(p, 200, 200, 50, 0);
 		
 		p.arc(50, p.height/2, 100, 100, -p.PI/2, p.PI/2, p.OPEN);
 		p.arc(p.width/2, 50, 100, 100, 0, p.PI, p.OPEN);
@@ -57,6 +58,8 @@ public class RangeProduits extends MiniJeu {
 		
 		for(ProduitsRanges produit : produits)
 			produit.afficher(p);
+		for(ProduitsRanges paf : pPafs)
+			paf.afficher(p);
 	}
 	
 	@Override
@@ -66,11 +69,22 @@ public class RangeProduits extends MiniJeu {
 			this.produits.add(new ProduitsRanges());
 			this.nbEl--;
 		}
-		for(ProduitsRanges produit : produits) {
-			if(!produit.evoluer())
-				reussi = false;
+		for(ProduitsRanges paf : pPafs) {
+			if(!paf.evoluer()) {
+				paf.markDirty();
+			}
 		}
-		if(this.produits.get(0).getDirty()) // seul le premier peut-être dirty (plus près de la poubelle)
+		if(this.pPafs.size()!=0 && this.pPafs.get(0).getDirty()) // seul le premier peut-être dirty
+			this.pPafs.remove(0);
+		for(ProduitsRanges produit : produits) {
+			if(!produit.evoluer()) {
+				reussi = false;
+				for(ProduitsRanges prod : this.produits)
+					prod.divSpeed(4);
+				produit.markDirty();
+			}
+		}
+		if(this.produits.size()!=0 && this.produits.get(0).getDirty()) // seul le premier peut-être dirty
 			this.produits.remove(0);
 		return reussi && (this.produits.size()!=0 || nbEl!=0);
 	}
@@ -81,9 +95,15 @@ public class RangeProduits extends MiniJeu {
 			return;
 		if(!goodGuess(key, this.produits.get(0))) {
 			reussi = false;
-			ProduitsRanges.setSpeed(-1);
+			for(ProduitsRanges produit : this.produits)
+				produit.divSpeed(4);
+			this.produits.remove(0);
+		} else {
+			this.produits.get(0).setSpeed(key==PApplet.LEFT ? -10 : (key==PApplet.RIGHT ? 10 : 0), key==PApplet.UP ? -10 : 0);
+			this.produits.get(0).pafed();
+			pPafs.add(produits.get(0));
+			produits.remove(0);
 		}
-		this.produits.remove(0);
 	}
 	private static boolean goodGuess(int key, ProduitsRanges produit) {
 		switch(key) {
@@ -96,21 +116,6 @@ public class RangeProduits extends MiniJeu {
 			default:
 				return false;
 		}
-	}
-	private static void drawArrow(PApplet p, int cx, int cy, int len, int angle){  
-//		p.strokeWeight(len/4);
-//		p.stroke(p.GRAY);
-//		p.line(cx, cy, (float)(cx+len*0.7), cy);
-//		p.triangle((float)(cx+len*0.7), (float)cy-len/10, (float)(cx+len*0.7), (float)cy+len/7+len/10, (float)cx+len, (float)cy+len/7/2);
-		p.pushMatrix();
-		p.translate(cx, cy);
-		p.strokeWeight(5);
-		p.stroke(255,0,0);
-		p.rotate(p.radians(angle));
-		p.line(0,0,len, 0);
-		p.line(len, 0, (float)(len*0.8), -8);
-		p.line(len, 0, (float)(len*0.8), 8);
-		p.popMatrix();
 	}
 
 	@Override
