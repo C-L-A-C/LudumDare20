@@ -43,22 +43,32 @@ public class ControleurEvenements {
 				
 				// définit le point d'apparition exact
 				
-				x = (entree.getCenter().x+0.25f)*tailleCasePixels;
-				y = (entree.getCenter().y-1.25f)*tailleCasePixels;
+				x = entree.getCenter().x*tailleCasePixels;
+				y = entree.getCenter().y*tailleCasePixels;
+				
+				
 				
 				// définit les vitesses initiales
 				if(x<0) {
+					x += 0.75f*tailleCasePixels;
+					y += 0.25f*tailleCasePixels;
 					vitesse.x = 50;
 					vitesse.y = 0;
 				} else if(x>y){
+					x -= 0.25f*tailleCasePixels;
+					y += 0.25f*tailleCasePixels;
 					vitesse.x = -50;
 					vitesse.y = 0;
 				}
 				
 				if(y<0) {
+					x += 0.25f*tailleCasePixels;
+					y += 0.75f*tailleCasePixels;
 					vitesse.x = 0;
 					vitesse.y = 50;
 				} else if(y>x){
+					x += 0.25f*tailleCasePixels;
+					y -= 0.25f*tailleCasePixels;
 					vitesse.x = 0;
 					vitesse.y = -50;
 				}
@@ -77,7 +87,7 @@ public class ControleurEvenements {
 	
 	private Produit choisirProduit() {
 		if(seed==1) {
-			int i = (int) ((Math.random() * (listeGenerateurs.size()-1)));
+			int i = (int) ((Math.random() * (listeGenerateurs.size())));
 			return produits.get(i);
 		}
 		return produits.get(0);

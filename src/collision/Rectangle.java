@@ -1,5 +1,6 @@
 package collision;
 
+import jeu.TypeDirectionTapis;
 import processing.core.PVector;
 import utils.Utils;
 
@@ -109,10 +110,25 @@ public class Rectangle extends Forme {
 		return out.getX() < this.getX() && out.getY() < this.getY() && out.getX() + out.getW() > this.getX() + this.getH() && out.getY() + out.getH() > this.getY() + this.getH();
 	}
 	
+	public boolean checkNearCenterInDirection(Rectangle obj, TypeDirectionTapis direction) {
+		switch(direction) 
+		{
+		case HAUT:
+			return obj.pos.y <= pos.y + h / 2 - obj.h / 2;
+		case BAS:
+			return obj.pos.y >= pos.y + h / 2 - obj.h / 2;
+		case GAUCHE:
+			return obj.pos.x <= pos.x + w / 2 - obj.w / 2;
+		case DROITE:
+			return obj.pos.x >= pos.x + w / 2 - obj.w / 2;
+		}
+		return false;
+	}
+	
 
 	public boolean checkInclusionInNearCenter(Rectangle out) {
 		//premiere version je sais que c'est pas une vraie inclusion calmez vous
-		double coeff = 0.6;
+		double coeff = 0.1;
 		return out.getCenter().x - out.getW() * coeff < this.getCenter().x && this.getCenter().x < out.getCenter().x + out.getW() * coeff && out.getCenter().y - out.getH() * coeff < this.getCenter().y && this.getCenter().y < out.getCenter().y + out.getH() * coeff;
 	}
 	

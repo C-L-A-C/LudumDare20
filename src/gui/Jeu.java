@@ -37,7 +37,7 @@ public class Jeu extends Scene {
 
 	@Override
 	public void draw() {
-		p.background(0);
+		p.background(70);
 		p.rectMode(PApplet.CORNER);
 
 		if (! jeu.estEnMiniJeu())

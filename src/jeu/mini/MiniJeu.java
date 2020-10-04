@@ -18,6 +18,8 @@ public abstract class MiniJeu {
 		{
 			case RANGE_PRODUITS:
 				return new RangeProduits(machine);
+			case PUZZLE:
+				return null; //new Puzzle(machine);
 			default:
 				return null;
 		}
