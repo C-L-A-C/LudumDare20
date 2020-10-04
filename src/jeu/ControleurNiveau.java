@@ -67,6 +67,7 @@ public class ControleurNiveau {
 
 						largeur = Integer.parseInt(taille[1]);
 						hauteur = Integer.parseInt(taille[2]);
+						donneesJeu.setMapDimensions(largeur * tailleCasePixels, hauteur * tailleCasePixels);
 
 						analyseSpawn = true;
 

@@ -26,8 +26,6 @@ import jeu.tapis.TypeDirectionTapis;
 public class DonneesJeu {
 	private static final float MAX_DISTANCE_MACHINE = 50;
 
-	private int largeurNiveauPixels;
-	private int hauteurNiveauPixels;
 	private long failedMinijeut0;
 	private boolean failedMinijeu;
 	private long tempsDernierProduitCree;
@@ -48,12 +46,10 @@ public class DonneesJeu {
 
 	public DonneesJeu() {
 		int viewW = 640, viewH = 480;
-		largeurNiveauPixels = viewW;
-		hauteurNiveauPixels = viewH;
 		tempsDernierProduitCree = 0;
 
 		joueur = new Joueur(0, 0);
-		scroll = new Scroll(viewW * 2, viewH * 2, viewW, viewH);
+		scroll = new Scroll(viewW, viewH, viewW, viewH);
 		listeTapis = new ArrayList<>();
 		listeProduits = new ArrayList<>();
 		listeSorties = new ArrayList<>();
@@ -69,7 +65,6 @@ public class DonneesJeu {
 		tileset = new Tileset("tileset", 10, 10, -2, -1);
 
 	}
-	
 	public void ajouterObjectif(TypeProduit type, int nb)
 	{
 		objectifs.ajouterObjectif(type, nb);
@@ -81,7 +76,7 @@ public class DonneesJeu {
 	public Entite checkCollision(Entite e) {
 		float eW = e.getForme().getW(), eH = e.getForme().getH();
 
-		int width = largeurNiveauPixels, height = hauteurNiveauPixels;
+		int width = (int) scroll.getTotalW(), height = (int) scroll.getTotalH();
 		Rectangle rectMonde = new Rectangle(eW, eH, width - 2 * eW + 1, height - 2 * eH + 1);
 		if (e == joueur && !e.collision(rectMonde))
 			return new Entite(0, 0, null) {protected void faireCollision(Entite collider, DonneesJeu d) {}}; //TODO: pas propre
@@ -190,11 +185,9 @@ public class DonneesJeu {
 			}
 		}
 
-		// for (Tapis t : listeTapis) {
 		for (Tapis t : listeTapisEstDevant.get(false)) {
 			t.afficher(p);
 		}
-		
 		for (Sortie s : listeSorties) {
 			s.afficher(p);
 		}
@@ -206,6 +199,12 @@ public class DonneesJeu {
 		for (Tapis t : listeTapisEstDevant.get(true)) {
 			t.afficher(p);
 		}
+
+		// On les réaffiche c'est pas beau mais bon ntm un peu quoi
+		for (Tapis t : listeSelecteurs) {
+			t.afficher(p);
+		}
+		
 
 		for (Machine machine : listeMachines) {
 			machine.afficher(p);
@@ -319,6 +318,12 @@ public class DonneesJeu {
 		depl.mult(Tapis.W);
 		Forme collider = p.getTranslation(depl);
 		return listeTapis.stream().filter(t -> t.collision(collider)).findAny().orElse(listeTapis.get(0));
+	}
+	
+	public void setMapDimensions(int w, int h)
+	{
+		scroll.setTotalW(w);
+		scroll.setTotalH(h);
 	}
 
 }
