@@ -1,4 +1,4 @@
-package jeu;
+package jeu.tapis;
 
 import processing.core.PApplet;
 import processing.core.PImage;

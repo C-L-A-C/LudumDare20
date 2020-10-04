@@ -1,7 +1,7 @@
 package jeu.produit;
 
 public enum TypeProduit {
-	DECHET,
+	DECHET("tas"),
 	METAL("nugget"),
 	BOIS,
 	MOUTON("mouton"),

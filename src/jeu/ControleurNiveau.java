@@ -7,6 +7,10 @@ import java.util.Scanner;
 import collision.Point;
 import jeu.machine.Toleuse;
 import jeu.produit.TypeProduit;
+import jeu.tapis.PontTapis;
+import jeu.tapis.Tapis;
+import jeu.tapis.TapisRapide;
+import jeu.tapis.TypeDirectionTapis;
 
 public class ControleurNiveau {
 	// donnees du jeu
@@ -103,6 +107,7 @@ public class ControleurNiveau {
 
 						String[] entites = ligne.replaceAll("[ \t]+", " ").split(" ", largeur);
 						for (int i = 0; i < largeur; i++) {
+							System.out.println(entites[i]);
 							String chaineLue = entites[i];
 							analyseEntite(chaineLue, i, j);
 						}

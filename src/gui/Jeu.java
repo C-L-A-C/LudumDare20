@@ -29,7 +29,7 @@ public class Jeu extends Scene {
 		
 		// créé le niveau courant
 		niveau = new ControleurNiveau(jeu);
-		if(!niveau.setNiveauCourant("niveau 1")) {
+		if(!niveau.setNiveauCourant("niveau 2")) {
 			System.out.println("Erreur : le niveau n'a pas pu etre recupere");
 		}
 		
@@ -47,6 +47,12 @@ public class Jeu extends Scene {
 		clock.afficher(p);
 		
 		jeu.evoluer((long) (clock.getSeconds() * 1000));
+		
+		if (clock.journeeFinie())
+		{
+			System.out.println("Le jeu est fini, on a " + (jeu.estGagne() ? "gagné" : "perdu"));
+			// Charger niveau suivant ou afficher menu niveau
+		}
 	}
 	
 	@Override

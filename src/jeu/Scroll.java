@@ -82,4 +82,13 @@ public class Scroll {
 			totalH = h;
 		
 	}
+	
+	public float getTotalW() {
+		return totalW;
+	}
+	
+	public float getTotalH() {
+		return totalH;
+	}
 }
+

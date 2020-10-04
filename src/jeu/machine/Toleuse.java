@@ -4,10 +4,10 @@ import graphiques.AffichageImage;
 import graphiques.Assets;
 import jeu.DonneesJeu;
 import jeu.Entite;
-import jeu.TypeDirectionTapis;
 import jeu.mini.TypeMiniJeu;
 import jeu.produit.Recette;
 import jeu.produit.TypeProduit;
+import jeu.tapis.TypeDirectionTapis;
 
 public class Toleuse extends Machine {
 	

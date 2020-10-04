@@ -4,9 +4,9 @@ import collision.Rectangle;
 import graphiques.Apparence;
 import jeu.DonneesJeu;
 import jeu.EntiteMobile;
-import jeu.PontTapis;
-import jeu.Tapis;
-import jeu.TypeDirectionTapis;
+import jeu.tapis.PontTapis;
+import jeu.tapis.Tapis;
+import jeu.tapis.TypeDirectionTapis;
 import processing.core.PApplet;
 import processing.core.PImage;
 import graphiques.Assets;
@@ -36,7 +36,7 @@ public class Produit extends EntiteMobile {
 		return type;
 	}
 
-	public void testTapis(DonneesJeu donnees) {
+	public void adhererTapis(DonneesJeu donnees) {
 
 		boolean shouldStop = true;
 

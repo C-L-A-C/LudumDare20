@@ -11,6 +11,7 @@ import processing.core.PApplet;
 import processing.core.PImage;
 
 public class RangeProduits extends MiniJeu {
+	static int nbFoisMinijeu;
 	static final int WIDTH_TAPIS_ROULANT = 200;
 	static final int HEIGHT_TAPIS_ROULANT = 320;
 	private List<ProduitsRanges> produits;
@@ -22,6 +23,7 @@ public class RangeProduits extends MiniJeu {
 	
 	public RangeProduits(Machine machine) {
 		super(machine);
+		ProduitsRanges.resetDefaultSpeed();
 		produits = new LinkedList<ProduitsRanges> ();
 		pPafs = new LinkedList<ProduitsRanges> ();
 		this.timeNextProduit = System.currentTimeMillis();
@@ -31,6 +33,7 @@ public class RangeProduits extends MiniJeu {
 		sheep = Assets.getImage("mouton");
 		rail = Assets.getImage("rail");
 		sword = Assets.getImage("sword");
+		nbFoisMinijeu++;
 	}
 	
 	@Override
@@ -68,7 +71,7 @@ public class RangeProduits extends MiniJeu {
 	public boolean evoluer() {
 		if(nbEl!=0 && this.timeNextProduit <= System.currentTimeMillis()) {
 			this.timeNextProduit = System.currentTimeMillis() + (long)(300 + Math.random()*(700 - 300));
-			this.produits.add(new ProduitsRanges());
+			this.produits.add(new ProduitsRanges(nbFoisMinijeu/3+1));
 			this.nbEl--;
 		}
 		for(ProduitsRanges paf : pPafs) {

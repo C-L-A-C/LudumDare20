@@ -9,7 +9,7 @@ import utils.Utils;
 public class ProduitsRanges {
 	private static final int HEIGHT_WINDOW = 480;
 	private static final int WIDTH_WINDOW = 640;
-	private static int DEFAULT_SPEED_Y = -4;
+	private static int DEFAULT_SPEED_Y;
 	private static final int DEFAULT_SPEED_X = 0;
 	private int width;
 	private int height;
@@ -19,9 +19,10 @@ public class ProduitsRanges {
 	private boolean dirty;
 	private boolean paf;
 	private PImage img;
+	private long prevTime;
 	
 	
-	ProduitsRanges() {
+	ProduitsRanges(int factorSpeed) {
 		this.width = 32;
 		this.height = 32;
 		this.type = Utils.random(0, 3);
@@ -39,14 +40,16 @@ public class ProduitsRanges {
 				break;
 		}
 		this.dirty = false;
-		this.speedy = DEFAULT_SPEED_Y;
-		this.speedx = DEFAULT_SPEED_X;
+		this.speedy = DEFAULT_SPEED_Y*factorSpeed;
+		this.speedx = DEFAULT_SPEED_X*factorSpeed;
 		this.paf = false;
+		this.prevTime = System.currentTimeMillis();
 	}
 	
 	public boolean evoluer() {
-		this.y += this.speedy;
-		this.x += this.speedx;
+		this.y += this.speedy*(System.currentTimeMillis() - this.prevTime)/18;
+		this.x += this.speedx*(System.currentTimeMillis() - this.prevTime)/18;
+		this.prevTime = System.currentTimeMillis();
 		if(this.paf)
 			return (x>0 && x<WIDTH_WINDOW && y>0);
 		
@@ -63,23 +66,7 @@ public class ProduitsRanges {
 	}
 	
 	public void afficher(PApplet p) {
-		//AffichageImage image = new AffichageImage(clipToplevel(p, 50, 50, p.width-100, p.height-100));
-		//image.afficher(p, x, y, this.width, this.height);
 		p.image(this.img, this.x, this.y);
-	}
-	
-	private PImage clipToplevel(PApplet p, int topx, int topy, int topw, int toph) {
-		final int rx = x<topx ? topx-x : 0;
-		final int ry = y<topy ? topy-y : 0;
-		final int rw = Math.max(0, Math.min(x+width, topx+topw) - Math.max(topx, x));
-		final int rh = Math.max(0, Math.min(y+height, topy+toph) - Math.max(topy, y));
-		if(rx !=0 || ry !=0 || rw!=32) {
-			System.out.print(rx+" ");
-			System.out.print(ry+" ");
-			System.out.print(rw+" ");
-			System.out.println(rh+" ");
-		}
-		return img.get(rx, ry, rw, rh);
 	}
 	
 	public int getType() {
@@ -107,5 +94,9 @@ public class ProduitsRanges {
 		this.speedx /= div;
 		this.speedy /= div;
 		DEFAULT_SPEED_Y /= div;
+	}
+	
+	public static void resetDefaultSpeed() {
+		DEFAULT_SPEED_Y = -4;
 	}
 }
