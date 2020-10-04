@@ -1,4 +1,4 @@
-package jeu;
+package jeu.tapis;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -9,6 +9,8 @@ import collision.Rectangle;
 import graphiques.Animation;
 import graphiques.Assets;
 import graphiques.Tileset;
+import jeu.DonneesJeu;
+import jeu.Entite;
 import processing.core.PApplet;
 import processing.core.PImage;
 

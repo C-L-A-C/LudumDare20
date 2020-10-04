@@ -15,15 +15,14 @@ import java.util.stream.Collectors;
 import collision.Forme;
 import collision.Point;
 import collision.Rectangle;
-import controles.ControleurClavier;
-import graphiques.AffichageRectangle;
 import graphiques.Tileset;
 import jeu.machine.Machine;
-import jeu.machine.Toleuse;
 import jeu.mini.MiniJeu;
 import jeu.mini.TypeMiniJeu;
 import jeu.produit.Produit;
 import jeu.produit.TypeProduit;
+import jeu.tapis.Tapis;
+import jeu.tapis.TypeDirectionTapis;
 
 public class DonneesJeu {
 	private static final float MAX_DISTANCE_MACHINE = 50;
@@ -41,6 +40,7 @@ public class DonneesJeu {
 	private ControleurEvenements eCtrl;
 	private List<Machine> listeMachines;
 	private Tileset tileset;
+	private Objectif objectifs;
 
 	private MiniJeu miniJeuCourant;
 
@@ -57,11 +57,17 @@ public class DonneesJeu {
 
 		this.failedMinijeu = false;
 		listeMachines = new ArrayList<>();
+		objectifs = new Objectif();
 
 		miniJeuCourant = null;
 
 		tileset = new Tileset("tileset", 10, 10, -2, -1);
 
+	}
+	
+	public void ajouterObjectif(TypeProduit type, int nb)
+	{
+		objectifs.ajouterObjectif(type, nb);
 	}
 
 	public Entite checkCollision(Entite e) {
@@ -70,7 +76,7 @@ public class DonneesJeu {
 		int width = largeurNiveauPixels, height = hauteurNiveauPixels;
 		Rectangle rectMonde = new Rectangle(eW, eH, width - 2 * eW + 1, height - 2 * eH + 1);
 		if (e == joueur && !e.collision(rectMonde))
-			return new Mur(0, 0, 0, 0);
+			return new Entite(0, 0, null) {protected void faireCollision(Entite collider, DonneesJeu d) {}}; //TODO: pas propre
 
 		if (e != joueur && e.collision(joueur))
 			return joueur;
@@ -94,16 +100,29 @@ public class DonneesJeu {
 		joueur.evoluer(t, this);
 		// changement des vitesses des produits
 		for (Produit p : listeProduits) {
-			p.testTapis(this);
+			p.adhererTapis(this);
 			p.evoluer(t, this);
 		}
+		
+		for (Machine m : listeMachines)
+			m.evoluer(t, this);
 
-		if (estEnMiniJeu()) {
-			if (!miniJeuCourant.evoluer()) {
-				if (!miniJeuCourant.estReussi() && !failedMinijeu) {
+		if (estEnMiniJeu()) {	
+			
+			if (!miniJeuCourant.evoluer() && !failedMinijeu) {
+				if(!miniJeuCourant.estReussi()) {
 					failedMinijeut0 = System.currentTimeMillis();
 					failedMinijeu = true;
+				} else {
+					miniJeuCourant.getMachine().finirActivation(miniJeuCourant.estReussi());
+					miniJeuCourant = null;
 				}
+			} 
+			
+			if(failedMinijeu && this.failedMinijeut0 + 1000 < System.currentTimeMillis()) {
+				failedMinijeu = false;
+				miniJeuCourant.getMachine().finirActivation(miniJeuCourant.estReussi());
+				miniJeuCourant = null;
 			}
 		}
 
@@ -117,6 +136,12 @@ public class DonneesJeu {
 
 			tempsDernierProduitCree = t;
 		}
+	}
+
+	
+	public boolean estGagne()
+	{
+		return objectifs.sontSatisfaits();
 	}
 
 	public void afficher(PApplet p) {
@@ -165,15 +190,8 @@ public class DonneesJeu {
 			miniJeuCourant.afficher(p);
 
 		if (failedMinijeu) {
-			if (this.failedMinijeut0 + 1000 < System.currentTimeMillis()) {
-				failedMinijeu = false;
-				miniJeuCourant.getMachine().finirActivation(miniJeuCourant.estReussi());
-				miniJeuCourant = null;
-			} else {
-				p.fill(255, 0, 0,
-						Math.min((float) (System.currentTimeMillis() - this.failedMinijeut0) / 100 * 128, 128));
-				p.rect(0, 0, p.width, p.height);
-			}
+			p.fill(255, 0, 0, Math.min((float) (System.currentTimeMillis() - this.failedMinijeut0) / 100 * 128, 128));
+			p.rect(0, 0, p.width, p.height);
 		}
 	}
 
@@ -260,7 +278,7 @@ public class DonneesJeu {
 		}
 		depl.mult(Tapis.W);
 		Forme collider = p.getTranslation(depl);
-		return listeTapis.stream().filter(t -> t.collision(collider)).findAny().orElse(null);
+		return listeTapis.stream().filter(t -> t.collision(collider)).findAny().orElse(listeTapis.get(0));
 	}
 
 }
