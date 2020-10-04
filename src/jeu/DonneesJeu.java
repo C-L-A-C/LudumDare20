@@ -75,6 +75,7 @@ public class DonneesJeu {
 		SceneHandler.preloadSound("assets/sounds/failed.mp3");
 		SceneHandler.preloadSound("assets/sounds/positive_beep.wav");
 	}
+	
 	public void ajouterObjectif(TypeProduit type, int nb)
 	{
 		objectifs.ajouterObjectif(type, nb);
@@ -157,14 +158,14 @@ public class DonneesJeu {
 				}
 			} 
 			
-			if(failedMinijeu && this.failedMinijeut0 + 1000 < System.currentTimeMillis()) {
+			if(failedMinijeu && this.failedMinijeut0 + 2200 < System.currentTimeMillis()) { // 2200 le temps que le sound se termine
 				failedMinijeu = false;
 				miniJeuCourant.getMachine().finirActivation(miniJeuCourant.estReussi());
 				miniJeuCourant = null;
 			}
 		}
 
-		if (t - tempsDernierProduitCree > 5000) {
+		if (t - tempsDernierProduitCree > 500) {
 
 			Produit nouveauProduit = eCtrl.creerNouveauProduit();
 			if (nouveauProduit != null) {
@@ -252,9 +253,9 @@ public class DonneesJeu {
 		}
 
 		if (playSound==-1)
-			SceneHandler.playSound("assets/sounds/failed.mp3", (float)0.3, 1, 0, true);
+			SceneHandler.playSound("assets/sounds/failed.mp3", (float)0.3, 1, 0, false);
 		else if(playSound==1)
-			SceneHandler.playSound("assets/sounds/positive_beep.wav", (float)0.3, 1, 0, true);
+			SceneHandler.playSound("assets/sounds/positive_beep.wav", (float)0.3, 1, 0, false);
 		playSound = 0;
 	}
 

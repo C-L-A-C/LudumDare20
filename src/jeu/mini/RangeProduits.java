@@ -5,7 +5,7 @@ import java.util.List;
 
 
 import graphiques.Assets;
-
+import gui.SceneHandler;
 import jeu.machine.Machine;
 import processing.core.PApplet;
 import processing.core.PImage;
@@ -34,6 +34,7 @@ public class RangeProduits extends MiniJeu {
 		rail = Assets.getImage("rail");
 		sword = Assets.getImage("sword");
 		//nbFoisMinijeu++;
+		SceneHandler.preloadSound("assets/sounds/ding.wav");
 	}
 	
 	@Override
@@ -52,12 +53,6 @@ public class RangeProduits extends MiniJeu {
 		p.image(sheep, 50, p.height/2-15);
 		p.image(rail, p.width/2-15, 50);
 		p.image(sword, p.width-50-30, p.height/2-15);
-//		p.fill(255, 0, 0);
-//		p.rect(50, p.height/2-15, 30, 30);
-//		p.fill(0, 255, 0);
-//		p.rect(p.width/2-15, 50, 30, 30);
-//		p.fill(0, 0, 255);
-//		p.rect(p.width-50-30, p.height/2-15, 30, 30);
 		
 		for(ProduitsRanges produit : produits)
 			produit.afficher(p);
@@ -75,6 +70,7 @@ public class RangeProduits extends MiniJeu {
 		for(ProduitsRanges paf : pPafs) {
 			if(!paf.evoluer()) {
 				paf.markDirty();
+				SceneHandler.playSound("assets/sounds/ding.wav", 1, 1, 0, false);
 			}
 		}
 		if(this.pPafs.size()!=0 && this.pPafs.get(0).getDirty()) // seul le premier peut-être dirty

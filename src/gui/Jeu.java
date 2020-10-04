@@ -30,6 +30,9 @@ public class Jeu extends Scene {
 		if(!niveau.setNiveauCourant("niveau " + numeroNiveau)) {
 			System.out.println("Erreur : le niveau n'a pas pu etre recupere");
 		}
+		
+		SceneHandler.playSoundAmbiance("assets/sounds/factory.wav", (float)0.1);
+		SceneHandler.playSoundMusique("assets/sounds/musique.wav", (float)1);
 	}
 
 	@Override
