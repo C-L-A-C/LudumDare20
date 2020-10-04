@@ -12,7 +12,7 @@ import processing.core.PImage;
 import utils.Utils;
 
 public class BoutonsMemoire extends MiniJeu {
-	static int nbFoisMinijeu;
+	private static int nbFoisMinijeu;
 	private boolean reussi;
 	private boolean continuEvoluer;
 	private String[] memoire;
@@ -257,5 +257,9 @@ public class BoutonsMemoire extends MiniJeu {
 	@Override
 	public boolean estReussi() {
 		return reussi;
+	}
+	
+	public static void resetDifficulty() {
+		nbFoisMinijeu = 0;
 	}
 }

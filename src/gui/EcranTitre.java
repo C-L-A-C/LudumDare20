@@ -3,6 +3,7 @@ package gui;
 import menu.PLabel;
 import processing.core.PApplet;
 import utils.Utils;
+import graphiques.Assets;
 import gui.MenuPrincipal;
 
 public class EcranTitre extends Scene {
@@ -10,6 +11,7 @@ public class EcranTitre extends Scene {
 	
 	public void setup(PApplet p) {
 		super.setup(p);
+		SceneHandler.playSoundMusique("assets/sounds/musique.wav", (float)1);
 	}
 	
 	@Override

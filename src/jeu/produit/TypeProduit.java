@@ -19,7 +19,7 @@ public enum TypeProduit {
 	PLASTIQUE("plastique"),
 	ESSENCE,
 	LAINE("pelote de laine"),
-	VIANDE,
+	VIANDE("viande"),
 	VERRE("verre"),
 	POISON("poison");
 	

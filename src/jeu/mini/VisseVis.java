@@ -86,12 +86,14 @@ public class VisseVis extends MiniJeu {
 
 	@Override
 	public void mousePressed(int x, int y, int button) {
+		if(button!=PApplet.LEFT)
+			return;
 		SceneHandler.pAppletInstance.cursor(Assets.getImage("marteaudown"), 10, 10);
 		for(int[] vis : tVis) {
 			if(vis[0]<x && vis[0]+VIS_SIZE_X>x && vis[1]<y && vis[1]+VIS_SIZE_Y>y) {
 				if(vis[2]==0) {
 					vis[2] = 1;
-					SceneHandler.playSound("assets/sounds/marteau.wav", (float)0.4, 1, (float)0.7, true);
+					SceneHandler.playSound("assets/sounds/marteau.wav", (float)0.4, 1, (float)0.7, false);
 					nbVis--;
 				} else if(vis[2]==-1) {
 					this.reussi = false;
@@ -106,6 +108,8 @@ public class VisseVis extends MiniJeu {
 	
 	@Override
 	public void mouseReleased(int x, int y, int button) {
+		if(button!=PApplet.LEFT)
+			return;
 		SceneHandler.pAppletInstance.cursor(Assets.getImage("marteauup"), 10, 10);
 	}
 

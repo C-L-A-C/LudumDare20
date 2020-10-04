@@ -1,6 +1,7 @@
 package jeu;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 import jeu.produit.TypeProduit;
@@ -37,13 +38,15 @@ public class Objectif {
 	public Map<TypeProduit, Integer> getProduitsManquants()
 	{
 		Map<TypeProduit, Integer> manquants = new HashMap<>(objectifs);
-		for (TypeProduit type : manquants.keySet())
+		Iterator<TypeProduit> it = manquants.keySet().iterator();
+		while (it.hasNext())
 		{
+			TypeProduit type = it.next();
 			if (reussi.containsKey(type))
 			{
 				int qt = manquants.get(type) - reussi.get(type);
 				if (qt <= 0)
-					manquants.remove(type);
+					it.remove();
 				else
 					manquants.put(type, qt);
 			}

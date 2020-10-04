@@ -19,6 +19,7 @@ public class Animation implements Apparence {
 	private long lastTime;
 	private boolean paused;
 	private boolean wasReset;
+	private boolean forceFirstFrame;
 
 	/**
 	 * Construit une animation à partir d'une liste d'images
@@ -30,6 +31,7 @@ public class Animation implements Apparence {
 		frames = new ArrayList<>(_frames);
 		delay = 1000 / FPS;
 		paused = true;
+		forceFirstFrame = false;
 	}
 
 	/**
@@ -47,6 +49,7 @@ public class Animation implements Apparence {
 
 		delay = 1000 / FPS;
 		paused = true;
+		forceFirstFrame = false;
 	}
 
 	public void setBegining(long t) {
@@ -70,7 +73,9 @@ public class Animation implements Apparence {
 			paused = false;
 		}
 
-		if (now - lastTime > delay) {
+		if (forceFirstFrame)
+			index = 0;
+		else if (now - lastTime > delay) {
 			int prevIndex = index;
 			index += (now - lastTime) / delay;
 			index %= frames.size();
@@ -110,5 +115,9 @@ public class Animation implements Apparence {
 	@Override
 	public void afficher(PApplet p, int x, int y, int w, int h) {
 		p.image(getFrame(), x, y, w, h);
+	}
+
+	public void setStatic(boolean status) {
+		forceFirstFrame = status;
 	}
 }

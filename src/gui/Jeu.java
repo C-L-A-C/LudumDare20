@@ -7,6 +7,8 @@ import graphiques.Assets;
 import jeu.ControleurNiveau;
 import jeu.DonneesJeu;
 import jeu.Horloge;
+import jeu.mini.BoutonsMemoire;
+import jeu.mini.RangeProduits;
 import processing.core.PApplet;
 
 public class Jeu extends Scene {
@@ -30,6 +32,9 @@ public class Jeu extends Scene {
 		if(!niveau.setNiveauCourant("niveau " + numeroNiveau)) {
 			System.out.println("Erreur : le niveau n'a pas pu etre recupere");
 		}
+		SceneHandler.playSoundAmbiance("assets/sounds/factory.wav", (float)0.2);
+		RangeProduits.resetDifficulty();
+		BoutonsMemoire.resetDifficulty();
 	}
 
 	@Override
@@ -96,6 +101,10 @@ public class Jeu extends Scene {
 	 */
 	public Horloge getClock() {
 		return clock;
+	}
+	
+	public int getNumeroNiveau() {
+		return numeroNiveau;
 	}
 	
 	
