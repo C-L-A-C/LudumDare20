@@ -93,5 +93,9 @@ public class Produit extends EntiteMobile {
 			vitesse.set(0, 0);
 
 	}
+	
+	public void setTaille(float w, float h) {
+		forme = new Rectangle(pos, w, h);
+	}
 
 }

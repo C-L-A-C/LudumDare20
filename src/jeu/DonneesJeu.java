@@ -35,10 +35,12 @@ public class DonneesJeu {
 
 	private Joueur joueur;
 	private Scroll scroll;
+	private ControleurEvenements eCtrl;
 	private List<Tapis> listeTapis;
 	private List<Produit> listeProduits;
-	private ControleurEvenements eCtrl;
 	private List<Machine> listeMachines;
+	private List<Sortie> listeSorties;
+
 	private Tileset tileset;
 	private Objectif objectifs;
 
@@ -54,7 +56,9 @@ public class DonneesJeu {
 		scroll = new Scroll(viewW * 2, viewH * 2, viewW, viewH);
 		listeTapis = new ArrayList<>();
 		listeProduits = new ArrayList<>();
-
+		listeSorties = new ArrayList<>();
+		
+		
 		this.failedMinijeu = false;
 		listeMachines = new ArrayList<>();
 		objectifs = new Objectif();
@@ -92,6 +96,12 @@ public class DonneesJeu {
 				return m;
 			}
 		}
+		
+		for (Sortie s : listeSorties) {
+			if (e != s && e.collision(s)) {
+				return s;
+			}
+		}
 
 		return null;
 	}
@@ -102,6 +112,10 @@ public class DonneesJeu {
 		for (Produit p : listeProduits) {
 			p.adhererTapis(this);
 			p.evoluer(t, this);
+		}
+		
+		for (Sortie s: listeSorties) {
+			s.reduireCollisions(listeProduits);
 		}
 		
 		for (Machine m : listeMachines)
@@ -169,6 +183,10 @@ public class DonneesJeu {
 		for (Tapis t : listeTapisEstDevant.get(false)) {
 			t.afficher(p);
 		}
+		
+		for (Sortie s : listeSorties) {
+			s.afficher(p);
+		}
 
 		for (Produit prod : listeProduits) {
 			prod.afficher(p);
@@ -181,6 +199,7 @@ public class DonneesJeu {
 		for (Machine machine : listeMachines) {
 			machine.afficher(p);
 		}
+		
 
 		joueur.afficher(p);
 
@@ -209,6 +228,10 @@ public class DonneesJeu {
 
 	public void addMachine(Machine m) {
 		listeMachines.add(m);
+	}
+	
+	public void addSortie(Sortie s) {
+		listeSorties.add(s);
 	}
 
 	/**

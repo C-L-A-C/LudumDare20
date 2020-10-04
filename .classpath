@@ -24,5 +24,7 @@
 	<classpathentry kind="lib" path="processing/jogl-all-natives-windows-i586.jar"/>
 	<classpathentry kind="lib" path="processing/jogl-all.jar"/>
 	<classpathentry kind="lib" path="processing/sound.jar"/>
+	<classpathentry kind="lib" path="processing/jsyn-20171016.jar"/>
+	<classpathentry kind="lib" path="processing/javamp3-1.0.4.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
