@@ -19,7 +19,7 @@ public class Produit extends EntiteMobile {
 
 	public Produit(float x, float y, TypeProduit type) {
 		super(x, y, new AffichageImage(getImage(type)));
-		forme = new Rectangle(pos, 20, 20);
+		forme = new Rectangle(pos, 28, 28);
 		this.setLayer(1);
 		this.type = type;
 		lastDirection = null;
@@ -52,10 +52,10 @@ public class Produit extends EntiteMobile {
 			else 
 				continue;
 			
-			
+			TypeDirectionTapis directionTapis = t.getDirectionFor(getType());
 			boolean adherence = false;
 			// Si on est dans la continuite
-			if (t.getDirection() == lastDirection || lastDirection == null)
+			if (directionTapis == lastDirection || lastDirection == null)
 				adherence = true; // Alors si on est en collision on continue
 			else if (((Rectangle) t.getForme()).checkNearCenterInDirection((Rectangle) getForme(), lastDirection))
 				adherence = true; // Si on est pas dans la continuite on adhere apres un certain temps
@@ -66,9 +66,9 @@ public class Produit extends EntiteMobile {
 				// System.out.println("Last direction : " + lastDirection + ", new : " +
 				// t.getDirection());
 				// System.out.println("Position : " + pos + ", tapis : " + t.getPos());
-				lastDirection = t.getDirection();
+				lastDirection = directionTapis;
 				float vitesseMag = t.getVitesse();
-				switch (t.getDirection()) {
+				switch (directionTapis) {
 				case HAUT:
 					vitesse.y = -vitesseMag;
 					vitesse.x = 0;

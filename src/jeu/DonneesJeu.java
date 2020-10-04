@@ -4,9 +4,7 @@ import processing.core.PApplet;
 import processing.core.PVector;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -22,6 +20,7 @@ import jeu.mini.MiniJeu;
 import jeu.mini.TypeMiniJeu;
 import jeu.produit.Produit;
 import jeu.produit.TypeProduit;
+import jeu.tapis.Selecteur;
 import jeu.tapis.Tapis;
 import jeu.tapis.TypeDirectionTapis;
 
@@ -30,8 +29,6 @@ import processing.sound.*;
 public class DonneesJeu {
 	private static final float MAX_DISTANCE_MACHINE = 50;
 
-	private int largeurNiveauPixels;
-	private int hauteurNiveauPixels;
 	private long failedMinijeut0;
 	private boolean failedMinijeu;
 	private long tempsDernierProduitCree;
@@ -44,24 +41,26 @@ public class DonneesJeu {
 	private List<Machine> listeMachines;
 	private List<Sortie> listeSorties;
 	private int playSound;
+	private List<Selecteur> listeSelecteurs;
 
 	private Tileset tileset;
 	private Objectif objectifs;
 
 	private MiniJeu miniJeuCourant;
 
+	//private PVector debugPos;
+
 	public DonneesJeu() {
 		int viewW = 640, viewH = 480;
-		largeurNiveauPixels = viewW;
-		hauteurNiveauPixels = viewH;
 		tempsDernierProduitCree = 0;
 
 		joueur = new Joueur(0, 0);
-		scroll = new Scroll(viewW * 2, viewH * 2, viewW, viewH);
+		scroll = new Scroll(viewW, viewH, viewW, viewH);
 		listeTapis = new ArrayList<>();
 		listeProduits = new ArrayList<>();
 		listeSorties = new ArrayList<>();
 		playSound = 0;
+		listeSelecteurs = new ArrayList<>();
 		
 		this.failedMinijeu = false;
 		listeMachines = new ArrayList<>();
@@ -71,16 +70,18 @@ public class DonneesJeu {
 
 		tileset = new Tileset("tileset", 10, 10);
 	}
-	
 	public void ajouterObjectif(TypeProduit type, int nb)
 	{
 		objectifs.ajouterObjectif(type, nb);
+		System.out.println(type);
+		for (Selecteur s: listeSelecteurs)
+			s.ajouterProduitFiltre(type);
 	}
 
 	public Entite checkCollision(Entite e) {
 		float eW = e.getForme().getW(), eH = e.getForme().getH();
 
-		int width = largeurNiveauPixels, height = hauteurNiveauPixels;
+		int width = (int) scroll.getTotalW(), height = (int) scroll.getTotalH();
 		Rectangle rectMonde = new Rectangle(eW, eH, width - 2 * eW + 1, height - 2 * eH + 1);
 		if (e == joueur && !e.collision(rectMonde))
 			return new Entite(0, 0, null) {protected void faireCollision(Entite collider, DonneesJeu d) {}}; //TODO: pas propre
@@ -118,7 +119,14 @@ public class DonneesJeu {
 		}
 		
 		for (Sortie s: listeSorties) {
-			s.reduireCollisions(listeProduits);
+			List<Produit> produitsSortis = new ArrayList<>();
+			produitsSortis = s.reduireCollisions(listeProduits, t);
+			if (produitsSortis != null) {
+				for (Produit p : produitsSortis) {
+					objectifs.ajouterProduitReussi(p.getType());
+					listeProduits.remove(p);
+				}
+			}
 		}
 		
 		for (Machine m : listeMachines)
@@ -179,11 +187,9 @@ public class DonneesJeu {
 			}
 		}
 
-		// for (Tapis t : listeTapis) {
 		for (Tapis t : listeTapisEstDevant.get(false)) {
 			t.afficher(p);
 		}
-		
 		for (Sortie s : listeSorties) {
 			s.afficher(p);
 		}
@@ -196,12 +202,24 @@ public class DonneesJeu {
 			t.afficher(p);
 		}
 
+		// On les réaffiche c'est pas beau mais bon ntm un peu quoi
+		for (Tapis t : listeSelecteurs) {
+			t.afficher(p);
+		}
+		
+
 		for (Machine machine : listeMachines) {
 			machine.afficher(p);
 		}
 		
 
 		joueur.afficher(p);
+		
+		/*if (debugPos != null)
+		{
+			p.fill(255, 0, 0);
+			p.ellipse(debugPos.x,  debugPos.y, 10, 10);
+		}*/
 
 		p.popMatrix();
 
@@ -230,6 +248,12 @@ public class DonneesJeu {
 
 	public void addTapis(Tapis tapis) {
 		this.listeTapis.add(tapis);
+	}
+
+	public void addSelecteurFin(int x, int y, TypeDirectionTapis direction, TypeDirectionTapis directionFiltree) {
+		Selecteur s = new Selecteur(x, y, direction, directionFiltree);
+		addTapis(s);
+		listeSelecteurs.add(s);
 	}
 
 	public void addMachine(Machine m) {
@@ -293,10 +317,10 @@ public class DonneesJeu {
 		PVector depl = new PVector();
 		switch (direction) {
 		case HAUT:
-			depl.set(0, 1);
+			depl.set(0, -1);
 			break;
 		case BAS:
-			depl.set(0, -1);
+			depl.set(0, 1);
 			break;
 		case DROITE:
 			depl.set(1, 0);
@@ -307,7 +331,14 @@ public class DonneesJeu {
 		}
 		depl.mult(Tapis.W);
 		Forme collider = p.getTranslation(depl);
+		//debugPos = collider.getCenter();
 		return listeTapis.stream().filter(t -> t.collision(collider)).findAny().orElse(listeTapis.get(0));
+	}
+	
+	public void setMapDimensions(int w, int h)
+	{
+		scroll.setTotalW(w);
+		scroll.setTotalH(h);
 	}
 
 }

@@ -8,6 +8,7 @@ import collision.Point;
 import jeu.machine.Toleuse;
 import jeu.produit.TypeProduit;
 import jeu.tapis.PontTapis;
+import jeu.tapis.Selecteur;
 import jeu.tapis.Tapis;
 import jeu.tapis.TapisRapide;
 import jeu.tapis.TypeDirectionTapis;
@@ -66,6 +67,7 @@ public class ControleurNiveau {
 
 						largeur = Integer.parseInt(taille[1]);
 						hauteur = Integer.parseInt(taille[2]);
+						donneesJeu.setMapDimensions(largeur * tailleCasePixels, hauteur * tailleCasePixels);
 
 						analyseSpawn = true;
 
@@ -131,7 +133,8 @@ public class ControleurNiveau {
 					if (objectifs[0].equals("objectifs")) {
 						for (int i = 1; i < objectifs.length; i++) {
 							String[] objectif = objectifs[i].replace("(","").replace(")","").split(";", 2);
-							donneesJeu.ajouterObjectif(TypeProduit.getFromName(objectif[0]),
+							TypeProduit type = TypeProduit.getFromName(objectif[0]);
+							donneesJeu.ajouterObjectif(type,
 														Integer.parseInt(objectif[1]));
 						}
 					} else {
@@ -213,28 +216,13 @@ public class ControleurNiveau {
 	}
 
 	private void analyseEntite(String chaineLue, int i, int j) {
-		TypeDirectionTapis direction = TypeDirectionTapis.DROITE;
-		boolean aUneDirection = true;
-
-		switch (chaineLue.charAt(0)) {
-		case '^':
-			direction = TypeDirectionTapis.HAUT;
-			break;
-		case 'v':
-			direction = TypeDirectionTapis.BAS;
-			break;
-		case '<':
-			direction = TypeDirectionTapis.GAUCHE;
-			break;
-		case '>':
-			break;
-		default:
-			aUneDirection = false;
-		}
-
-		if (aUneDirection) {
+		TypeDirectionTapis direction = getDirectionFromChar(chaineLue.charAt(0));
+		if (direction != null)
 			chaineLue = chaineLue.substring(1);
-		}
+		
+		TypeDirectionTapis directionAuxiliaire = getDirectionFromChar(chaineLue.charAt(chaineLue.length() - 1));
+		if (directionAuxiliaire != null)
+			chaineLue = chaineLue.substring(0, chaineLue.length() - 1);
 
 		int x = i * this.tailleCasePixels, y = j * this.tailleCasePixels;
 
@@ -248,6 +236,9 @@ public class ControleurNiveau {
 		case "P":
 			donneesJeu.addTapis(new PontTapis(x, y, direction));
 			break;
+		case "S":
+			donneesJeu.addSelecteurFin(x, y, directionAuxiliaire, direction);
+			break;
 		case "Tol":
 			donneesJeu.addMachine(new Toleuse(x, y, direction));
 			break;
@@ -256,6 +247,20 @@ public class ControleurNiveau {
 			break;
 		default:
 		}
+	}
+
+	private TypeDirectionTapis getDirectionFromChar(char c) {
+		switch (c) {
+		case '^':
+			return TypeDirectionTapis.HAUT;
+		case 'v':
+			return TypeDirectionTapis.BAS;
+		case '<':
+			return TypeDirectionTapis.GAUCHE;
+		case '>':
+			return TypeDirectionTapis.DROITE;
+		}
+		return null;
 	}
 
 	/*
