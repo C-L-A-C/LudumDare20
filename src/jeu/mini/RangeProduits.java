@@ -41,8 +41,6 @@ public class RangeProduits extends MiniJeu {
 		p.clip(50, 50, p.width-100, p.height-100);
 		p.fill(128);
 		p.rect(50, 50, p.width-100, p.height-100, 10);
-		p.fill(255, 0, 0);
-		p.rect(300, 200, 50, 50);
 		p.fill(20, 20, 40);
 		p.rect((p.width-WIDTH_TAPIS_ROULANT)/2, p.height-HEIGHT_TAPIS_ROULANT, WIDTH_TAPIS_ROULANT, HEIGHT_TAPIS_ROULANT);
 		p.fill(10);
@@ -115,6 +113,7 @@ public class RangeProduits extends MiniJeu {
 			produits.remove(0);
 		}
 	}
+	
 	private static boolean goodGuess(int key, ProduitsRanges produit) {
 		switch(key) {
 			case PApplet.LEFT:

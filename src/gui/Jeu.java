@@ -15,24 +15,26 @@ public class Jeu extends Scene {
 	private ControleurNiveau niveau;
 	private ControleurClavier controleur;
 	private Horloge clock;
+	private int numeroNiveau;
+
+	public Jeu(int numeroNiveau) {
+		// créé le niveau courant
+		jeu = new DonneesJeu();
+
+		clock = new Horloge(60);
+		
+		controleur = new ControleurClavier(jeu.getJoueur());
+		niveau = new ControleurNiveau(jeu);
+		this.numeroNiveau = numeroNiveau;
+		
+		if(!niveau.setNiveauCourant("niveau " + numeroNiveau)) {
+			System.out.println("Erreur : le niveau n'a pas pu etre recupere");
+		}
+	}
 
 	@Override
 	public void setup(PApplet p) {
 		super.setup(p);
-		
-		Assets.init(p);
-		clock = new Horloge(80);
-		
-		jeu = new DonneesJeu();
-		
-		controleur = new ControleurClavier(jeu.getJoueur());
-		
-		// créé le niveau courant
-		niveau = new ControleurNiveau(jeu);
-		if(!niveau.setNiveauCourant("niveau 2")) {
-			System.out.println("Erreur : le niveau n'a pas pu etre recupere");
-		}
-		
 	}
 
 	@Override
@@ -48,10 +50,9 @@ public class Jeu extends Scene {
 		
 		jeu.evoluer((long) (clock.getSeconds() * 1000));
 		
-		if (clock.journeeFinie())
+		if (clock.journeeFinie() || jeu.estGagne())
 		{
-			System.out.println("Le jeu est fini, on a " + (jeu.estGagne() ? "gagné" : "perdu"));
-			// Charger niveau suivant ou afficher menu niveau
+			SceneHandler.setRunning(new EcranFinNiveau(jeu.estGagne(), numeroNiveau + (jeu.estGagne() ? 1 : 0)));
 		}
 	}
 	
@@ -63,6 +64,8 @@ public class Jeu extends Scene {
 			this.clock.stopClock();
 			SceneHandler.setRunning(pause);
 		}
+		else if (p.keyCode == Config.readKey(ConfigKey.TOUCHE_OVERLAY))
+			jeu.setAffichageOverlay(!jeu.getAffichageOverlay());
 		
 		if (jeu.estEnMiniJeu())
 			jeu.getMiniJeu().keyPressed(p.keyCode);

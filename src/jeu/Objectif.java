@@ -23,8 +23,32 @@ public class Objectif {
 	
 	public void ajouterProduitReussi(TypeProduit type)
 	{
-		int qt = reussi.getOrDefault(type, 0);
-		reussi.put(type, qt + 1);
+		if (objectifs.containsKey(type)) {
+			int qt = reussi.getOrDefault(type, 0);
+			reussi.put(type, qt + 1);
+		}
+	}
+	
+	public Map<TypeProduit, Integer> getProduitsReussis()
+	{
+		return new HashMap<>(reussi);
+	}
+	
+	public Map<TypeProduit, Integer> getProduitsManquants()
+	{
+		Map<TypeProduit, Integer> manquants = new HashMap<>(objectifs);
+		for (TypeProduit type : manquants.keySet())
+		{
+			if (reussi.containsKey(type))
+			{
+				int qt = manquants.get(type) - reussi.get(type);
+				if (qt <= 0)
+					manquants.remove(type);
+				else
+					manquants.put(type, qt);
+			}
+		}
+		return manquants;
 	}
 	
 	public boolean sontSatisfaits()

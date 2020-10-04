@@ -1,6 +1,7 @@
 package jeu;
 
 import processing.core.PApplet;
+import processing.core.PImage;
 import processing.core.PVector;
 
 import java.util.ArrayList;
@@ -13,6 +14,7 @@ import java.util.stream.Collectors;
 import collision.Forme;
 import collision.Point;
 import collision.Rectangle;
+import graphiques.Assets;
 import graphiques.Tileset;
 import gui.SceneHandler;
 import jeu.machine.Machine;
@@ -43,15 +45,15 @@ public class DonneesJeu {
 	private int playSound;
 	private List<Selecteur> listeSelecteurs;
 
-	private Tileset tileset;
 	private Objectif objectifs;
-
 	private MiniJeu miniJeuCourant;
+	
+	private boolean afficherOverlay;
 
 	//private PVector debugPos;
 
 	public DonneesJeu() {
-		int viewW = 640, viewH = 480;
+		int viewW = 640, viewH = 400;
 		tempsDernierProduitCree = 0;
 
 		joueur = new Joueur(0, 0);
@@ -65,10 +67,13 @@ public class DonneesJeu {
 		this.failedMinijeu = false;
 		listeMachines = new ArrayList<>();
 		objectifs = new Objectif();
-
+			
 		miniJeuCourant = null;
-
-		tileset = new Tileset("tileset", 10, 10);
+		afficherOverlay = false;
+		
+		// Preloading sounds
+		SceneHandler.preloadSound("assets/sounds/failed.mp3");
+		SceneHandler.preloadSound("assets/sounds/positive_beep.wav");
 	}
 	public void ajouterObjectif(TypeProduit type, int nb)
 	{
@@ -170,6 +175,7 @@ public class DonneesJeu {
 			tempsDernierProduitCree = t;
 		}
 	}
+
 	
 	public boolean estGagne()
 	{
@@ -182,55 +188,63 @@ public class DonneesJeu {
 
 		p.pushMatrix();
 		p.translate(-(int) scroll.getX(), -(int) scroll.getY());
+		
+		
 
 		// On separe les tapis devant les produits de derriere les produits
 		Map<Boolean, List<Tapis>> listeTapisEstDevant = listeTapis.stream()
 				.collect(Collectors.partitioningBy(t -> t.getLayer() != 0));
-
-		for (int i = 0; i <= scroll.getTotalW() / tileset.getTileW(); i++) {
-			for (int j = 0; j <= scroll.getTotalH() / tileset.getTileH(); j++) {
-				p.image(tileset.get(11), i * tileset.getTileW(), j * tileset.getTileW());
+		
+		//background
+		PImage background = Assets.getImage("background");
+		for (int i = 0; i <= scroll.getTotalW() / background.width; i++) {
+			for (int j = 0; j <= scroll.getTotalH() / background.height; j++) {
+				p.image(background, i * background.width, j * background.height);
 			}
 		}
-
-		for (Tapis t : listeTapisEstDevant.get(false)) {
+		
+		//On affiche les differentes entites dans le bon ordre : du plus derriere au plus devant
+		for (Tapis t : listeTapisEstDevant.get(false))
 			t.afficher(p);
-		}
-		for (Sortie s : listeSorties) {
+		for (Sortie s : listeSorties) 
 			s.afficher(p);
-		}
 
-		for (Produit prod : listeProduits) {
+		for (Produit prod : listeProduits) 
 			prod.afficher(p);
-		}
 
-		for (Tapis t : listeTapisEstDevant.get(true)) {
+		for (Tapis t : listeTapisEstDevant.get(true))
 			t.afficher(p);
-		}
-
+		
+		// Pour que les selecteurs soient au dessus des produits (on peut pas les changer de layer a cause de la collision)
 		// On les réaffiche c'est pas beau mais bon ntm un peu quoi
-		for (Tapis t : listeSelecteurs) {
+		for (Tapis t : listeSelecteurs) 
 			t.afficher(p);
+		
+		if (afficherOverlay) {
+			for (Machine m : listeMachines) {
+				m.afficherOverlay(p);
+			}
 		}
 		
-
-		for (Machine machine : listeMachines) {
+		// On separe les machine en dessous du perso et au dessus du perso
+		Map<Boolean, List<Machine>> listeMachineEstDevant = listeMachines.stream()
+				.collect(Collectors.partitioningBy(m -> m.getY() > joueur.getY()));
+		
+		for (Machine machine : listeMachineEstDevant.get(false))
 			machine.afficher(p);
-		}
-		
 
 		joueur.afficher(p);
 		
-		/*if (debugPos != null)
-		{
-			p.fill(255, 0, 0);
-			p.ellipse(debugPos.x,  debugPos.y, 10, 10);
-		}*/
+		for (Machine machine : listeMachineEstDevant.get(true))
+			machine.afficher(p);
 
 		p.popMatrix();
 
 		if (estEnMiniJeu())
 			miniJeuCourant.afficher(p);
+		else {
+			afficherObjectif(p);
+		}
 		
 		if (failedMinijeu) {
 			p.fill(255, 0, 0, Math.min((float) (System.currentTimeMillis() - this.failedMinijeut0) / 100 * 128, 128));
@@ -238,12 +252,52 @@ public class DonneesJeu {
 		}
 
 		if (playSound==-1)
-			SceneHandler.playSound("assets/sounds/failed.mp3", (float)0.3, 1);
+			SceneHandler.playSound("assets/sounds/failed.mp3", (float)0.3, 1, 0, true);
 		else if(playSound==1)
-			SceneHandler.playSound("assets/sounds/positive_beep.wav", (float)0.3, 1);
+			SceneHandler.playSound("assets/sounds/positive_beep.wav", (float)0.3, 1, 0, true);
 		playSound = 0;
 	}
 
+	private void afficherObjectif(PApplet p) {
+		int h = 80;
+		p.fill(190);
+		p.stroke(20);
+		p.rect(0, p.height - h, p.width, h);
+		
+		p.noStroke();
+		p.fill(20);
+		p.textSize(14);
+		p.textAlign(PApplet.CORNER, PApplet.CORNER);
+		p.text("Objectifs", 5, p.height - h + 15);
+		
+		int i = 0, wCase = 30, hCase = 25;
+		for (Map.Entry<TypeProduit, Integer> reussi : objectifs.getProduitsReussis().entrySet())
+		{
+			for (int j = 0; j < reussi.getValue(); j++) {
+				int xCase = 5 + i * wCase, yCase = p.height - h + 25;
+				p.image(Produit.getImage(reussi.getKey()), xCase + 3, yCase + 3, wCase - 6, hCase - 6);
+				
+				p.fill(50, 255, 100, 120);
+				p.stroke(0, 150, 0);
+				p.rect(xCase + 1, yCase, wCase - 2, hCase);
+				i++;
+			}
+		}
+		
+		for (Map.Entry<TypeProduit, Integer> reussi : objectifs.getProduitsManquants().entrySet())
+		{
+			for (int j = 0; j < reussi.getValue(); j++) {
+				int xCase = 5 + i * wCase, yCase = p.height - h + 25;
+				p.image(Produit.getImage(reussi.getKey()), xCase + 3, yCase + 3, wCase - 6, hCase - 6);
+				
+				p.fill(255, 100, 50, 120);
+				p.stroke(150, 0, 0);
+				p.rect(xCase + 1, yCase, wCase - 2, hCase);
+				i++;
+			}
+		}
+	}
+	
 	public void ajouterProduit(Produit produit) {
 		if (checkCollision(produit) == null)
 			listeProduits.add(produit);
@@ -255,6 +309,11 @@ public class DonneesJeu {
 
 	public void addTapis(Tapis tapis) {
 		this.listeTapis.add(tapis);
+	}
+	
+	public void setAffichageOverlay(boolean status)
+	{
+		afficherOverlay = status;
 	}
 
 	public void addSelecteurFin(int x, int y, TypeDirectionTapis direction, TypeDirectionTapis directionFiltree) {
@@ -346,6 +405,10 @@ public class DonneesJeu {
 	{
 		scroll.setTotalW(w);
 		scroll.setTotalH(h);
+	}
+	
+	public boolean getAffichageOverlay() {
+		return afficherOverlay;
 	}
 
 }

@@ -2,25 +2,22 @@ package jeu.machine;
 
 import java.util.List;
 
-import graphiques.AffichageImage;
 import graphiques.Animation;
-import graphiques.Assets;
 import graphiques.Tileset;
-import jeu.DonneesJeu;
-import jeu.Entite;
 import jeu.mini.TypeMiniJeu;
 import jeu.produit.Recette;
 import jeu.produit.TypeProduit;
 import jeu.tapis.TypeDirectionTapis;
 import processing.core.PApplet;
 
-public class Toleuse extends Machine {
+public class Tondeuse extends Machine {
 	
-	public Toleuse(float x, float y, TypeDirectionTapis dir)
+	public Tondeuse(float x, float y, TypeDirectionTapis dir)
 	{
-		super(x, y, new Animation(new Tileset("aplatisseur", 2, 1), 0, 1, 4), dir);
+		super(x, y, new Animation(new Tileset("rase", 2, 1), 0, 1, 4), dir);
 	}
 
+	
 	public void afficher(PApplet p) {
 		apparence.afficher(p,  (int)pos.x,  (int)pos.y - 30,  (int)(1.2 * forme.getW()), (int)(2 * forme.getH()));
 	}
@@ -28,8 +25,8 @@ public class Toleuse extends Machine {
 	
 	protected void remplirRecettes(List<Recette> recettes) {
 		Recette r = new Recette(2, 10, TypeMiniJeu.RANGE_PRODUITS);
-		r.ajouterIngredient(TypeProduit.METAL);
-		r.ajouterProduit(TypeProduit.TOLE);
+		r.ajouterIngredient(TypeProduit.MOUTON);
+		r.ajouterProduit(TypeProduit.LAINE);
 		recettes.add(r);
 	}
 
