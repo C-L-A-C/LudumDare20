@@ -2,7 +2,6 @@ package jeu.mini;
 
 import java.util.LinkedList;
 import java.util.List;
-
 import jeu.machine.Machine;
 import processing.core.PApplet;
 
@@ -19,7 +18,7 @@ public class RangeProduits extends MiniJeu {
 		produits = new LinkedList<ProduitsRanges> ();
 		this.timeNextProduit = System.currentTimeMillis();
 		this.reussi = true;
-		this.nbEl = 10 + (int)(Math.random()*(20 - 10));
+		this.nbEl = 10 + (int)(Math.random()*(20 - 10));		
 	}
 	
 	@Override

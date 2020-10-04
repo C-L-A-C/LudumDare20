@@ -8,6 +8,7 @@ import graphiques.Animation;
 import graphiques.AnimationSet;
 import graphiques.Tileset;
 import jeu.machine.Machine;
+import jeu.mini.TypeMiniJeu;
 
 
 public class Joueur extends EntiteMobile implements Controlable {

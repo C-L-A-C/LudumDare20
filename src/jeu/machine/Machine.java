@@ -115,6 +115,7 @@ public abstract class Machine extends Entite {
 	 */
 	public void finirActivation(boolean succes)
 	{
+		
 		Set<Entry<TypeProduit, Integer>> produits;
 		if (succes)
 			produits = recette.getProduits();

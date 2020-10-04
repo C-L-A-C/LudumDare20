@@ -14,6 +14,7 @@ public abstract class Scene {
 	public void setup(PApplet p)
 	{
 		this.p = p;
+		//on charge les sons
 	}
 	
 	public void fermer() {};
