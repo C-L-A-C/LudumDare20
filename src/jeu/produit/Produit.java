@@ -5,23 +5,24 @@ import graphiques.Apparence;
 import jeu.DonneesJeu;
 import jeu.EntiteMobile;
 import jeu.Tapis;
+import jeu.TypeDirectionTapis;
 import processing.core.PApplet;
 import processing.core.PImage;
 import graphiques.Assets;
 import graphiques.AffichageImage;
 
 public class Produit extends EntiteMobile {
-	
+
 	private TypeProduit type;
-	
-	public Produit(float x, float y, TypeProduit type)
-	{
+	private TypeDirectionTapis lastDirection;
+
+	public Produit(float x, float y, TypeProduit type) {
 		super(x, y, new AffichageImage(getImage(type)));
 		forme = new Rectangle(pos, 20, 20);
 		this.setLayer(1);
 		this.type = type;
+		lastDirection = null;
 	}
-
 
 	private static PImage getImage(TypeProduit type) {
 		String name = type.getSpriteName();
@@ -29,48 +30,64 @@ public class Produit extends EntiteMobile {
 			name = "default";
 		return Assets.getImage(name);
 	}
-	
-	public TypeProduit getType()
-	{
+
+	public TypeProduit getType() {
 		return type;
 	}
-	
-	
-	
+
 	public void testTapis(DonneesJeu donnees) {
-		//teste si le produit est sur un tapis, et sette sa vitesse si oui
-		boolean pleaseStop = true;
+
+		boolean shouldStop = true;
+		float vitesseMag = 40;
+
+		// teste si le produit est sur un tapis, et sette sa vitesse si oui
 		for (Tapis t : donnees.getListeTapis()) {
-			if (this.collision(t.getForme())) {
-				pleaseStop = false;
-			}
-			if (((Rectangle)this.getForme()).checkInclusionInNearCenter((Rectangle)t.getForme())) {
-				switch(t.getDirection()) {
+
+			boolean enCollision = ((Rectangle) this.getForme()).collision((Rectangle) t.getForme());
+
+			if (enCollision)
+				shouldStop = false;
+			else 
+				continue;
+			
+			boolean adherence = false;
+			// Si on est dans la continuite
+			if (t.getDirection() == lastDirection || lastDirection == null)
+				adherence = true; // Alors si on est en collision on continue
+			else if (((Rectangle) t.getForme()).checkNearCenterInDirection((Rectangle) getForme(), lastDirection))
+				adherence = true; // Si on est pas dans la continuite on adhere apres un certain temps
+			
+			if (adherence)
+			 {
+
+				// System.out.println("Last direction : " + lastDirection + ", new : " +
+				// t.getDirection());
+				// System.out.println("Position : " + pos + ", tapis : " + t.getPos());
+				lastDirection = t.getDirection();
+				switch (t.getDirection()) {
 				case HAUT:
-					vitesse.y = -50;
-					vitesse.x =  0;
+					vitesse.y = -vitesseMag;
+					vitesse.x = 0;
 					break;
 				case BAS:
-					vitesse.y = 50;
+					vitesse.y = vitesseMag;
 					vitesse.x = 0;
 					break;
 				case GAUCHE:
-					vitesse.x = -50;
+					vitesse.x = -vitesseMag;
 					vitesse.y = 0;
 					break;
 				case DROITE:
-					vitesse.x = 50;
+					vitesse.x = vitesseMag;
 					vitesse.y = 0;
 					break;
 				}
 			}
 		}
-		if (pleaseStop) {
-			vitesse.x = 0;
-			vitesse.y = 0;
-		}
+
+		if (shouldStop)
+			vitesse.set(0, 0);
 
 	}
-
 
 }
