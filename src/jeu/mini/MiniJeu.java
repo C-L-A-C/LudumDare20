@@ -20,6 +20,8 @@ public abstract class MiniJeu {
 				return new RangeProduits(machine);
 			case PUZZLE:
 				return null; //new Puzzle(machine);
+			case BOUTONS_MEMOIRE:
+				return new BoutonsMemoire(machine);
 			default:
 				return null;
 		}

@@ -13,7 +13,7 @@ public class ProduitsRanges {
 	private static final int DEFAULT_SPEED_X = 0;
 	private int width;
 	private int height;
-	private int speedx, speedy;
+	private float speedx, speedy;
 	private int x, y;
 	private int type;
 	private boolean dirty;
@@ -22,7 +22,7 @@ public class ProduitsRanges {
 	private long prevTime;
 	
 	
-	ProduitsRanges(int factorSpeed) {
+	ProduitsRanges(float factorSpeed) {
 		this.width = 32;
 		this.height = 32;
 		this.type = Utils.random(0, 3);

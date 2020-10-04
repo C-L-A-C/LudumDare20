@@ -16,6 +16,8 @@ import java.util.ArrayList;
 public class ControleurEvenements {
 	private List<GenerateurEvenements> listeGenerateurs;
 	List<Produit> produits;
+	private int tileW;
+	private int tileH;
 	
 	private int seed;
 	
@@ -47,6 +49,13 @@ public class ControleurEvenements {
 				
 				
 				// définit les vitesses initiales
+				if(x>=0 && x<tileW && y>=0 && y<tileH) {
+					x += 0.25f*tailleCasePixels;
+					y += 0.25f*tailleCasePixels;
+					vitesse.x = 0;
+					vitesse.y = 0;
+				}
+				
 				if(x<0) {
 					x += 0.75f*tailleCasePixels;
 					y += 0.25f*tailleCasePixels;
@@ -70,6 +79,7 @@ public class ControleurEvenements {
 					vitesse.x = 0;
 					vitesse.y = -50;
 				}
+				
 				
 				Produit p = new Produit(x,y,gevent.getTypeProduit());
 				p.setVitesse(vitesse);
@@ -97,5 +107,10 @@ public class ControleurEvenements {
 	
 	public void addGenerateurEvenements(GenerateurEvenements gevent) {
 		listeGenerateurs.add(gevent);
+	}
+	
+	public void setTaille(int W, int H) {
+		tileW = W;
+		tileH = H;
 	}
 }
