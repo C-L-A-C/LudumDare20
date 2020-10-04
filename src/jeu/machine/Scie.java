@@ -1,5 +1,7 @@
 package jeu.machine;
 
+import java.util.List;
+
 import graphiques.Animation;
 import graphiques.Tileset;
 import jeu.mini.TypeMiniJeu;
@@ -22,11 +24,11 @@ public class Scie extends Machine {
 	
 	
 	@Override
-	protected Recette creerRecette() {
+	protected void remplirRecettes(List<Recette> listeRecettes) {
 		Recette r = new Recette (2, 10, TypeMiniJeu.RANGE_PRODUITS);
 		r.ajouterIngredient(TypeProduit.BOIS);
 		r.ajouterProduit(TypeProduit.PLANCHE);
-		return r;
+		listeRecettes.add(r);
 	}
 
 }
