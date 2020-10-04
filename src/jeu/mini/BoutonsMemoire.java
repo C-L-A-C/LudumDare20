@@ -9,116 +9,246 @@ import graphiques.Assets;
 import jeu.machine.Machine;
 import processing.core.PApplet;
 import processing.core.PImage;
+import utils.Utils;
 
 public class BoutonsMemoire extends MiniJeu {
-	static int nbFoisMinijeu = 0;
-	static final int WIDTH_TAPIS_ROULANT = 200;
-	static final int HEIGHT_TAPIS_ROULANT = 320;
+	static int nbFoisMinijeu;
 	private boolean reussi;
-	private int nbClicks;
-	private int[] memoire;
+	private boolean continuEvoluer;
+	private String[] memoire;
 	private PImage charbon, couronne, poison, viande;
+	
+	private int minijeuX;
+	private int minijeuY;
+	private int minijeuW;
+	private int minijeuH;
+	private int tailleBouton;
+	private int espaceBoutons;
+	private int xDebut;
+	private int yDebut;
+	
+	private int couleurCharbon;
+	private int couleurCouronne;
+	private int couleurPoison;
+	private int couleurViande;
+	
+	private boolean memorise;
+	private boolean estInterMemo;
+	private long tempsClickMemo;
+	private long interTempsClickMemo;
+	private long tempsPrecedent;
+	
+	private String boutonSelectionne;
+	
+	private int indiceCourant;
+	private int indiceMax;
 	
 	public BoutonsMemoire(Machine machine) {
 		super(machine);
-		// System.currentTimeMillis();
 		this.reussi = true;
-		//this.nbEl = 10 + (int)(Math.random()*(20 - 10));
+		continuEvoluer = true;
+		
+		indiceMax = 4+ Math.min(2, nbFoisMinijeu);
+		indiceCourant = 0;
+		nbFoisMinijeu++;
 		
 		charbon = Assets.getImage("charbon");
 		couronne = Assets.getImage("Couronne");
 		poison = Assets.getImage("poison");
 		viande = Assets.getImage("viande");
+		
+		couleurCharbon = 255;
+		couleurCouronne = 255;
+		couleurPoison = 255;
+		couleurViande = 255;
+		
+		creerMemoire();
+		
+		tempsClickMemo = 800;
+		interTempsClickMemo = 400;
+		memorise = true;
+		estInterMemo = true;
+		tempsPrecedent = System.currentTimeMillis();
 	}
 	
 	@Override
 	public void afficher(PApplet p) {
+		minijeuX = 50;
+		minijeuY = 50;
 		// taille du mini jeu
-		p.clip(50, 50, p.width-100, p.height-100);
+		minijeuW = p.width-100;
+		minijeuH = p.height-100;
+		p.clip(minijeuX, minijeuY, minijeuW, minijeuH);
 		p.fill(128);
-		p.rect(50, 50, p.width-100, p.height-100, 10);
-		p.fill(255, 0, 0);
-		p.rect(300, 200, 50, 50);
-		p.fill(20, 20, 40);
-		p.rect((p.width-WIDTH_TAPIS_ROULANT)/2, p.height-HEIGHT_TAPIS_ROULANT, WIDTH_TAPIS_ROULANT, HEIGHT_TAPIS_ROULANT);
-		p.fill(10);
-		p.rect((p.width-WIDTH_TAPIS_ROULANT)/2, p.height-HEIGHT_TAPIS_ROULANT-40, WIDTH_TAPIS_ROULANT, 40, 10, 10, 0, 0);
+		p.rect(minijeuX, minijeuY, minijeuW,minijeuH, 10);
 		
-		/*
-		p.arc(50, p.height/2, 100, 100, -p.PI/2, p.PI/2, p.OPEN);
-		p.arc(p.width/2, 50, 100, 100, 0, p.PI, p.OPEN);
-		p.arc(p.width-50, p.height/2, 100, 100, p.PI/2, 3*p.PI/2, p.OPEN);
-		p.image(sheep, 50, p.height/2-15);
-		p.image(rail, p.width/2-15, 50);
-		p.image(sword, p.width-50-30, p.height/2-15);*/
+		tailleBouton = 100;
+		espaceBoutons = 40;
 		
-		/*
-		for(ProduitsRanges produit : produits)
-			produit.afficher(p);
-		for(ProduitsRanges paf : pPafs)
-			paf.afficher(p);*/
+		xDebut = minijeuX + (int) (minijeuW - espaceBoutons - 2*tailleBouton)/2;
+		yDebut = minijeuY + (int) (minijeuH - espaceBoutons - 2*tailleBouton)/2;
+		
+		// création des rectangles boutons
+		p.fill(couleurCharbon, 0, 0);
+		p.rect(xDebut, yDebut, tailleBouton, tailleBouton);
+		p.fill(0, couleurCouronne, 0);
+		p.rect(xDebut+tailleBouton+espaceBoutons, yDebut, tailleBouton, tailleBouton);
+		p.fill(0, 0, couleurPoison);
+		p.rect(xDebut, yDebut+tailleBouton+espaceBoutons, tailleBouton, tailleBouton);
+		p.fill(couleurViande, couleurViande, 0);
+		p.rect(xDebut+tailleBouton+espaceBoutons, yDebut+tailleBouton+espaceBoutons, tailleBouton, tailleBouton);
+		
+		
+		p.image(charbon, xDebut+tailleBouton/2-15, yDebut+tailleBouton/2-15);
+		p.image(couronne, xDebut+espaceBoutons+((int) tailleBouton*1.5f)-15, yDebut+tailleBouton/2-15);
+		p.image(poison, xDebut+tailleBouton/2-15, yDebut+espaceBoutons+((int) tailleBouton*1.5f)-15);
+		p.image(viande, xDebut+espaceBoutons+((int) tailleBouton*1.5f)-15, yDebut+espaceBoutons+((int) tailleBouton*1.5f)-15);
 	}
 	
 	@Override
 	public boolean evoluer() {
-		/*
-		if(nbEl!=0 && this.timeNextProduit <= System.currentTimeMillis()) {
-			this.timeNextProduit = System.currentTimeMillis() + (long)(300 + Math.random()*(700 - 300));
-			this.produits.add(new ProduitsRanges(Math.min(1.6f,((float) nbFoisMinijeu)/7.0f+1.0f)));
-			this.nbEl--;
-		}
-		for(ProduitsRanges paf : pPafs) {
-			if(!paf.evoluer()) {
-				paf.markDirty();
-			}
-		}
-		if(this.pPafs.size()!=0 && this.pPafs.get(0).getDirty()) // seul le premier peut-être dirty
-			this.pPafs.remove(0);
-		for(ProduitsRanges produit : produits) {
-			if(!produit.evoluer()) {
-				reussi = false;
-				for(ProduitsRanges prod : this.produits)
-					prod.divSpeed(4);
-				produit.markDirty();
-			}
-		}
-		if(this.produits.size()!=0 && this.produits.get(0).getDirty()) // seul le premier peut-être dirty
-			this.produits.remove(0);
 		
-		if (reussi && !(this.produits.size()!=0 || nbEl!=0)) {
-			nbFoisMinijeu++;
-		}*/
+		if(memorise) {	// mémorisation
+			long temps = System.currentTimeMillis();
+			
+			if(estInterMemo) {
+				if(temps-tempsPrecedent > interTempsClickMemo) {
+					// la pause inter memorisation est finie
+					estInterMemo = false;
+					tempsPrecedent = System.currentTimeMillis();
+				} else {
+					// pendant la pause les boutons ne sont pas appuyés
+					couleurCharbon = 255;
+					couleurCouronne = 255;
+					couleurPoison = 255;
+					couleurViande = 255;
+				}
+			} else {
+				if(temps-tempsPrecedent > tempsClickMemo) {
+					// le click auto est fini
+					estInterMemo = true;
+					
+					// prépare le bouton suivant à mémoriser
+					if(indiceCourant<indiceMax-1) {
+						indiceCourant++;
+					} else {
+						// si on a atteint la fin, on passe à la récitation
+						indiceCourant = 0;
+						memorise = false;
+						
+						couleurCharbon = 255;
+						couleurCouronne = 255;
+						couleurPoison = 255;
+						couleurViande = 255;
+					}
+					
+					tempsPrecedent = System.currentTimeMillis();
+				} else {
+					// "appuie" sur le bouton automatiquement
+					switch(memoire[indiceCourant]) {
+					case "charbon":
+						couleurCharbon = 128;
+						break;
+					case "couronne":
+						couleurCouronne = 128;
+						break;
+					case "poison":
+						couleurPoison = 128;
+						break;
+					case "viande":
+						couleurViande = 128;
+					}
+				}
+			}
+			
+		} 
 		
-		return reussi ;//&& (this.produits.size()!=0 || nbEl!=0);
+		return continuEvoluer;
 	}
 	
 	@Override
-	public void keyPressed(int key) {/*
-		if(!this.reussi || this.produits.size()==0 || (key!=PApplet.LEFT && key!=PApplet.RIGHT && key!=PApplet.UP))
-			return;
-		if(!goodGuess(key, this.produits.get(0))) {
-			reussi = false;
-			for(ProduitsRanges produit : this.produits)
-				produit.divSpeed(4);
-			this.produits.remove(0);
-		} else {
-			this.produits.get(0).setSpeed(key==PApplet.LEFT ? -10 : (key==PApplet.RIGHT ? 10 : 0), key==PApplet.UP ? -10 : 0);
-			this.produits.get(0).pafed();
-			pPafs.add(produits.get(0));
-			produits.remove(0);
-		}*/
+	public void mousePressed(int x, int y, int button) {
+		if(!memorise && button == PApplet.LEFT) {
+			if(x>=xDebut && y>=yDebut && x<=xDebut+2*tailleBouton+espaceBoutons 
+					&& y<=yDebut+2*tailleBouton+espaceBoutons ) {
+				if(x<=xDebut+tailleBouton) {
+					if(y<=yDebut+tailleBouton) {
+						couleurCharbon = 128;
+						boutonSelectionne = "charbon";
+					} else if(y>=yDebut+tailleBouton+espaceBoutons) {
+						couleurPoison = 128;
+						boutonSelectionne = "poison";
+					}
+					
+				} else if(x>=xDebut+tailleBouton+espaceBoutons){
+					if(y<=yDebut+tailleBouton) {
+						couleurCouronne = 128;
+						boutonSelectionne = "couronne";
+					} else if(y>=yDebut+tailleBouton+espaceBoutons) {
+						couleurViande = 128;
+						boutonSelectionne = "viande";
+					}
+				}
+			}
+		}
 	}
 	
-	private static boolean goodGuess(int key, ProduitsRanges produit) {
-		switch(key) {
-			case PApplet.LEFT:
-				return produit.getType()==0;
-			case PApplet.UP:
-				return produit.getType()==1;
-			case PApplet.RIGHT:
-				return produit.getType()==2;
-			default:
-				return false;
+	@Override
+	public void mouseReleased(int x, int y, int button) {
+		if(!memorise && button == PApplet.LEFT) {
+			couleurCharbon = 255;
+			couleurCouronne = 255;
+			couleurPoison = 255;
+			couleurViande = 255;
+			
+			String boutonRelache = "";
+			
+			if(x>=xDebut && y>=yDebut && x<=xDebut+2*tailleBouton+espaceBoutons 
+					&& y<=yDebut+2*tailleBouton+espaceBoutons ) {
+				if(x<=xDebut+tailleBouton) {
+					if(y<=yDebut+tailleBouton) {
+						boutonRelache = "charbon";
+					} else if(y>=yDebut+tailleBouton+espaceBoutons) {
+						boutonRelache = "poison";
+					}
+					
+				} else if(x>=xDebut+tailleBouton+espaceBoutons){
+					if(y<=yDebut+tailleBouton) {
+						boutonRelache = "couronne";
+					} else if(y>=yDebut+tailleBouton+espaceBoutons) {
+						boutonRelache = "viande";
+					}
+				}
+			}
+			
+			if(boutonRelache.equals(boutonSelectionne)) {
+				verifieClick(boutonSelectionne);
+			}
+		}
+	}
+	
+	/*
+	 * vérifie si le click est correct
+	 * */
+	private void verifieClick(String boutonClicke) {
+		if(boutonClicke.equals(memoire[indiceCourant])) {	// click correct
+			if(indiceCourant<indiceMax-1) {		// il reste des indices à parcourir
+				indiceCourant++;
+			} else {			// tous les boutons ont été trouvés dans le bon ordre
+				reussi = true;
+				continuEvoluer = false;
+			}
+		} else { 	// click incorrect
+			reussi = false;
+			continuEvoluer = false;
+		}
+	}
+	
+	
+	private void creerMemoire() {
+		memoire = new String[indiceMax];
+		for(int i=0;i<indiceMax;i++) {
+			memoire[i] = Utils.random(new String[]{"charbon", "couronne","poison","viande"});
 		}
 	}
 

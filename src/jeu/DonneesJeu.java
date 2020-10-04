@@ -53,7 +53,7 @@ public class DonneesJeu {
 	//private PVector debugPos;
 
 	public DonneesJeu() {
-		int viewW = 640, viewH = 480;
+		int viewW = 640, viewH = 400;
 		tempsDernierProduitCree = 0;
 
 		joueur = new Joueur(0, 0);
@@ -202,26 +202,23 @@ public class DonneesJeu {
 				p.image(background, i * background.width, j * background.height);
 			}
 		}
-
-		for (Tapis t : listeTapisEstDevant.get(false)) {
-			t.afficher(p);
-		}
-		for (Sortie s : listeSorties) {
-			s.afficher(p);
-		}
-
-		for (Produit prod : listeProduits) {
-			prod.afficher(p);
-		}
-
-		for (Tapis t : listeTapisEstDevant.get(true)) {
-			t.afficher(p);
-		}
 		
-		// On les réaffiche c'est pas beau mais bon ntm un peu quoi
-		for (Tapis t : listeSelecteurs) {
+		//On affiche les differentes entites dans le bon ordre : du plus derriere au plus devant
+		for (Tapis t : listeTapisEstDevant.get(false))
 			t.afficher(p);
-		}
+		for (Sortie s : listeSorties) 
+			s.afficher(p);
+
+		for (Produit prod : listeProduits) 
+			prod.afficher(p);
+
+		for (Tapis t : listeTapisEstDevant.get(true))
+			t.afficher(p);
+		
+		// Pour que les selecteurs soient au dessus des produits (on peut pas les changer de layer a cause de la collision)
+		// On les réaffiche c'est pas beau mais bon ntm un peu quoi
+		for (Tapis t : listeSelecteurs) 
+			t.afficher(p);
 		
 		if (afficherOverlay) {
 			for (Machine m : listeMachines) {
@@ -229,24 +226,25 @@ public class DonneesJeu {
 			}
 		}
 		
-
-		for (Machine machine : listeMachines) {
-			machine.afficher(p);
-		}
+		// On separe les machine en dessous du perso et au dessus du perso
+		Map<Boolean, List<Machine>> listeMachineEstDevant = listeMachines.stream()
+				.collect(Collectors.partitioningBy(m -> m.getY() > joueur.getY()));
 		
+		for (Machine machine : listeMachineEstDevant.get(false))
+			machine.afficher(p);
 
 		joueur.afficher(p);
 		
-		/*if (debugPos != null)
-		{
-			p.fill(255, 0, 0);
-			p.ellipse(debugPos.x,  debugPos.y, 10, 10);
-		}*/
+		for (Machine machine : listeMachineEstDevant.get(true))
+			machine.afficher(p);
 
 		p.popMatrix();
 
 		if (estEnMiniJeu())
 			miniJeuCourant.afficher(p);
+		else {
+			afficherObjectif(p);
+		}
 		
 		if (failedMinijeu) {
 			p.fill(255, 0, 0, Math.min((float) (System.currentTimeMillis() - this.failedMinijeut0) / 100 * 128, 128));
@@ -260,6 +258,46 @@ public class DonneesJeu {
 		playSound = 0;
 	}
 
+	private void afficherObjectif(PApplet p) {
+		int h = 80;
+		p.fill(190);
+		p.stroke(20);
+		p.rect(0, p.height - h, p.width, h);
+		
+		p.noStroke();
+		p.fill(20);
+		p.textSize(14);
+		p.textAlign(PApplet.CORNER, PApplet.CORNER);
+		p.text("Objectifs", 5, p.height - h + 15);
+		
+		int i = 0, wCase = 30, hCase = 25;
+		for (Map.Entry<TypeProduit, Integer> reussi : objectifs.getProduitsReussis().entrySet())
+		{
+			for (int j = 0; j < reussi.getValue(); j++) {
+				int xCase = 5 + i * wCase, yCase = p.height - h + 25;
+				p.image(Produit.getImage(reussi.getKey()), xCase + 3, yCase + 3, wCase - 6, hCase - 6);
+				
+				p.fill(50, 255, 100, 120);
+				p.stroke(0, 150, 0);
+				p.rect(xCase + 1, yCase, wCase - 2, hCase);
+				i++;
+			}
+		}
+		
+		for (Map.Entry<TypeProduit, Integer> reussi : objectifs.getProduitsManquants().entrySet())
+		{
+			for (int j = 0; j < reussi.getValue(); j++) {
+				int xCase = 5 + i * wCase, yCase = p.height - h + 25;
+				p.image(Produit.getImage(reussi.getKey()), xCase + 3, yCase + 3, wCase - 6, hCase - 6);
+				
+				p.fill(255, 100, 50, 120);
+				p.stroke(150, 0, 0);
+				p.rect(xCase + 1, yCase, wCase - 2, hCase);
+				i++;
+			}
+		}
+	}
+	
 	public void ajouterProduit(Produit produit) {
 		if (checkCollision(produit) == null)
 			listeProduits.add(produit);
@@ -367,6 +405,10 @@ public class DonneesJeu {
 	{
 		scroll.setTotalW(w);
 		scroll.setTotalH(h);
+	}
+	
+	public boolean getAffichageOverlay() {
+		return afficherOverlay;
 	}
 
 }

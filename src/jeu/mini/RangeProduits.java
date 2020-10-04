@@ -11,7 +11,7 @@ import processing.core.PApplet;
 import processing.core.PImage;
 
 public class RangeProduits extends MiniJeu {
-	static int nbFoisMinijeu = 0;
+	static int nbFoisMinijeu;
 	static final int WIDTH_TAPIS_ROULANT = 200;
 	static final int HEIGHT_TAPIS_ROULANT = 320;
 	private List<ProduitsRanges> produits;

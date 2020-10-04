@@ -20,8 +20,8 @@ public class Jeu extends Scene {
 	public Jeu(int numeroNiveau) {
 		// créé le niveau courant
 		jeu = new DonneesJeu();
-		
-		clock = new Horloge(80);
+
+		clock = new Horloge(60);
 		
 		controleur = new ControleurClavier(jeu.getJoueur());
 		niveau = new ControleurNiveau(jeu);
@@ -53,7 +53,7 @@ public class Jeu extends Scene {
 		
 		jeu.evoluer((long) (clock.getSeconds() * 1000));
 		
-		if (clock.journeeFinie())
+		if (clock.journeeFinie() || jeu.estGagne())
 		{
 			SceneHandler.setRunning(new EcranFinNiveau(jeu.estGagne(), numeroNiveau + (jeu.estGagne() ? 1 : 0)));
 		}
@@ -68,7 +68,7 @@ public class Jeu extends Scene {
 			SceneHandler.setRunning(pause);
 		}
 		else if (p.keyCode == Config.readKey(ConfigKey.TOUCHE_OVERLAY))
-			jeu.setAffichageOverlay(true);
+			jeu.setAffichageOverlay(!jeu.getAffichageOverlay());
 		
 		if (jeu.estEnMiniJeu())
 			jeu.getMiniJeu().keyPressed(p.keyCode);
@@ -77,9 +77,6 @@ public class Jeu extends Scene {
 	@Override
 	public void keyReleased() {
 		controleur.keyReleased(p.keyCode);
-
-		if (p.keyCode == Config.readKey(ConfigKey.TOUCHE_OVERLAY))
-			jeu.setAffichageOverlay(false);
 		
 		if (jeu.estEnMiniJeu())
 			jeu.getMiniJeu().keyReleased(p.keyCode);
