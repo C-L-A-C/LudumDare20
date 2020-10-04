@@ -1,5 +1,7 @@
 package jeu.machine;
 
+import java.util.List;
+
 import graphiques.AffichageImage;
 import graphiques.Animation;
 import graphiques.Assets;
@@ -25,12 +27,11 @@ public class Toleuse extends Machine {
 	}
 	
 	
-	@Override
-	protected Recette creerRecette() {
+	protected void remplirRecettes(List<Recette> recettes) {
 		Recette r = new Recette(2, 10, TypeMiniJeu.RANGE_PRODUITS);
 		r.ajouterIngredient(TypeProduit.METAL);
 		r.ajouterProduit(TypeProduit.TOLE);
-		return r;
+		recettes.add(r);
 	}
 
 }

@@ -23,12 +23,12 @@ public abstract class Machine extends Entite {
 	/**
 	 * Produits dans la machine, avec leur nombre
 	 */
-	Map<TypeProduit, Integer> produits;
+	private Map<TypeProduit, Integer> produits;
 
 	/**
-	 * Recette acceptee par cette machine
+	 * Recettes acceptees par cette machine
 	 */
-	Recette recette;
+	private List<Recette> listeRecettes;
 
 	private List<TypeProduit> sortieMachine;
 
@@ -38,10 +38,15 @@ public abstract class Machine extends Entite {
 
 	private TypeDirectionTapis direction;
 
+	private Recette recetteCourante;
+
 	protected Machine(float x, float y, Apparence a, TypeDirectionTapis direction) {
 		super(x, y, a);
 
-		recette = creerRecette();
+		listeRecettes = new ArrayList<>();
+		recetteCourante = null;
+		remplirRecettes(listeRecettes);
+		
 		// TODO: faire ça propre
 		int w = Tapis.W, h = Tapis.H, wZone = (int) (Tapis.W * 1.5), hZone = (int) (Tapis.H * 1.5);
 		forme = new Rectangle(pos, w, h);
@@ -67,7 +72,7 @@ public abstract class Machine extends Entite {
 		produits = new HashMap<>();
 	}
 
-	protected abstract Recette creerRecette();
+	protected abstract void remplirRecettes(List<Recette> listeRecettes);
 
 	@Override
 	public void evoluer(long t, DonneesJeu j) {
@@ -91,15 +96,23 @@ public abstract class Machine extends Entite {
 
 	public boolean prendreIngredient(DonneesJeu j) {
 		// Si non est plein && si non en processing
-		if (machineActivee || estPrete() || !sortieMachine.isEmpty()) {
-			SceneHandler.playSound("assets/sounds/negative_beep.mp3", (float)0.3, 1);
+		if (machineActivee || estPrete() || !sortieMachine.isEmpty()) 
 			return false;
-		}
-
+		
+		
 		Produit p = j.prendreProduitZone(zoneIngredients, getProduitsManquants().keySet());
-		if (p == null) {
-			SceneHandler.playSound("assets/sounds/negative_beep.mp3", (float)0.3, 1);
+		if (p == null) 
 			return false;
+		
+		else {
+			for (Recette r : listeRecettes)
+			{
+				if (r.getIngredientsNecessaires().stream().filter(e -> p.getType() == e.getKey()).count() != 0)
+				{
+					recetteCourante = r;
+					break;
+				}
+			}
 		}
 
 		int qt = produits.getOrDefault(p.getType(), 0);
@@ -122,11 +135,21 @@ public abstract class Machine extends Entite {
 
 	private Map<TypeProduit, Integer> getProduitsManquants() {
 		Map<TypeProduit, Integer> produitsManquants = new HashMap<>();
-		for (Entry<TypeProduit, Integer> ingredient : recette.getIngredientsNecessaires()) {
-			int qtDansLaMachine = produits.getOrDefault(ingredient.getKey(), 0);
-			int qtManquante = ingredient.getValue() - qtDansLaMachine;
-			if (qtManquante > 0)
-				produitsManquants.put(ingredient.getKey(), qtManquante);
+		List<Recette> recettesPossibles = new ArrayList<>();
+		
+		if (recetteCourante != null)
+			recettesPossibles.add(recetteCourante);
+		else
+			recettesPossibles = listeRecettes;
+		
+		for (Recette r : recettesPossibles)
+		{
+			for (Entry<TypeProduit, Integer> ingredient : r.getIngredientsNecessaires()) {
+				int qtDansLaMachine = produits.getOrDefault(ingredient.getKey(), 0);
+				int qtManquante = ingredient.getValue() - qtDansLaMachine;
+				if (qtManquante > 0)
+					produitsManquants.put(ingredient.getKey(), qtManquante);
+			}
 		}
 		return produitsManquants;
 	}
@@ -135,9 +158,8 @@ public abstract class Machine extends Entite {
 		if (machineActivee || !estPrete())
 			return false;
 
-		produits.clear();
 		// TODO: activation mini-jeu
-		j.setMiniJeu(this, recette.getTypeMiniJeu());
+		j.setMiniJeu(this, recetteCourante.getTypeMiniJeu());
 
 		return true;
 	}
@@ -151,14 +173,21 @@ public abstract class Machine extends Entite {
 
 		Set<Entry<TypeProduit, Integer>> production;
 		if (succes)
-			production = recette.getProduits();
+			production = recetteCourante.getProduits();
 		else
-			production = recette.getDechets();
+			production = recetteCourante.getDechets();
 
 		for (Entry<TypeProduit, Integer> t : production) {
 			for (int i = 0; i < t.getValue(); i++)
 				sortieMachine.add(t.getKey());
 		}
+		recetteCourante = null;
+		produits.clear();
+	}
+
+	private Recette getRecetteCourante() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override

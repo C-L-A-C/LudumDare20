@@ -70,8 +70,12 @@ public class Joueur extends EntiteMobile implements Controlable {
 		case CHARGER_MACHINE:
 			if(activeOnce) {
 				m = jeu.getNearestMachine(this);
-				if (m != null)
-					m.prendreIngredient(jeu);
+				if (m != null) {
+					if (!m.prendreIngredient(jeu))
+						SceneHandler.playSound("assets/sounds/negative_beep.mp3", (float)0.3, 1);
+					else
+						SceneHandler.playSound("assets/sounds/charger.wav", (float)0.6, 1);
+				}
 			}
 			activeOnce = false;
 			break;
