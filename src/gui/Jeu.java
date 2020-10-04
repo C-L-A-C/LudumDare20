@@ -63,6 +63,8 @@ public class Jeu extends Scene {
 			this.clock.stopClock();
 			SceneHandler.setRunning(pause);
 		}
+		else if (p.keyCode == Config.readKey(ConfigKey.TOUCHE_OVERLAY))
+			jeu.setAffichageOverlay(true);
 		
 		if (jeu.estEnMiniJeu())
 			jeu.getMiniJeu().keyPressed(p.keyCode);
@@ -71,6 +73,9 @@ public class Jeu extends Scene {
 	@Override
 	public void keyReleased() {
 		controleur.keyReleased(p.keyCode);
+
+		if (p.keyCode == Config.readKey(ConfigKey.TOUCHE_OVERLAY))
+			jeu.setAffichageOverlay(false);
 		
 		if (jeu.estEnMiniJeu())
 			jeu.getMiniJeu().keyReleased(p.keyCode);

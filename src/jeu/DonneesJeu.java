@@ -47,6 +47,8 @@ public class DonneesJeu {
 
 	private Objectif objectifs;
 	private MiniJeu miniJeuCourant;
+	
+	private boolean afficherOverlay;
 
 	//private PVector debugPos;
 
@@ -66,9 +68,8 @@ public class DonneesJeu {
 		listeMachines = new ArrayList<>();
 		objectifs = new Objectif();
 			
-		
 		miniJeuCourant = null;
-		
+		afficherOverlay = false;
 
 	}
 	public void ajouterObjectif(TypeProduit type, int nb)
@@ -213,10 +214,16 @@ public class DonneesJeu {
 		for (Tapis t : listeTapisEstDevant.get(true)) {
 			t.afficher(p);
 		}
-
+		
 		// On les réaffiche c'est pas beau mais bon ntm un peu quoi
 		for (Tapis t : listeSelecteurs) {
 			t.afficher(p);
+		}
+		
+		if (afficherOverlay) {
+			for (Machine m : listeMachines) {
+				m.afficherOverlay(p);
+			}
 		}
 		
 
@@ -261,6 +268,11 @@ public class DonneesJeu {
 
 	public void addTapis(Tapis tapis) {
 		this.listeTapis.add(tapis);
+	}
+	
+	public void setAffichageOverlay(boolean status)
+	{
+		afficherOverlay = status;
 	}
 
 	public void addSelecteurFin(int x, int y, TypeDirectionTapis direction, TypeDirectionTapis directionFiltree) {
