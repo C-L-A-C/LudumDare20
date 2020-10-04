@@ -19,9 +19,10 @@ public class ProduitsRanges {
 	private boolean dirty;
 	private boolean paf;
 	private PImage img;
+	private long prevTime;
 	
 	
-	ProduitsRanges() {
+	ProduitsRanges(int factorSpeed) {
 		this.width = 32;
 		this.height = 32;
 		this.type = Utils.random(0, 3);
@@ -39,14 +40,16 @@ public class ProduitsRanges {
 				break;
 		}
 		this.dirty = false;
-		this.speedy = DEFAULT_SPEED_Y;
-		this.speedx = DEFAULT_SPEED_X;
+		this.speedy = DEFAULT_SPEED_Y*factorSpeed;
+		this.speedx = DEFAULT_SPEED_X*factorSpeed;
 		this.paf = false;
+		this.prevTime = System.currentTimeMillis();
 	}
 	
 	public boolean evoluer() {
-		this.y += this.speedy;
-		this.x += this.speedx;
+		this.y += this.speedy*(System.currentTimeMillis() - this.prevTime)/18;
+		this.x += this.speedx*(System.currentTimeMillis() - this.prevTime)/18;
+		this.prevTime = System.currentTimeMillis();
 		if(this.paf)
 			return (x>0 && x<WIDTH_WINDOW && y>0);
 		
