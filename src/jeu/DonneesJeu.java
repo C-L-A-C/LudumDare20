@@ -94,16 +94,29 @@ public class DonneesJeu {
 		joueur.evoluer(t, this);
 		// changement des vitesses des produits
 		for (Produit p : listeProduits) {
-			p.testTapis(this);
+			p.adhererTapis(this);
 			p.evoluer(t, this);
 		}
+		
+		for (Machine m : listeMachines)
+			m.evoluer(t, this);
 
-		if (estEnMiniJeu()) {
-			if (!miniJeuCourant.evoluer()) {
-				if (!miniJeuCourant.estReussi() && !failedMinijeu) {
+		if (estEnMiniJeu()) {	
+			
+			if (!miniJeuCourant.evoluer() && !failedMinijeu) {
+				if(!miniJeuCourant.estReussi()) {
 					failedMinijeut0 = System.currentTimeMillis();
 					failedMinijeu = true;
+				} else {
+					miniJeuCourant.getMachine().finirActivation(miniJeuCourant.estReussi());
+					miniJeuCourant = null;
 				}
+			} 
+			
+			if(failedMinijeu && this.failedMinijeut0 + 1000 < System.currentTimeMillis()) {
+				failedMinijeu = false;
+				miniJeuCourant.getMachine().finirActivation(miniJeuCourant.estReussi());
+				miniJeuCourant = null;
 			}
 		}
 
@@ -118,7 +131,6 @@ public class DonneesJeu {
 			tempsDernierProduitCree = t;
 		}
 	}
-	
 
 	public void afficher(PApplet p) {
 		scroll.update(joueur);
@@ -126,9 +138,10 @@ public class DonneesJeu {
 
 		p.pushMatrix();
 		p.translate(-(int) scroll.getX(), -(int) scroll.getY());
-		
+
 		// On separe les tapis devant les produits de derriere les produits
-		Map<Boolean, List<Tapis>> listeTapisEstDevant = listeTapis.stream().collect(Collectors.partitioningBy(t -> t.getLayer() != 0));	
+		Map<Boolean, List<Tapis>> listeTapisEstDevant = listeTapis.stream()
+				.collect(Collectors.partitioningBy(t -> t.getLayer() != 0));
 
 		for (int i = 0; i <= scroll.getTotalW() / tileset.getTileW(); i++) {
 			for (int j = 0; j <= scroll.getTotalH() / tileset.getTileH(); j++) {
@@ -136,8 +149,7 @@ public class DonneesJeu {
 			}
 		}
 
-
-		//for (Tapis t : listeTapis) {
+		// for (Tapis t : listeTapis) {
 		for (Tapis t : listeTapisEstDevant.get(false)) {
 			t.afficher(p);
 		}
@@ -145,7 +157,7 @@ public class DonneesJeu {
 		for (Produit prod : listeProduits) {
 			prod.afficher(p);
 		}
-		
+
 		for (Tapis t : listeTapisEstDevant.get(true)) {
 			t.afficher(p);
 		}
@@ -162,15 +174,8 @@ public class DonneesJeu {
 			miniJeuCourant.afficher(p);
 
 		if (failedMinijeu) {
-			if (this.failedMinijeut0 + 1000 < System.currentTimeMillis()) {
-				failedMinijeu = false;
-				miniJeuCourant.getMachine().finirActivation(miniJeuCourant.estReussi());
-				miniJeuCourant = null;
-			} else {
-				p.fill(255, 0, 0,
-						Math.min((float) (System.currentTimeMillis() - this.failedMinijeut0) / 100 * 128, 128));
-				p.rect(0, 0, p.width, p.height);
-			}
+			p.fill(255, 0, 0, Math.min((float) (System.currentTimeMillis() - this.failedMinijeut0) / 100 * 128, 128));
+			p.rect(0, 0, p.width, p.height);
 		}
 	}
 
@@ -208,8 +213,7 @@ public class DonneesJeu {
 	public Produit prendreProduitZone(Rectangle zone, Set<TypeProduit> types) {
 		for (Produit p : listeProduits) {
 
-			if (types.contains(p.getType()) && p.collision(zone))
-			{
+			if (types.contains(p.getType()) && p.collision(zone)) {
 				listeProduits.remove(p);
 				return p;
 			}
@@ -242,8 +246,7 @@ public class DonneesJeu {
 	public Tapis getTapisInDirection(int x, int y, TypeDirectionTapis direction) {
 		Point p = new Point(x, y);
 		PVector depl = new PVector();
-		switch(direction)
-		{
+		switch (direction) {
 		case HAUT:
 			depl.set(0, 1);
 			break;
@@ -259,7 +262,7 @@ public class DonneesJeu {
 		}
 		depl.mult(Tapis.W);
 		Forme collider = p.getTranslation(depl);
-		return listeTapis.stream().filter(t -> t.collision(collider)).findAny().orElse(null);
+		return listeTapis.stream().filter(t -> t.collision(collider)).findAny().orElse(listeTapis.get(0));
 	}
 
 }

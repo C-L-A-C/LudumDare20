@@ -42,7 +42,7 @@ public abstract class Machine extends Entite {
 
 		recette = creerRecette();
 		// TODO: faire ça propre
-		int w = Tapis.W, h = Tapis.H, wZone = Tapis.W * 3, hZone = Tapis.H * 3;
+		int w = Tapis.W, h = Tapis.H, wZone = (int) (Tapis.W * 1.5), hZone = (int) (Tapis.H * 1.5);
 		forme = new Rectangle(pos, w, h);
 
 		this.direction = direction;
@@ -71,12 +71,11 @@ public abstract class Machine extends Entite {
 	@Override
 	public void evoluer(long t, DonneesJeu j) {
 		// Si on doit output qqchose on le fait
-		// TODO: get output Tapis
-		Tapis tapis = j.getTapisInDirection((int) getX(), (int) getY(), direction);
 		if (!sortieMachine.isEmpty()) {
+			Tapis tapis = j.getTapisInDirection((int) (getX() + getForme().getW() / 2), (int) (getY() + getForme().getH() / 2), direction);
 			TypeProduit type = sortieMachine.remove(0);
 			// TODO : check collision
-			j.ajouterProduit(new Produit(tapis.getX(), tapis.getY(), type));
+			j.ajouterProduit(new Produit(tapis.getX() + Tapis.W / 2 - 10, tapis.getY() + Tapis.H / 2 - 10, type));
 		}
 	}
 	
@@ -127,6 +126,7 @@ public abstract class Machine extends Entite {
 		if (machineActivee || !estPrete())
 			return false;
 
+		produits.clear();
 		// TODO: activation mini-jeu
 		j.setMiniJeu(this, recette.getTypeMiniJeu());
 
@@ -140,15 +140,15 @@ public abstract class Machine extends Entite {
 	 */
 	public void finirActivation(boolean succes) {
 
-		Set<Entry<TypeProduit, Integer>> produits;
+		Set<Entry<TypeProduit, Integer>> production;
 		if (succes)
-			produits = recette.getProduits();
+			production = recette.getProduits();
 		else
-			produits = recette.getDechets();
+			production = recette.getDechets();
 
-		for (Entry<TypeProduit, Integer> t : produits) {
+		for (Entry<TypeProduit, Integer> t : production) {
 			for (int i = 0; i < t.getValue(); i++)
-				sortieMachine.add(TypeProduit.DECHET);
+				sortieMachine.add(t.getKey());
 		}
 	}
 

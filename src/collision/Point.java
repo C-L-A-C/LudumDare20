@@ -44,7 +44,7 @@ public class Point extends Forme {
 
 	@Override
 	public Forme getTranslation(PVector dir) {
-		return new Point(getCenter());
+		return new Point(PVector.add(dir, getCenter()));
 	}
 
 	@Override

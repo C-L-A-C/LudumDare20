@@ -36,7 +36,7 @@ public class Produit extends EntiteMobile {
 		return type;
 	}
 
-	public void testTapis(DonneesJeu donnees) {
+	public void adhererTapis(DonneesJeu donnees) {
 
 		boolean shouldStop = true;
 
