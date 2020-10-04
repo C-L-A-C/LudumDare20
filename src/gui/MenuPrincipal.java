@@ -28,7 +28,7 @@ public class MenuPrincipal extends Scene {
 	@Override
 	public void mousePressed() {
 		if (buttonCampaign.contient(p.mouseX, p.mouseY)) {
-			SceneHandler.setRunning(new Jeu(1));
+			SceneHandler.setRunning(new Jeu(2));
 		}
 		if (buttonCredits.contient(p.mouseX, p.mouseY)) {
 			//TODO
