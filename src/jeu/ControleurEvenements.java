@@ -51,7 +51,7 @@ public class ControleurEvenements {
 				// définit les vitesses initiales
 				if(x>=0 && x<tileW && y>=0 && y<tileH) {
 					x += 0.25f*tailleCasePixels;
-					y += 0.25f*tailleCasePixels;
+					y -= 0.25f*tailleCasePixels;
 					vitesse.x = 0;
 					vitesse.y = 0;
 				}

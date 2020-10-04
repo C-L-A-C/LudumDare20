@@ -18,7 +18,7 @@ public class Toleuse extends Machine {
 
 	@Override
 	protected Recette creerRecette() {
-		Recette r = new Recette(2, 10, TypeMiniJeu.VISSE_VIS);
+		Recette r = new Recette(2, 10, TypeMiniJeu.BOUTONS_MEMOIRE);
 		r.ajouterIngredient(TypeProduit.METAL);
 		r.ajouterProduit(TypeProduit.TOLE);
 		return r;
