@@ -101,6 +101,12 @@ public class DonneesJeu {
 			}
 		}
 		
+		for (Produit m : listeProduits) {
+			if (e != m && e.collision(m)) {
+				return m;
+			}
+		}
+		
 		for (Sortie s : listeSorties) {
 			if (e != s && e.collision(s)) {
 				return s;
@@ -239,7 +245,8 @@ public class DonneesJeu {
 	}
 
 	public void ajouterProduit(Produit produit) {
-		listeProduits.add(produit);
+		if (checkCollision(produit) == null)
+			listeProduits.add(produit);
 	}
 
 	public Joueur getJoueur() {

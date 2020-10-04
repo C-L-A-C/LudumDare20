@@ -74,9 +74,13 @@ public abstract class Machine extends Entite {
 		// Si on doit output qqchose on le fait
 		if (!sortieMachine.isEmpty()) {
 			Tapis tapis = j.getTapisInDirection((int) (getX() + getForme().getW() / 2), (int) (getY() + getForme().getH() / 2), direction);
-			TypeProduit type = sortieMachine.remove(0);
-			// TODO : check collision
-			j.ajouterProduit(new Produit(tapis.getX() + Tapis.W / 2 - 10, tapis.getY() + Tapis.H / 2 - 10, type));
+			TypeProduit type = sortieMachine.get(0);
+			Produit p = new Produit(tapis.getX() + Tapis.W / 2 - 10, tapis.getY() + Tapis.H / 2 - 10, type);
+			
+			if (j.checkCollision(p) == null) {
+				j.ajouterProduit(p);
+				sortieMachine.remove(0);
+			}
 		}
 	}
 	
