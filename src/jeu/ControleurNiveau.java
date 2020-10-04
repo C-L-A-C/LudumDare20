@@ -106,8 +106,9 @@ public class ControleurNiveau {
 
 						String[] entites = ligne.replaceAll("[ \t]+", " ").split(" ", largeur);
 						for (int i = 0; i < largeur; i++) {
-							System.out.println(entites[i]);
+							System.out.println(j + ";" + i);
 							String chaineLue = entites[i];
+							System.out.println(chaineLue);
 							analyseEntite(chaineLue, i, j);
 						}
 					}
