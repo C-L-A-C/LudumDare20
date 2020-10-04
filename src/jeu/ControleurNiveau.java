@@ -207,6 +207,9 @@ public class ControleurNiveau {
 		case "t":
 			donneesJeu.addTapis(new Tapis(x, y, direction));
 			break;
+		case "T":
+			donneesJeu.addTapis(new TapisRapide(x, y, direction));
+			break;
 		case "Tol":
 			donneesJeu.addMachine(new Toleuse(x, y));
 		default:

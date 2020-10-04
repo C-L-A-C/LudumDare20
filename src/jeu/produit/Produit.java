@@ -38,7 +38,6 @@ public class Produit extends EntiteMobile {
 	public void testTapis(DonneesJeu donnees) {
 
 		boolean shouldStop = true;
-		float vitesseMag = 40;
 
 		// teste si le produit est sur un tapis, et sette sa vitesse si oui
 		for (Tapis t : donnees.getListeTapis()) {
@@ -64,6 +63,7 @@ public class Produit extends EntiteMobile {
 				// t.getDirection());
 				// System.out.println("Position : " + pos + ", tapis : " + t.getPos());
 				lastDirection = t.getDirection();
+				float vitesseMag = t.getVitesse();
 				switch (t.getDirection()) {
 				case HAUT:
 					vitesse.y = -vitesseMag;

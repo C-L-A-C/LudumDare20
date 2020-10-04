@@ -61,7 +61,7 @@ public class DonneesJeu {
 
 		int width = largeurNiveauPixels, height = hauteurNiveauPixels;
 		Rectangle rectMonde = new Rectangle(eW, eH, width - 2 * eW + 1, height - 2 * eH + 1);
-		if (e != joueur && !e.collision(rectMonde))
+		if (e == joueur && !e.collision(rectMonde))
 			return new Mur(0, 0, 0, 0);
 
 		if (e != joueur && e.collision(joueur))
