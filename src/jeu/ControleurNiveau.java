@@ -5,7 +5,12 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 import collision.Point;
+import jeu.machine.Bruleur;
+import jeu.machine.Cuiseur;
+import jeu.machine.Fonderie;
+import jeu.machine.Scie;
 import jeu.machine.Toleuse;
+import jeu.machine.Tondeuse;
 import jeu.produit.TypeProduit;
 import jeu.tapis.PontTapis;
 import jeu.tapis.Selecteur;
@@ -67,6 +72,8 @@ public class ControleurNiveau {
 
 						largeur = Integer.parseInt(taille[1]);
 						hauteur = Integer.parseInt(taille[2]);
+						eCtrl.setTaille(largeur,hauteur);
+						
 						donneesJeu.setMapDimensions(largeur * tailleCasePixels, hauteur * tailleCasePixels);
 
 						analyseSpawn = true;
@@ -109,8 +116,9 @@ public class ControleurNiveau {
 
 						String[] entites = ligne.replaceAll("[ \t]+", " ").split(" ", largeur);
 						for (int i = 0; i < largeur; i++) {
-							System.out.println(entites[i]);
+							System.out.println(j + ";" + i);
 							String chaineLue = entites[i];
+							System.out.println(chaineLue);
 							analyseEntite(chaineLue, i, j);
 						}
 					}
@@ -241,6 +249,21 @@ public class ControleurNiveau {
 			break;
 		case "Tol":
 			donneesJeu.addMachine(new Toleuse(x, y, direction));
+			break;
+		case "Bru":
+			donneesJeu.addMachine(new Bruleur(x, y, direction));
+			break;
+		case "Sci":
+			donneesJeu.addMachine(new Scie(x, y, direction));
+			break;
+		case "Cui":
+			donneesJeu.addMachine(new Cuiseur(x, y, direction));
+			break;
+		case "Ton":
+			donneesJeu.addMachine(new Tondeuse(x, y, direction));
+			break;
+		case "Fon":
+			donneesJeu.addMachine(new Fonderie(x, y, direction));
 			break;
 		case "s":
 			donneesJeu.addSortie(new Sortie(x, y));

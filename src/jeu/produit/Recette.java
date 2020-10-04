@@ -61,6 +61,11 @@ public class Recette {
 		ajouterProduit(produit, 1);
 	}
 	
+	public int getNbIngredients()
+	{
+		return ingredients.values().stream().reduce(0, (i1, i2) -> i1 + i2);
+	}
+	
 	public Set<Entry<TypeProduit, Integer>> getIngredientsNecessaires()
 	{
 		return ingredients.entrySet();

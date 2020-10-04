@@ -25,7 +25,7 @@ public class Produit extends EntiteMobile {
 		lastDirection = null;
 	}
 
-	private static PImage getImage(TypeProduit type) {
+	public static PImage getImage(TypeProduit type) {
 		String name = type.getSpriteName();
 		if (name == null)
 			name = "default";

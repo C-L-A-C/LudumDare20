@@ -10,63 +10,58 @@ import jeu.machine.Machine;
 import processing.core.PApplet;
 import processing.core.PImage;
 
-public class RangeProduits extends MiniJeu {
+public class BoutonsMemoire extends MiniJeu {
 	static int nbFoisMinijeu = 0;
 	static final int WIDTH_TAPIS_ROULANT = 200;
 	static final int HEIGHT_TAPIS_ROULANT = 320;
-	private List<ProduitsRanges> produits;
-	private List<ProduitsRanges> pPafs; // Produits lancés (paf) dans le bon contenant (en cours d'animation)
 	private boolean reussi;
-	private long timeNextProduit;
-	private int nbEl;
-	private PImage sheep, rail, sword;
+	private int nbClicks;
+	private int[] memoire;
+	private PImage charbon, couronne, poison, viande;
 	
-	public RangeProduits(Machine machine) {
+	public BoutonsMemoire(Machine machine) {
 		super(machine);
-		ProduitsRanges.resetDefaultSpeed();
-		produits = new LinkedList<ProduitsRanges> ();
-		pPafs = new LinkedList<ProduitsRanges> ();
-		this.timeNextProduit = System.currentTimeMillis();
+		// System.currentTimeMillis();
 		this.reussi = true;
-		this.nbEl = 10 + (int)(Math.random()*(20 - 10));
+		//this.nbEl = 10 + (int)(Math.random()*(20 - 10));
 		
-		sheep = Assets.getImage("mouton");
-		rail = Assets.getImage("rail");
-		sword = Assets.getImage("sword");
-		//nbFoisMinijeu++;
+		charbon = Assets.getImage("charbon");
+		couronne = Assets.getImage("Couronne");
+		poison = Assets.getImage("poison");
+		viande = Assets.getImage("viande");
 	}
 	
 	@Override
 	public void afficher(PApplet p) {
+		// taille du mini jeu
 		p.clip(50, 50, p.width-100, p.height-100);
 		p.fill(128);
 		p.rect(50, 50, p.width-100, p.height-100, 10);
+		p.fill(255, 0, 0);
+		p.rect(300, 200, 50, 50);
 		p.fill(20, 20, 40);
 		p.rect((p.width-WIDTH_TAPIS_ROULANT)/2, p.height-HEIGHT_TAPIS_ROULANT, WIDTH_TAPIS_ROULANT, HEIGHT_TAPIS_ROULANT);
 		p.fill(10);
 		p.rect((p.width-WIDTH_TAPIS_ROULANT)/2, p.height-HEIGHT_TAPIS_ROULANT-40, WIDTH_TAPIS_ROULANT, 40, 10, 10, 0, 0);
 		
+		/*
 		p.arc(50, p.height/2, 100, 100, -p.PI/2, p.PI/2, p.OPEN);
 		p.arc(p.width/2, 50, 100, 100, 0, p.PI, p.OPEN);
 		p.arc(p.width-50, p.height/2, 100, 100, p.PI/2, 3*p.PI/2, p.OPEN);
 		p.image(sheep, 50, p.height/2-15);
 		p.image(rail, p.width/2-15, 50);
-		p.image(sword, p.width-50-30, p.height/2-15);
-//		p.fill(255, 0, 0);
-//		p.rect(50, p.height/2-15, 30, 30);
-//		p.fill(0, 255, 0);
-//		p.rect(p.width/2-15, 50, 30, 30);
-//		p.fill(0, 0, 255);
-//		p.rect(p.width-50-30, p.height/2-15, 30, 30);
+		p.image(sword, p.width-50-30, p.height/2-15);*/
 		
+		/*
 		for(ProduitsRanges produit : produits)
 			produit.afficher(p);
 		for(ProduitsRanges paf : pPafs)
-			paf.afficher(p);
+			paf.afficher(p);*/
 	}
 	
 	@Override
 	public boolean evoluer() {
+		/*
 		if(nbEl!=0 && this.timeNextProduit <= System.currentTimeMillis()) {
 			this.timeNextProduit = System.currentTimeMillis() + (long)(300 + Math.random()*(700 - 300));
 			this.produits.add(new ProduitsRanges(Math.min(1.6f,((float) nbFoisMinijeu)/7.0f+1.0f)));
@@ -92,13 +87,13 @@ public class RangeProduits extends MiniJeu {
 		
 		if (reussi && !(this.produits.size()!=0 || nbEl!=0)) {
 			nbFoisMinijeu++;
-		}
+		}*/
 		
-		return reussi && (this.produits.size()!=0 || nbEl!=0);
+		return reussi ;//&& (this.produits.size()!=0 || nbEl!=0);
 	}
 	
 	@Override
-	public void keyPressed(int key) {
+	public void keyPressed(int key) {/*
 		if(!this.reussi || this.produits.size()==0 || (key!=PApplet.LEFT && key!=PApplet.RIGHT && key!=PApplet.UP))
 			return;
 		if(!goodGuess(key, this.produits.get(0))) {
@@ -111,7 +106,7 @@ public class RangeProduits extends MiniJeu {
 			this.produits.get(0).pafed();
 			pPafs.add(produits.get(0));
 			produits.remove(0);
-		}
+		}*/
 	}
 	
 	private static boolean goodGuess(int key, ProduitsRanges produit) {

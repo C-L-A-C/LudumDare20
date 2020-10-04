@@ -1,6 +1,6 @@
 package jeu.mini;
 
 public enum TypeMiniJeu {
-	RANGE_PRODUITS, PUZZLE, VISSE_VIS
+	RANGE_PRODUITS, PUZZLE, BOUTONS_MEMOIRE, VISSE_VIS
 
 }
