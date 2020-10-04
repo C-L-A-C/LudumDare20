@@ -1,5 +1,6 @@
 package gui;
 
+import graphiques.Assets;
 import processing.core.PApplet;
 import processing.sound.SoundFile;
 
@@ -36,6 +37,7 @@ public class SceneHandler extends PApplet {
 
 	public void settings() {
 		size(640, 480);
+		Assets.init(this);		
 	}
 
 	public void setup() {
