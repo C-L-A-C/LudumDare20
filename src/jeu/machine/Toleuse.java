@@ -8,18 +8,18 @@ import jeu.mini.TypeMiniJeu;
 import jeu.produit.Recette;
 import jeu.produit.TypeProduit;
 
-public class Fileuse extends Machine {
+public class Toleuse extends Machine {
 	
-	public Fileuse(float x, float y)
+	public Toleuse(float x, float y)
 	{
-		super(x, y, new AffichageImage(Assets.getImage("soudeuse")));
+		super(x, y, new AffichageImage(Assets.getImage("default")));
 	}
 
 	@Override
 	protected Recette creerRecette() {
 		Recette r = new Recette(2, 10, TypeMiniJeu.RANGE_PRODUITS);
 		r.ajouterIngredient(TypeProduit.METAL);
-		r.ajouterProduit(TypeProduit.CABLE);
+		r.ajouterProduit(TypeProduit.TOLE);
 		return r;
 	}
 

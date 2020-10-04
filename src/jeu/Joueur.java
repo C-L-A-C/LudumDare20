@@ -9,15 +9,23 @@ import graphiques.AnimationSet;
 import graphiques.Tileset;
 import jeu.machine.Machine;
 import jeu.mini.TypeMiniJeu;
+import processing.core.PApplet;
 
 
 public class Joueur extends EntiteMobile implements Controlable {
 	
-	public final static int W = 48, H = 48;	
+	public final static int W = 30, H = 25;	
 
 	public Joueur(float x, float y) {
-		super(x, y, new AnimationSet(new Tileset(Assets.getImage("perso"), 4, 4), 5, 0));
+		super(x, y, new AnimationSet(new Tileset("perso", 4, 4), 6, 0));
 		forme = new Rectangle(pos, W, H);
+	}
+	
+	@Override
+	public void afficher(PApplet p)
+	{
+		int wOffset = W, hOffset = H;
+		apparence.afficher(p, (int) getX() - wOffset / 2, (int) getY() - hOffset, (int) getForme().getW() + wOffset, (int) getForme().getH() + hOffset);
 	}
 	
 

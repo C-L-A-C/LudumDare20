@@ -1,57 +1,56 @@
 package jeu;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import collision.Rectangle;
-import graphiques.AffichageRectangle;
+import graphiques.Animation;
+import graphiques.Assets;
+import graphiques.Tileset;
 import processing.core.PApplet;
+import processing.core.PImage;
 
 public class Tapis extends Entite {
 	
-	protected float w, h;
-	protected TypeDirectionTapis direction;
+	public static final int W = 40, H = 40;
 	
-	public Tapis(float x, float y, float w, float h, TypeDirectionTapis direction) {
-		super(x, y, new AffichageRectangle(0));
-		this.w = w;
-		this.h = h;
-		this.forme = new Rectangle(pos, this.w, this.h);
+	protected TypeDirectionTapis direction;
+	protected static List<Animation> animations;
+	protected float vitesse;
+	
+	public Tapis(float x, float y, TypeDirectionTapis direction) {
+		super(x, y, null);
+		
+		initAnimations();
+		vitesse = 40;
+	
+		this.forme = new Rectangle(pos, W, H);
 		this.direction = direction;
 	}
 	
-	public void afficher(PApplet p) {
-		p.fill(255, 255, 255);
-		p.rect(pos.x, pos.y, w, h);
-		p.fill(255, 0, 0);
-		switch(this.direction) {
-			case HAUT:
-				p.triangle(pos.x, pos.y + h, pos.x + w, pos.y + h, pos.x + w / 2, pos.y);
-				break;
-			case BAS:
-				p.triangle(pos.x,  pos.y,  pos.x + w,  pos.y,  pos.x + w / 2,  pos.y + h);
-				break;
-			case GAUCHE:
-				p.triangle(pos.x + w, pos.y, pos.x + w, pos.y + h, pos.x, pos.y + h / 2);
-				break;
-			case DROITE:
-				p.triangle(pos.x,  pos.y,  pos.x + w,  pos.y + h / 2,  pos.x,  pos.y + h);				
-				break;
+	private static void initAnimations() {
+		if (animations == null)
+		{
+			animations = new ArrayList<>();
+			Tileset tileset = new Tileset("tapis_roulant", 5, 4);
+			for (int i = 0; i < 8; i++)
+			{
+				Animation animation = new Animation(tileset, (i % 4) * 5, (i % 4) * 5 + 4, i < 4 ? 15 : 30);
+				animation.setBegining(System.currentTimeMillis());
+				animations.add(animation);
+			}
 		}
 	}
+	
+	@Override
+	public void afficher(PApplet p)
+	{
+		PImage img = animations.get(direction.ordinal()).getFrame();
+		p.image(img, getX(), getY(), getForme().getW(), getForme().getH());
+	}
 		
-
-	/**
-	 * @return the w
-	 */
-	public float getW() {
-		return w;
-	}
-
-	/**
-	 * @return the h
-	 */
-	public float getH() {
-		return h;
-	}
-
 	/**
 	 * @return the direction
 	 */
@@ -63,6 +62,10 @@ public class Tapis extends Entite {
 	protected void faireCollision(Entite collider, DonneesJeu d) {
 		// TODO Auto-generated method stub
 
+	}
+
+	public float getVitesse() {
+		return vitesse;
 	}
 
 }

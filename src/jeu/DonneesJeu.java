@@ -1,6 +1,7 @@
 package jeu;
 
 import processing.core.PApplet;
+import processing.core.PVector;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -13,6 +14,7 @@ import collision.Rectangle;
 import controles.ControleurClavier;
 import graphiques.AffichageRectangle;
 import jeu.machine.Machine;
+import jeu.machine.Toleuse;
 import jeu.mini.MiniJeu;
 import jeu.mini.TypeMiniJeu;
 import jeu.produit.Produit;
@@ -20,9 +22,12 @@ import jeu.produit.TypeProduit;
 
 public class DonneesJeu {
 	private static final float MAX_DISTANCE_MACHINE = 50;
-	
+
 	private int largeurNiveauPixels;
 	private int hauteurNiveauPixels;
+	private long failedMinijeut0;
+	private boolean failedMinijeu;
+	private long tempsDernierProduitCree;
 	
 	private Joueur joueur;
 	private Scroll scroll;
@@ -30,25 +35,24 @@ public class DonneesJeu {
 	private List<Produit> listeProduits;
 	private ControleurEvenements eCtrl;
 	private List<Machine> listeMachines;
-	
+
 	private MiniJeu miniJeuCourant;
 
 	public DonneesJeu() {
-		int viewW = 640*2, viewH = 480*2;
+		int viewW = 640, viewH = 480;
 		largeurNiveauPixels = viewW;
 		hauteurNiveauPixels = viewH;
+		tempsDernierProduitCree = 0;
 		
 		joueur = new Joueur(0, 0);
-		scroll = new Scroll(viewW, viewH, viewW, viewH);
+		scroll = new Scroll(viewW*2, viewH*2, viewW, viewH);
 		listeTapis = new ArrayList<>();
 		listeProduits = new ArrayList<>();
 		
+		this.failedMinijeu = false;
+		listeMachines = new ArrayList<>();
+		
 		miniJeuCourant = null;
-		
-		// test tapis
-		
-		//test produits
-		listeProduits.add(new Produit(60, 110, TypeProduit.METAL));
 
 	}
 
@@ -57,7 +61,7 @@ public class DonneesJeu {
 
 		int width = largeurNiveauPixels, height = hauteurNiveauPixels;
 		Rectangle rectMonde = new Rectangle(eW, eH, width - 2 * eW + 1, height - 2 * eH + 1);
-		if (!e.collision(rectMonde))
+		if (e == joueur && !e.collision(rectMonde))
 			return new Mur(0, 0, 0, 0);
 
 		if (e != joueur && e.collision(joueur))
@@ -68,37 +72,51 @@ public class DonneesJeu {
 				return t;
 			}
 		}
+		
+		for (Machine m : listeMachines) {
+			if (e != m && e.collision(m)) {
+				return m;
+			}
+		}
 
 		return null;
 	}
 
 	public void evoluer(long t) {
 		joueur.evoluer(t, this);
-		//changement des vitesses des produits
+		// changement des vitesses des produits
 		for (Produit p : listeProduits) {
 			p.testTapis(this);
 			p.evoluer(t, this);
 		}
-		
-		if (estEnMiniJeu())
-		{
-			if (!miniJeuCourant.evoluer())
-			{
-				miniJeuCourant.getMachine().finirActivation(miniJeuCourant.estReussi());
-				miniJeuCourant = null;
+
+		if (estEnMiniJeu()) {
+			if (!miniJeuCourant.evoluer()) {
+				if(!miniJeuCourant.estReussi() && !failedMinijeu) {
+					failedMinijeut0 = System.currentTimeMillis();
+					failedMinijeu = true;
+				}
 			}
+		}
+		
+		if(t-tempsDernierProduitCree>5000) {
+			Produit nouveauProduit = eCtrl.creerNouveauProduit();
+			if(nouveauProduit != null) {
+				listeProduits.add(nouveauProduit);
+				
+			}
+			
+			tempsDernierProduitCree = t;
 		}
 	}
 
 	public void afficher(PApplet p) {
-		
+
 		scroll.update(joueur);
 		p.noStroke();
 
 		p.pushMatrix();
 		p.translate(-(int) scroll.getX(), -(int) scroll.getY());
-
-		joueur.afficher(p);
 
 		for (Tapis t : listeTapis) {
 			t.afficher(p);
@@ -108,12 +126,29 @@ public class DonneesJeu {
 			prod.afficher(p);
 		}
 
+		for (Machine machine: listeMachines) {
+			machine.afficher(p);
+		}
+
+		joueur.afficher(p);
+
 		p.popMatrix();
-		
+
 		if (estEnMiniJeu())
 			miniJeuCourant.afficher(p);
+		
+		if(failedMinijeu) {
+			if(this.failedMinijeut0 + 1000 < System.currentTimeMillis()) {
+				failedMinijeu = false;
+				miniJeuCourant.getMachine().finirActivation(miniJeuCourant.estReussi());
+				miniJeuCourant = null;
+			} else {
+				p.fill(255, 0, 0, Math.min((float)(System.currentTimeMillis() - this.failedMinijeut0)/100*128, 128));
+				p.rect(0, 0, p.width,  p.height);
+			}
+		}
 	}
-	
+
 	public void ajouterProduit(Produit produit) {
 		listeProduits.add(produit);
 	}
@@ -122,12 +157,12 @@ public class DonneesJeu {
 		return joueur;
 	}
 	
-	public void setListeTapis(List<Tapis> tapis) {
-		this.listeTapis = tapis;
-	}
-	
 	public void addTapis(Tapis tapis) {
 		this.listeTapis.add(tapis);
+	}
+
+	public void addMachine(Machine m) {
+		listeMachines.add(m);		
 	}
 
 	/**
@@ -138,15 +173,15 @@ public class DonneesJeu {
 	}
 
 	/*
-	 * définit le controleur des événements (apparition des produits) pour la scène courante
-	 * */
+	 * définit le controleur des événements (apparition des produits) pour la scène
+	 * courante
+	 */
 	public void setControleurEvenements(ControleurEvenements eventCtrl) {
 		this.eCtrl = eventCtrl;
 	}
 
 	public Produit getProduitZone(Rectangle zone, Set<TypeProduit> keySet) {
-		for (Produit p : listeProduits)
-		{
+		for (Produit p : listeProduits) {
 			if (keySet.contains(p.getType()) && p.collision(zone))
 				return p;
 		}
@@ -155,6 +190,7 @@ public class DonneesJeu {
 
 	public void setMiniJeu(Machine machine, TypeMiniJeu type) {
 		miniJeuCourant = MiniJeu.createMiniJeu(type, machine);
+		joueur.setVitesse(new PVector(0, 0));
 	}
 
 	public boolean estEnMiniJeu() {
@@ -166,15 +202,12 @@ public class DonneesJeu {
 	}
 
 	public Machine getNearestMachine(Entite e) {
-		return listeMachines.stream()
-				.filter(m -> m.distanceA(e) < MAX_DISTANCE_MACHINE)
-				.min(new Comparator<Entite>() {
-					@Override
-					public int compare(Entite e1, Entite e2) {
-						return  (int) (e1.distanceA(e) - e2.distanceA(e));
-					}
-				})
-				.orElse(null);
+		return listeMachines.stream().filter(m -> m.distanceA(e) < MAX_DISTANCE_MACHINE).min(new Comparator<Entite>() {
+			@Override
+			public int compare(Entite e1, Entite e2) {
+				return (int) (e1.distanceA(e) - e2.distanceA(e));
+			}
+		}).orElse(null);
 	}
 
 }

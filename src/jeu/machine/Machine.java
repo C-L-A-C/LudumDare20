@@ -44,6 +44,7 @@ public abstract class Machine extends Entite {
 		machineActivee = false;
 		sortieMachine = new ArrayList<>();
 		zoneIngredients = new Rectangle(x - wZone / 2 + w / 2, y - hZone / 2 + h / 2, wZone, hZone);
+		produits = new HashMap<>();
 	}
 	
 	protected abstract Recette creerRecette();
@@ -82,7 +83,7 @@ public abstract class Machine extends Entite {
 	 */
 	public boolean estPrete()
 	{
-		return getProduitsManquants().isEmpty();
+		return true; //getProduitsManquants().isEmpty();
 		
 	}
 	
