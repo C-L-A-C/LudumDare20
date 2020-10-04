@@ -7,6 +7,10 @@ import java.util.Scanner;
 import collision.Point;
 import jeu.machine.Toleuse;
 import jeu.produit.TypeProduit;
+import jeu.tapis.PontTapis;
+import jeu.tapis.Tapis;
+import jeu.tapis.TapisRapide;
+import jeu.tapis.TypeDirectionTapis;
 
 public class ControleurNiveau {
 	// donnees du jeu
