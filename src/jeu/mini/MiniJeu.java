@@ -19,7 +19,7 @@ public abstract class MiniJeu {
 			case RANGE_PRODUITS:
 				return new RangeProduits(machine);
 			case PUZZLE:
-				return new Puzzle(machine);
+				//return new Puzzle(machine);
 			default:
 				return null;
 		}
