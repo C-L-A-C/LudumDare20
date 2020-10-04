@@ -40,6 +40,7 @@ public class ControleurNiveau {
 		boolean parcourirFichier = true;
 		boolean analyseSpawn = false;
 		boolean analyseTerrain = false;
+		boolean analyseObjectifs = false;
 		boolean analyseGenerateurs = false;
 		largeur = 0;
 		hauteur = 0;
@@ -108,6 +109,31 @@ public class ControleurNiveau {
 					}
 
 					ligne = scanner.nextLine();
+					String[] s = ligne.split(" ", 0);
+
+					if (s[0].equals("objectifs")) {
+						analyseObjectifs = true;
+					} else {
+						System.out.println("Erreur dans la lecture du fichier des niveaux : "
+								+ "taille du terrain incorrecte ou pas d'objectif(s) specifie(s)");
+					}
+				}
+				
+				if (analyseObjectifs) {
+					String[] objectifs = ligne.split(" ", 0);
+					
+					if (objectifs[0].equals("objectifs") && objectifs.length > 1) {
+						for (int i = 1; i < objectifs.length; i++) {
+							String[] objectif = objectifs[i].replace("(","").replace(")","").split(";", 2);
+							//DonneesJeu.setObjectif(TypeProduit.getFromName(objectif[0]),
+														//Integer.parseInt(objectif[1]));
+						}
+					} else {
+						System.out.println("Erreur dans la lecture du fichier des niveaux : mauvaise syntaxe "
+								+ "des entrees des generateurs d'evenements");
+					}
+					
+					ligne = scanner.nextLine();
 					// sépare le mot "gevents" et la graine du controleur d'événements
 					String[] s = ligne.split(" ", 2);
 
@@ -117,7 +143,7 @@ public class ControleurNiveau {
 						ligne = scanner.nextLine();
 					} else {
 						System.out.println("Erreur dans la lecture du fichier des niveaux : "
-								+ "taille du terrain incorrecte ou pas de generateur d'evenements specifies");
+								+ "pas de generateur d'evenements specifies");
 					}
 				}
 
@@ -156,7 +182,7 @@ public class ControleurNiveau {
 					if (ligne.equals("fin niveau")) {
 						caSestBienPasse = true;
 					} else {
-						System.out.println("Erreur dans la lecture du fichier des niveaux : pas de sortie(s) definie(s)");
+						System.out.println("Erreur dans la lecture du fichier des niveaux : syntaxe de fin de niveau incorrecte");
 					}
 				}
 
@@ -218,6 +244,10 @@ public class ControleurNiveau {
 			break;
 		case "Tol":
 			donneesJeu.addMachine(new Toleuse(x, y, direction));
+			break;
+		case "s":
+			donneesJeu.addSortie(new Sortie(x, y));
+			break;
 		default:
 		}
 	}
