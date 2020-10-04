@@ -23,6 +23,6 @@
 	<classpathentry kind="lib" path="processing/jogl-all-natives-windows-amd64.jar"/>
 	<classpathentry kind="lib" path="processing/jogl-all-natives-windows-i586.jar"/>
 	<classpathentry kind="lib" path="processing/jogl-all.jar"/>
-	<classpathentry kind="lib" path="/home/adrien/Prog/CLAC/LudumDare20/processing/sound.jar"/>
+	<classpathentry kind="lib" path="processing/sound.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
