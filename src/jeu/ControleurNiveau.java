@@ -14,6 +14,7 @@ import jeu.machine.Tondeuse;
 import jeu.produit.TypeProduit;
 import jeu.tapis.PontTapis;
 import jeu.tapis.Selecteur;
+import jeu.tapis.Sortie;
 import jeu.tapis.Tapis;
 import jeu.tapis.TapisRapide;
 import jeu.tapis.TypeDirectionTapis;

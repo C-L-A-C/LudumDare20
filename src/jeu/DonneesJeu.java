@@ -23,6 +23,7 @@ import jeu.mini.TypeMiniJeu;
 import jeu.produit.Produit;
 import jeu.produit.TypeProduit;
 import jeu.tapis.Selecteur;
+import jeu.tapis.Sortie;
 import jeu.tapis.Tapis;
 import jeu.tapis.TypeDirectionTapis;
 
