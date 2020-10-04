@@ -9,6 +9,7 @@ import java.util.Set;
 
 import collision.Rectangle;
 import graphiques.Apparence;
+import gui.SceneHandler;
 import jeu.DonneesJeu;
 import jeu.Entite;
 import jeu.produit.Produit;
@@ -86,12 +87,16 @@ public abstract class Machine extends Entite {
 
 	public boolean prendreIngredient(DonneesJeu j) {
 		// Si non est plein && si non en processing
-		if (machineActivee || estPrete() || !sortieMachine.isEmpty())
+		if (machineActivee || estPrete() || !sortieMachine.isEmpty()) {
+			SceneHandler.playSound("assets/sounds/negative_beep.mp3", (float)0.3, 1);
 			return false;
+		}
 
 		Produit p = j.prendreProduitZone(zoneIngredients, getProduitsManquants().keySet());
-		if (p == null)
+		if (p == null) {
+			SceneHandler.playSound("assets/sounds/negative_beep.mp3", (float)0.3, 1);
 			return false;
+		}
 
 		int qt = produits.getOrDefault(p.getType(), 0);
 		produits.put(p.getType(), qt + 1);

@@ -16,6 +16,7 @@ import collision.Forme;
 import collision.Point;
 import collision.Rectangle;
 import graphiques.Tileset;
+import gui.SceneHandler;
 import jeu.machine.Machine;
 import jeu.mini.MiniJeu;
 import jeu.mini.TypeMiniJeu;
@@ -23,6 +24,8 @@ import jeu.produit.Produit;
 import jeu.produit.TypeProduit;
 import jeu.tapis.Tapis;
 import jeu.tapis.TypeDirectionTapis;
+
+import processing.sound.*;
 
 public class DonneesJeu {
 	private static final float MAX_DISTANCE_MACHINE = 50;
@@ -40,6 +43,7 @@ public class DonneesJeu {
 	private List<Produit> listeProduits;
 	private List<Machine> listeMachines;
 	private List<Sortie> listeSorties;
+	private int playSound;
 
 	private Tileset tileset;
 	private Objectif objectifs;
@@ -57,7 +61,7 @@ public class DonneesJeu {
 		listeTapis = new ArrayList<>();
 		listeProduits = new ArrayList<>();
 		listeSorties = new ArrayList<>();
-		
+		playSound = 0;
 		
 		this.failedMinijeu = false;
 		listeMachines = new ArrayList<>();
@@ -66,7 +70,6 @@ public class DonneesJeu {
 		miniJeuCourant = null;
 
 		tileset = new Tileset("tileset", 10, 10);
-
 	}
 	
 	public void ajouterObjectif(TypeProduit type, int nb)
@@ -127,9 +130,11 @@ public class DonneesJeu {
 				if(!miniJeuCourant.estReussi()) {
 					failedMinijeut0 = System.currentTimeMillis();
 					failedMinijeu = true;
+					playSound = -1;
 				} else {
 					miniJeuCourant.getMachine().finirActivation(miniJeuCourant.estReussi());
 					miniJeuCourant = null;
+					playSound = 1;
 				}
 			} 
 			
@@ -202,11 +207,17 @@ public class DonneesJeu {
 
 		if (estEnMiniJeu())
 			miniJeuCourant.afficher(p);
-
+		
 		if (failedMinijeu) {
 			p.fill(255, 0, 0, Math.min((float) (System.currentTimeMillis() - this.failedMinijeut0) / 100 * 128, 128));
 			p.rect(0, 0, p.width, p.height);
 		}
+
+		if (playSound==-1)
+			SceneHandler.playSound("assets/sounds/failed.mp3", (float)0.3, 1);
+		else if(playSound==1)
+			SceneHandler.playSound("assets/sounds/positive_beep.wav", (float)0.3, 1);
+		playSound = 0;
 	}
 
 	public void ajouterProduit(Produit produit) {
