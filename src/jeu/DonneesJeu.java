@@ -185,11 +185,9 @@ public class DonneesJeu {
 			}
 		}
 
-		// for (Tapis t : listeTapis) {
 		for (Tapis t : listeTapisEstDevant.get(false)) {
 			t.afficher(p);
 		}
-		
 		for (Sortie s : listeSorties) {
 			s.afficher(p);
 		}
@@ -201,6 +199,12 @@ public class DonneesJeu {
 		for (Tapis t : listeTapisEstDevant.get(true)) {
 			t.afficher(p);
 		}
+
+		// On les réaffiche c'est pas beau mais bon ntm un peu quoi
+		for (Tapis t : listeSelecteurs) {
+			t.afficher(p);
+		}
+		
 
 		for (Machine machine : listeMachines) {
 			machine.afficher(p);
