@@ -37,7 +37,7 @@ public class Tapis extends Entite {
 		if (animations == null)
 		{
 			animations = new ArrayList<>();
-			Tileset tileset = new Tileset("test", 5, 4);
+			Tileset tileset = new Tileset("tapis_roulant", 5, 8);
 			for (int i = 0; i < 8; i++)
 			{
 				Animation animation = new Animation(tileset, (i % 4) * 5, (i % 4) * 5 + 4, i < 4 ? 10 : 30);

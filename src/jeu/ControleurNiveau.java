@@ -6,8 +6,11 @@ import java.util.Scanner;
 
 import collision.Point;
 import jeu.machine.Bruleur;
+import jeu.machine.Cuiseur;
+import jeu.machine.Fonderie;
 import jeu.machine.Scie;
 import jeu.machine.Toleuse;
+import jeu.machine.Tondeuse;
 import jeu.produit.TypeProduit;
 import jeu.tapis.PontTapis;
 import jeu.tapis.Selecteur;
@@ -252,6 +255,15 @@ public class ControleurNiveau {
 			break;
 		case "Sci":
 			donneesJeu.addMachine(new Scie(x, y, direction));
+			break;
+		case "Cui":
+			donneesJeu.addMachine(new Cuiseur(x, y, direction));
+			break;
+		case "Ton":
+			donneesJeu.addMachine(new Tondeuse(x, y, direction));
+			break;
+		case "Fon":
+			donneesJeu.addMachine(new Fonderie(x, y, direction));
 			break;
 		case "s":
 			donneesJeu.addSortie(new Sortie(x, y));

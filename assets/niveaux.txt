@@ -56,50 +56,53 @@ f   f   ^t  f   f   vt  f   f   f   f   f   f   f   f   f   f   ^t  f   f   vt
 f   f   ^t  f   f   vt  f   f   f   f   f   f   f   f   f   f   ^t  f   f   vt
 f   f   ^t  f   f   vt  f   f   f   f   f   f   f   f   f   f   ^t  f   f   vt
 f   f   ^t  f   f   vt  f   f   f   f   f   f   f   f   f   f   ^t  f   f   vt
-f   f   ^t  f   f   vt  f   f   f   f   f   f   f   f   f   f   ^t  f   >Tol vt
+f   f   ^t  f   f   vt  f   f   f   f   f   f   f   f   f   f   ^t  f   >Sci vt
 >t  >t  ^t  f   f   vS> >t  >t  f   f   f   f   f   f   f   f   ^t  f   f   vt
 <t  <t  ^S<  f   f  vt  <t  <t  f   f   f   f   f   f   f   f   ^t  f   f   vt
 f   f   ^t  f   f   vt  f   f   f   f   f   f   f   f   f   f   ^t  f   f   vt
 f   f   ^t  f   f   vt  f   f   f   f   f   f   f   f   f   f   ^t  f   f   vt
 f   f   ^t  f   f   vt  f   f   f   f   f   f   f   f   f   f   ^t  f   f   vt
 f   f   ^t  f   f   vt  f   f   f   f   f   f   f   f   f   f   ^t  f   f   vt
-f   f   ^t  f   f   vt  f   f   f   f   f   vTol f   f   f   f  ^t  f   f   vt
+f   f   ^t  f   f   vt  f   f   f   f   f   vSci f   f   f   f  ^t  f   f   vt
 f   f   ^t  f   f   >t  >t  >t  >t  >t  >t  >t  >t  >t  >t  >t  ^t  f   f   vt
 f  f   ^t  f   f   f   f   f   f   f   f   f   f   f   f   f   f   f   f   vt
 f  f   ^t  f   f   f   f   f   f   f   f   f   f   f   f   f   f   f   f   vt
 f  f  <t  <t  <t  <t  <t  <t  <t  <t  <t  <t  <t  <t  <t  <t  <t  <t  <t  <t
-objectifs (TOLE;5)
+objectifs (PLANCHE;5)
 gevents 1
-generator METAL 1
+generator BOIS 1
 entrees (1;9)
-generator METAL 1
+generator BOIS 1
 entrees (7;11)
 fin niveau
 
 
 
 niveau 4
-taille 11 11
+taille 12 13
 joueur (3;5)
 terrain
-vt  <t  <t  <t  <t  >t  >t  >t  >t  >t  vt
-vt  f   f   f   ^t  ^t  f   f   f   f   vt
-vt  f   f   f   ^t  ^t  f   f   f   f   vt
-vt  f   f   f   ^t  ^t  f   f   f   f   vt
-vt  f   f   f   ^t  ^t  f   f   f   f   vt
-vt  <Bru f  f   ^P  ^P  f   f   f   >Bru vt
-vt  f   f   f   ^t  ^t  f   f   f   f   vt
-vt  f   f   f   ^t  ^t  f   f   f   f   vt
-vt  f   f   f   ^t  ^t  f   f   f   f   vt
-vt  f   f   f   ^t  ^t  f   f   f   f   vt
->t  >t  >t  >t  ^t  ^t  <t  <t  <t  <t  <t
-objectifs (CHARBON;5)
+f   f   f   f   f   f   f   f   f   s   f   f
+>t  >t  >t  >t  >t  vt  >t  >t  >t  >S^ >t  vt
+^t  f   f   f   f   vt  ^t  f   f   f   f   vt
+^t  f   f   f   f   vt  ^t  f   f   f   f   vt
+^t  f   f   f   f   vt  ^t  f   f   f   f   vt
+^t  f   f   f   f   vt  ^t  f   f   f   f   vt
+^t  <Fon f  f   f   vP  ^P  f   f   f   >Fon vt
+^t  f   f   f   f   vt  ^t  f   f   f   f   vt
+^t  f   f   f   f   vt  ^t  f   f   f   f   vt
+^t  f   f   f   f   vt  ^t  f   f   f   f   vt
+^t  f   f   f   f   vt  ^t  f   f   f   f   vt
+^t  <t  <Sv  <t <t  <t  ^t  <t  <t  <t <t  <t
+f   f   s   f  f   ^t  f   f   f   f   f   f
+objectifs (LAINE;5)
 gevents 1
-generator BOIS 1
+generator MOUTON 1
 entrees (4;11)
-generator BOIS 1
+generator MOUTON 1
 entrees (5;11)
-fin niveau 
+fin niveau
+
 
 
 

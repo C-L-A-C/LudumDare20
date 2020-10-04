@@ -33,7 +33,7 @@ public class Selecteur extends Tapis {
 		p.pushMatrix();
 		p.translate(getX() + getForme().getW() / 2, getY() + getForme().getH() / 2);
 		
-		p.rotate(PApplet.radians(270 + direction.ordinal() * 90));
+		p.rotate(PApplet.radians(270 - direction.ordinal() * 90));
 		
 		p.image(img, - imageW / 2, - imageH / 2 +  5, imageW, imageH);
 		p.popMatrix();
