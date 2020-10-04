@@ -3,7 +3,7 @@ package jeu.produit;
 public enum TypeProduit {
 	DECHET("tas"),
 	METAL("nugget"),
-	BOIS,
+	BOIS("bois"),
 	MOUTON("mouton"),
 	SABLE("sable"),
 	OR_BRUT("or brut"),

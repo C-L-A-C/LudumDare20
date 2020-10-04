@@ -87,16 +87,17 @@ vt  f   f   f   ^t  ^t  f   f   f   f   vt
 vt  f   f   f   ^t  ^t  f   f   f   f   vt
 vt  f   f   f   ^t  ^t  f   f   f   f   vt
 vt  f   f   f   ^t  ^t  f   f   f   f   vt
-vt  <Tol f  f   ^P  ^P  f   f   f   >Tol vt
+vt  <Bru f  f   ^P  ^P  f   f   f   >Bru vt
 vt  f   f   f   ^t  ^t  f   f   f   f   vt
 vt  f   f   f   ^t  ^t  f   f   f   f   vt
 vt  f   f   f   ^t  ^t  f   f   f   f   vt
 vt  f   f   f   ^t  ^t  f   f   f   f   vt
 >t  >t  >t  >t  ^t  ^t  <t  <t  <t  <t  <t
+objectifs (CHARBON;5)
 gevents 1
-generator MOUTON 1
+generator BOIS 1
 entrees (4;11)
-generator MOUTON 1
+generator BOIS 1
 entrees (5;11)
 fin niveau 
 

@@ -5,6 +5,8 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 import collision.Point;
+import jeu.machine.Bruleur;
+import jeu.machine.Scie;
 import jeu.machine.Toleuse;
 import jeu.produit.TypeProduit;
 import jeu.tapis.PontTapis;
@@ -244,6 +246,12 @@ public class ControleurNiveau {
 			break;
 		case "Tol":
 			donneesJeu.addMachine(new Toleuse(x, y, direction));
+			break;
+		case "Bru":
+			donneesJeu.addMachine(new Bruleur(x, y, direction));
+			break;
+		case "Sci":
+			donneesJeu.addMachine(new Scie(x, y, direction));
 			break;
 		case "s":
 			donneesJeu.addSortie(new Sortie(x, y));

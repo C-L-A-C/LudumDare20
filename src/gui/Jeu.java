@@ -29,7 +29,7 @@ public class Jeu extends Scene {
 		
 		// créé le niveau courant
 		niveau = new ControleurNiveau(jeu);
-		if(!niveau.setNiveauCourant("niveau 3")) {
+		if(!niveau.setNiveauCourant("niveau 4")) {
 			System.out.println("Erreur : le niveau n'a pas pu etre recupere");
 		}
 		
