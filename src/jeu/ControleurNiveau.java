@@ -28,6 +28,7 @@ public class ControleurNiveau {
 	// taille du niveau en nombre de cases
 	private int largeur;
 	private int hauteur;
+	private int tempsNiveau;
 
 	public ControleurNiveau(DonneesJeu jeu) {
 		this.donneesJeu = jeu;
@@ -49,6 +50,7 @@ public class ControleurNiveau {
 		// variables pour parser les différentes parties d'un niveau
 		boolean parcourirFichier = true;
 		boolean analyseSpawn = false;
+		boolean analyseTempsNiveau = false;
 		boolean analyseTerrain = false;
 		boolean analyseObjectifs = false;
 		boolean analyseGenerateurs = false;
@@ -97,16 +99,29 @@ public class ControleurNiveau {
 						donneesJeu.getJoueur().setY(joueur_y);
 						
 						ligne = scanner.nextLine();
-						if (ligne.equals("terrain")) {
-							analyseTerrain = true;
+						if ((ligne.split(" ",2))[0].equals("temps")) {
+							analyseTempsNiveau = true;
 						} else {
 							System.out
-									.println("Erreur dans la lecture du fichier des niveaux : pas de terrain specifie");
+									.println("Erreur dans la lecture du fichier des niveaux : pas de temps de niveau specifie");
+							tempsNiveau = 60;
 						}
 						
 					} else {
 						System.out
 								.println("Erreur dans la lecture du fichier des niveaux : pas d'apparition du joueur specifie");
+					}
+				}
+				
+				if(analyseTempsNiveau) {
+					tempsNiveau = Integer.parseInt(ligne.split(" ",2)[1]);
+					
+					ligne = scanner.nextLine();
+					if (ligne.equals("terrain")) {
+						analyseTerrain = true;
+					} else {
+						System.out
+								.println("Erreur dans la lecture du fichier des niveaux : pas de terrain specifie");
 					}
 				}
 
@@ -169,11 +184,14 @@ public class ControleurNiveau {
 					while (scanner.hasNextLine() && !ligne.split(" ",1)[0].equals("fin niveau")) {
 
 						// tableau contenant normalement "generator", le type du produit et la graine
-						String[] s = ligne.split(" ", 3);
+						String[] s = ligne.split(" ", 4);
 
 						if (s[0].equals("generator")) {
-							GenerateurEvenements gevents = new GenerateurEvenements(this.produitCorrespondant(s[1]),
-									Integer.parseInt(s[2]));
+							TypeProduit type = produitCorrespondant(s[1]);
+							int spawntime = Integer.parseInt(s[2].replace("spawntime=",""));
+							int offset = Integer.parseInt(s[3].replace("offset=",""));
+							
+							GenerateurEvenements gevents = new GenerateurEvenements(type,spawntime,offset);
 
 							ligne = scanner.nextLine();
 							String[] entrees = ligne.split(" ", 0);

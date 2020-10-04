@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import collision.Point;
+import jeu.produit.Produit;
 import jeu.produit.TypeProduit;
 
 /*
@@ -12,31 +13,39 @@ import jeu.produit.TypeProduit;
  * */
 public class GenerateurEvenements {
 	private TypeProduit typeProduit;
-	private int seed;
+	
+	private long tempsDernierProduitCree;
+	private long tpsApparition;
+	private long decalage;
+	
 	private List<Point> entrees;
 	
-	public GenerateurEvenements(TypeProduit produit, int graine) {
-		this.typeProduit = produit;
-		this.seed = graine;
+	public GenerateurEvenements(TypeProduit produit, int spawntime, int offset) {
+		typeProduit = produit;
+		
+		tpsApparition = spawntime*1000;
+		decalage = offset*1000;
+		tempsDernierProduitCree = System.currentTimeMillis() + offset;
 		
 		entrees = new ArrayList<Point>();
 	}
 	
 	public Point creerNouveauProduit() {
+		long t = System.currentTimeMillis();
 		if(!entrees.isEmpty()) {
-			return choisirEntree();
+			if (t - tempsDernierProduitCree > tpsApparition) {
+				tempsDernierProduitCree = t;
+				return choisirEntree();
+			}
 		} else {
 			System.out.println("Erreur generateur d'evenements : un generateur d'evenement a ete defini sans entree(s)");
-			return null;
 		}
+		return null;
 	}
 	
 	private Point choisirEntree() {
-		if(seed==1) {
-			int i = (int) ((Math.random() * (entrees.size())));
-			return entrees.get(i);
-		}
-		return new Point(1,1);
+		int i = (int) ((Math.random() * (entrees.size())));
+		return entrees.get(i);
 	}
 	
 	public TypeProduit getTypeProduit() {

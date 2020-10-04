@@ -5,7 +5,7 @@ import java.util.List;
 
 
 import graphiques.Assets;
-
+import gui.SceneHandler;
 import jeu.machine.Machine;
 import processing.core.PApplet;
 import processing.core.PImage;
@@ -48,6 +48,7 @@ public class BoutonsMemoire extends MiniJeu {
 		this.reussi = true;
 		continuEvoluer = true;
 		
+		SceneHandler.preloadSound("assets/sounds/clic_souris.mp3");
 		indiceMax = 4+ Math.min(2, nbFoisMinijeu);
 		indiceCourant = 0;
 		nbFoisMinijeu++;
@@ -196,6 +197,7 @@ public class BoutonsMemoire extends MiniJeu {
 	@Override
 	public void mouseReleased(int x, int y, int button) {
 		if(!memorise && button == PApplet.LEFT) {
+			SceneHandler.playSound("assets/sounds/marteau.wav", 0.3f, 1, 0.0f, true);
 			couleurCharbon = 255;
 			couleurCouronne = 255;
 			couleurPoison = 255;

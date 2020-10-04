@@ -33,7 +33,6 @@ public class DonneesJeu {
 
 	private long failedMinijeut0;
 	private boolean failedMinijeu;
-	private long tempsDernierProduitCree;
 
 	private Joueur joueur;
 	private Scroll scroll;
@@ -54,7 +53,6 @@ public class DonneesJeu {
 
 	public DonneesJeu() {
 		int viewW = 640, viewH = 400;
-		tempsDernierProduitCree = 0;
 
 		joueur = new Joueur(0, 0);
 		scroll = new Scroll(viewW, viewH, viewW, viewH);
@@ -163,17 +161,8 @@ public class DonneesJeu {
 				miniJeuCourant = null;
 			}
 		}
-
-		if (t - tempsDernierProduitCree > 5000) {
-
-			Produit nouveauProduit = eCtrl.creerNouveauProduit();
-			if (nouveauProduit != null) {
-				listeProduits.add(nouveauProduit);
-
-			}
-
-			tempsDernierProduitCree = t;
-		}
+		
+		eCtrl.evoluer(listeProduits);
 	}
 
 	
