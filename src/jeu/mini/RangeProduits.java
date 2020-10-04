@@ -71,7 +71,7 @@ public class RangeProduits extends MiniJeu {
 	public boolean evoluer() {
 		if(nbEl!=0 && this.timeNextProduit <= System.currentTimeMillis()) {
 			this.timeNextProduit = System.currentTimeMillis() + (long)(300 + Math.random()*(700 - 300));
-			this.produits.add(new ProduitsRanges(nbFoisMinijeu/3+1));
+			this.produits.add(new ProduitsRanges(nbFoisMinijeu/5+1));
 			this.nbEl--;
 		}
 		for(ProduitsRanges paf : pPafs) {
