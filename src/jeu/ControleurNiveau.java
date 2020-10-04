@@ -211,7 +211,7 @@ public class ControleurNiveau {
 			donneesJeu.addTapis(new Tapis(x, y, direction));
 			break;
 		case "T":
-			//donneesJeu.addTapis(new TapisRapide(x, y, direction));
+			donneesJeu.addTapis(new TapisRapide(x, y, direction));
 			break;
 		case "P":
 			donneesJeu.addTapis(new PontTapis(x, y, direction));
