@@ -214,7 +214,7 @@ public class ControleurNiveau {
 			donneesJeu.addTapis(new PontTapis(x, y, direction));
 			break;
 		case "Tol":
-			donneesJeu.addMachine(new Toleuse(x, y));
+			donneesJeu.addMachine(new Toleuse(x, y, direction));
 		default:
 		}
 	}

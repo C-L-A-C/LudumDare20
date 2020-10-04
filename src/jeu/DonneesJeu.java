@@ -12,6 +12,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import collision.Forme;
+import collision.Point;
 import collision.Rectangle;
 import controles.ControleurClavier;
 import graphiques.AffichageRectangle;
@@ -101,7 +103,7 @@ public class DonneesJeu {
 			}
 		}
 		
-		if(t-tempsDernierProduitCree>5000) {
+		if(t-tempsDernierProduitCree>500) {
 			Produit nouveauProduit = eCtrl.creerNouveauProduit();
 			if(nouveauProduit != null) {
 				listeProduits.add(nouveauProduit);
@@ -189,10 +191,14 @@ public class DonneesJeu {
 		this.eCtrl = eventCtrl;
 	}
 
-	public Produit getProduitZone(Rectangle zone, Set<TypeProduit> keySet) {
+	public Produit prendreProduitZone(Rectangle zone, Set<TypeProduit> types) {
 		for (Produit p : listeProduits) {
-			if (keySet.contains(p.getType()) && p.collision(zone))
+
+			if (types.contains(p.getType()) && p.collision(zone))
+			{
+				listeProduits.remove(p);
 				return p;
+			}
 		}
 		return null;
 	}
@@ -217,6 +223,29 @@ public class DonneesJeu {
 				return (int) (e1.distanceA(e) - e2.distanceA(e));
 			}
 		}).orElse(null);
+	}
+
+	public Tapis getTapisInDirection(int x, int y, TypeDirectionTapis direction) {
+		Point p = new Point(x, y);
+		PVector depl = new PVector();
+		switch(direction)
+		{
+		case HAUT:
+			depl.set(0, 1);
+			break;
+		case BAS:
+			depl.set(0, -1);
+			break;
+		case DROITE:
+			depl.set(1, 0);
+			break;
+		case GAUCHE:
+			depl.set(-1, 0);
+			break;
+		}
+		depl.mult(Tapis.W);
+		Forme collider = p.getTranslation(depl);
+		return listeTapis.stream().filter(t -> t.collision(collider)).findAny().orElse(null);
 	}
 
 }
