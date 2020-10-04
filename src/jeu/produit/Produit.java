@@ -19,7 +19,7 @@ public class Produit extends EntiteMobile {
 
 	public Produit(float x, float y, TypeProduit type) {
 		super(x, y, new AffichageImage(getImage(type)));
-		forme = new Rectangle(pos, 20, 20);
+		forme = new Rectangle(pos, 28, 28);
 		this.setLayer(1);
 		this.type = type;
 		lastDirection = null;

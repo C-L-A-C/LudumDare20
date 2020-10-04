@@ -44,6 +44,8 @@ public class DonneesJeu {
 
 	private MiniJeu miniJeuCourant;
 
+	//private PVector debugPos;
+
 	public DonneesJeu() {
 		int viewW = 640, viewH = 480;
 		tempsDernierProduitCree = 0;
@@ -207,6 +209,12 @@ public class DonneesJeu {
 		
 
 		joueur.afficher(p);
+		
+		/*if (debugPos != null)
+		{
+			p.fill(255, 0, 0);
+			p.ellipse(debugPos.x,  debugPos.y, 10, 10);
+		}*/
 
 		p.popMatrix();
 
@@ -298,10 +306,10 @@ public class DonneesJeu {
 		PVector depl = new PVector();
 		switch (direction) {
 		case HAUT:
-			depl.set(0, 1);
+			depl.set(0, -1);
 			break;
 		case BAS:
-			depl.set(0, -1);
+			depl.set(0, 1);
 			break;
 		case DROITE:
 			depl.set(1, 0);
@@ -312,6 +320,7 @@ public class DonneesJeu {
 		}
 		depl.mult(Tapis.W);
 		Forme collider = p.getTranslation(depl);
+		//debugPos = collider.getCenter();
 		return listeTapis.stream().filter(t -> t.collision(collider)).findAny().orElse(listeTapis.get(0));
 	}
 	
