@@ -60,7 +60,7 @@ public class DonneesJeu {
 
 		miniJeuCourant = null;
 
-		tileset = new Tileset("tileset", 10, 10);
+		tileset = new Tileset("tileset", 10, 10, -2, -1);
 
 	}
 
@@ -118,7 +118,6 @@ public class DonneesJeu {
 			tempsDernierProduitCree = t;
 		}
 	}
-	
 
 	public void afficher(PApplet p) {
 		scroll.update(joueur);
@@ -126,18 +125,22 @@ public class DonneesJeu {
 
 		p.pushMatrix();
 		p.translate(-(int) scroll.getX(), -(int) scroll.getY());
-		
+
 		// On separe les tapis devant les produits de derriere les produits
-		Map<Boolean, List<Tapis>> listeTapisEstDevant = listeTapis.stream().collect(Collectors.partitioningBy(t -> t.getLayer() != 0));	
+		Map<Boolean, List<Tapis>> listeTapisEstDevant = listeTapis.stream()
+				.collect(Collectors.partitioningBy(t -> t.getLayer() != 0));
 
 		for (int i = 0; i <= scroll.getTotalW() / tileset.getTileW(); i++) {
 			for (int j = 0; j <= scroll.getTotalH() / tileset.getTileH(); j++) {
-				p.image(tileset.get(11), i * tileset.getTileW(), j * tileset.getTileW());
+				if (i % 5 == 0 && j % 5 == 0) {
+					p.image(tileset.get(12), i * tileset.getTileW(), j * tileset.getTileW());
+				} else {
+					p.image(tileset.get(11), i * tileset.getTileW(), j * tileset.getTileW());
+				}
 			}
 		}
 
-
-		//for (Tapis t : listeTapis) {
+		// for (Tapis t : listeTapis) {
 		for (Tapis t : listeTapisEstDevant.get(false)) {
 			t.afficher(p);
 		}
@@ -145,7 +148,7 @@ public class DonneesJeu {
 		for (Produit prod : listeProduits) {
 			prod.afficher(p);
 		}
-		
+
 		for (Tapis t : listeTapisEstDevant.get(true)) {
 			t.afficher(p);
 		}
@@ -208,8 +211,7 @@ public class DonneesJeu {
 	public Produit prendreProduitZone(Rectangle zone, Set<TypeProduit> types) {
 		for (Produit p : listeProduits) {
 
-			if (types.contains(p.getType()) && p.collision(zone))
-			{
+			if (types.contains(p.getType()) && p.collision(zone)) {
 				listeProduits.remove(p);
 				return p;
 			}
@@ -242,8 +244,7 @@ public class DonneesJeu {
 	public Tapis getTapisInDirection(int x, int y, TypeDirectionTapis direction) {
 		Point p = new Point(x, y);
 		PVector depl = new PVector();
-		switch(direction)
-		{
+		switch (direction) {
 		case HAUT:
 			depl.set(0, 1);
 			break;

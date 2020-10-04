@@ -41,6 +41,40 @@ entrees (-1;4)
 fin niveau
 
 
+
+niveau 3
+taille 20 20
+joueur (10;10)
+terrain
+f   f   >t  >t  >t  >t  >t  >t  >t  >t  >t  >t  >t  >t  >t  >t  >t  >t  >t  vt
+f   f   ^t  f   f   f   f   f   f   f   f   f   f   f   f   f   f   f   f   vt
+f   f   ^t  f   f   f   f   f   f   f   f   f   f   f   f   f   f   f   f   vt
+f   f   ^t  f   f   >t  >t  >t  >t  >t  P   >t  >t  >t  >t  >t  vt  f   f   vt
+f   f   ^t  f   f   ^t  f   f   f   f   f   f   f   f   f   f   vt  f   f   vt
+f   f   ^t  f   f   ^t  f   f   f   f   f   f   f   f   f   f   vt  f   f   vt
+f   f   ^t  f   f   ^t  f   f   f   f   f   f   f   f   f   f   vt  f   f   vt
+f   f   ^t  f   f   ^t  f   f   f   f   f   f   f   f   f   f   vt  f   f   vt
+f   f   ^t  f   f   ^t  f   f   f   f   f   f   f   f   f   f   vt  f   f   >Tol
+>t  >t  f   f   ^t  <t  <t  f   f   f   f   f   f   f   f   f   vt  f   f   vt
+<t  <t  f   f   ^t  >t  >t  f   f   f   f   f   f   f   f   f   vt  f   f   vt
+f   f   ^t  f   f   ^t  f   f   f   f   f   f   f   f   f   f   vt  f   f   vt
+f   f   ^t  f   f   ^t  f   f   f   f   f   f   f   f   f   f   vt  f   f   vt
+f   f   ^t  f   f   ^t  f   f   f   f   f   f   f   f   f   f   vt  f   f   vt
+f   f   ^t  f   f   ^t  f   f   f   f   f   f   f   f   f   f   vt  f   f   vt
+f   f   ^t  f   f   ^t  f   f   f   f   f   vTol f   f   f   f   vt  f   f   vt
+f   f   ^t  f   f   ^t  <t  <t  <t  <t  <t  <t  <t  <t  <t  <t  <t  f   f   vt
+^t  f   ^t  f   f   f   f   f   f   f   f   f   f   f   f   f   f   f   f   vt
+^t  <t  <t  <t  <t  <t  <t  <t  <t  <t  <t  <t  <t  <t  <t  <t  <t  <t  <t  <t
+gevents 2
+generator MOUTON 1 POISON 1
+entrees (1;9) (10;9)
+fin niveau
+
+
+
+
+
+
  
 
 
