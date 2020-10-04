@@ -11,6 +11,7 @@ import graphiques.Assets;
 import graphiques.Tileset;
 import jeu.DonneesJeu;
 import jeu.Entite;
+import jeu.produit.TypeProduit;
 import processing.core.PApplet;
 import processing.core.PImage;
 
@@ -58,6 +59,10 @@ public class Tapis extends Entite {
 	 */
 	public TypeDirectionTapis getDirection() {
 		return direction;
+	}
+
+	public TypeDirectionTapis getDirectionFor(TypeProduit type) {
+		return getDirection();
 	}
 
 	@Override
