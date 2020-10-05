@@ -84,7 +84,7 @@ public class DonneesJeu {
 		scores = new int[9];
 			
 		miniJeuCourant = null;
-		afficherOverlay = false;
+		afficherOverlay = true;
 		toutPeteParcequeCestBloque = false;
 		this.niveau = niveau;
 		phaseTuto = 0;
