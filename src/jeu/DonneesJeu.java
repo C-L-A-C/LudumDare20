@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -41,6 +42,7 @@ public class DonneesJeu {
 	private boolean finalAnimation;
 	
 	private Horloge clock;
+	private int[] scores;
 
 	private Joueur joueur;
 	private Scroll scroll;
@@ -59,12 +61,13 @@ public class DonneesJeu {
 	private boolean afficherOverlay;
 
 	private boolean toutPeteParcequeCestBloque;
+	private int niveau, phaseTuto;
 
 	//private PVector debugPos;
 
-	public DonneesJeu(boolean animFin) {
+	public DonneesJeu(int niveau) {
 		int viewW = 640, viewH = 400;
-		finalAnimation = animFin;
+		finalAnimation = niveau==10;
 
 		joueur = new Joueur(0, 0);
 		scroll = new Scroll(viewW, viewH, viewW, viewH);
@@ -78,10 +81,13 @@ public class DonneesJeu {
 		this.failedMinijeu = false;
 		listeMachines = new ArrayList<>();
 		objectifs = new Objectif();
+		scores = new int[9];
 			
 		miniJeuCourant = null;
 		afficherOverlay = false;
 		toutPeteParcequeCestBloque = false;
+		this.niveau = niveau;
+		phaseTuto = 0;
 		
 		// Preloading sounds
 		SceneHandler.preloadSound("failed");
@@ -194,7 +200,64 @@ public class DonneesJeu {
 			}
 		}
 		
+
+		
+		if (niveau == 1)
+		{
+			switch(phaseTuto)
+			{
+			case 0:
+				 Produit p = null;
+				 for (Produit prd : listeProduits) {
+					 if (prd.collision(listeMachines.get(0).getZoneInRange()))
+						 p = prd;
+				 }
+				 if (p != null)
+					 phaseTuto = 1;
+				 break;
+			case 1:
+				if (listeMachines.get(0).estPrete())
+					phaseTuto = 2;
+				break;
+			case 2:
+				if (! listeMachines.get(0).estPrete())
+					phaseTuto = 3;
+				break;
+			case 3:
+				if (! listeMachines.get(0).estEnCooldown())
+					phaseTuto = 4;
+				break;
+			case 4:
+				if (listeProduits.stream().anyMatch(pr -> pr.getType() == TypeProduit.TOLE) && objectifs.getProduitsReussis().size() == 1)
+					phaseTuto = 5;
+				break;
+			}
+		}
+		
 		eCtrl.evoluer(this);
+	}
+	
+	private void calculScore() {
+		scores[1] = objectifs.getProduitsReussis().values().stream().reduce(0, (nb1, nb2) -> nb1 + nb2);
+		scores[2] = clock.getTimeLeft() - (int) clock.getSeconds();
+		scores[3] = listeProduits.size();
+		scores[4] = (int) listeProduits.stream().filter(p -> p.getType() == TypeProduit.DECHET).count();
+		
+		int base = 0;
+		for(Entry<TypeProduit, Integer> pair : objectifs.getProduitsReussis().entrySet())
+			base += pair.getKey().getPoints() * pair.getValue();
+		
+		scores[5] = base;
+		scores[6] = scores[2] * 2;
+		scores[7] = - scores[3];
+		scores[8] = - scores[4] * 10;
+		
+		scores[0] = PApplet.max(0, scores[5] + scores[6] + scores[7] + scores[8]);
+	}
+	
+	public int[] getScores() {
+		calculScore();
+		return scores;
 	}
 
 	
@@ -269,6 +332,29 @@ public class DonneesJeu {
 		}
 
 		p.popMatrix();
+		
+		if (niveau == 1)
+		{
+			int x = 50, y = 300, w = p.width - 100, h = 100;
+			p.fill(0, 200);
+			p.stroke(0);
+			p.rect(x, y, w, h);
+			p.fill(255);
+			p.textSize(22);
+			p.textAlign(PApplet.CENTER, PApplet.CENTER);
+			if (phaseTuto == 0)
+				p.text("Get  near  the  machine  and  wait  for  an  iron  ore", x + w / 2, y + h / 2);
+			else if (phaseTuto == 1)
+				p.text("Press  [C]  to  catch  the  iron  ore", x + w / 2, y + h / 2);
+			else if (phaseTuto == 2)
+				p.text("Press  [Space]  to  activate  the  machine", x + w / 2, y + h / 2);
+			else if (phaseTuto == 3)
+				p.text("Wait  for  the  machine  to  cool  down", x + w / 2, y + h / 2);
+			else if (phaseTuto == 4)
+				p.text("Now  produce  another  metal  sheet  to  complete  the  day", x + w / 2, y + h / 2);
+			else if (phaseTuto == 5)
+				p.text("Good  job  !", x + w / 2, y + h / 2);
+		}
 
 		if (estEnMiniJeu())
 			miniJeuCourant.afficher(p);

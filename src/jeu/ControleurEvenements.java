@@ -41,39 +41,39 @@ public class ControleurEvenements {
 					
 					// définit le point d'apparition exact
 					
-					x = entree.getCenter().x*tailleCasePixels;
-					y = entree.getCenter().y*tailleCasePixels;
+					x = entree.getCenter().x*tailleCasePixels + tailleCasePixels / 2 - Produit.W /2;
+					y = entree.getCenter().y*tailleCasePixels + tailleCasePixels / 2 - Produit.H /2;
 					
 					
 					
 					// définit les vitesses initiales
 					if(x>=0 && x<tileW && y>=0 && y<tileH) {
-						x += 0.25f*tailleCasePixels;
-						y -= 0.25f*tailleCasePixels;
+//						x += 0.25f*tailleCasePixels;
+//						y -= 0.25f*tailleCasePixels;
 						vitesse.x = 0;
 						vitesse.y = 0;
 					}
 					
 					if(x<0) {
-						x += 0.75f*tailleCasePixels;
-						y += 0.25f*tailleCasePixels;
+//						x += 0.75f*tailleCasePixels;
+//						y += 0.25f*tailleCasePixels;
 						vitesse.x = 50;
 						vitesse.y = 0;
 					} else if(x>y){
-						x -= 0.25f*tailleCasePixels;
-						y += 0.25f*tailleCasePixels;
+//						x -= 0.25f*tailleCasePixels;
+//						y += 0.25f*tailleCasePixels;
 						vitesse.x = -50;
 						vitesse.y = 0;
 					}
 					
 					if(y<0) {
-						x += 0.25f*tailleCasePixels;
-						y += 0.75f*tailleCasePixels;
+//						x += 0.25f*tailleCasePixels;
+//						y += 0.75f*tailleCasePixels;
 						vitesse.x = 0;
 						vitesse.y = 50;
 					} else if(y>x){
-						x += 0.25f*tailleCasePixels;
-						y -= 0.25f*tailleCasePixels;
+//						x += 0.25f*tailleCasePixels;
+//						y -= 0.25f*tailleCasePixels;
 						vitesse.x = 0;
 						vitesse.y = -50;
 					}

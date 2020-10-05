@@ -1,30 +1,24 @@
 niveau 1
-taille 10 10
-joueur (7;7)
-temps 100
+taille 6 5
+joueur (2;2)
+temps 60
 terrain
-f	s  f   	vt f  f  f  f  f  f
-f	^T <t 	<t <t <t <t <t <t <t
-f	^T f    f  f  f  f  f  f  f
-f	^T <Tol f  f  f  f  f  f  f
-f	^T f	f  f  f  f  f  f  f
-f	^T f 	f  f  f  f  f  f  f
-f	^T f 	f  f  f  f  f  f  f
-f	^T f 	f  f  f  f  f  f  f
->t	^T <t 	<t f  f  f  f  f  f
-f	^t f 	^t f  f  f  f  f  f
-objectifs (TOLE;1)
+f   f   f   f   f   f
+f   >t  >t  vt  f   f
+f   ^t  f   vS> >t  s
+f   ^t  vTol vt <t  f
+f   ^t  <t  <t  f   f
+objectifs (TOLE;2)
 gevents 1
 generator METAL spawntime=5 offset=0
-entrees (10;1) (3;-1) (3;10)
+entrees (4;3)
 fin niveau
-
 
 
 niveau 2
 taille 10 10
 joueur (5;5)
-temps 100
+temps 70
 terrain
 f f >t >t >t >t >t >t vt f
 f f ^t f f ^Tol f f vt f
@@ -34,55 +28,22 @@ f f ^t f f f f f vt f
 s  <t ^S< f f f f f vt f
 f f ^t f f f f f vt f
 f f ^t f f f f f vt f
-f f ^t f f vTol f f vt f
+f f ^t f f vSci f f vt f
 f f ^t <t <t <t <t <t <t f
-objectifs (TOLE;5)
+objectifs (PLANCHE;1) (TOLE;2)
 gevents 1
-generator METAL spawntime=5 offset=0
-entrees (-1;4)
+generator METAL spawntime=6 offset=0
+entrees (0;4)
+generator BOIS spawntime=6 offset=3
+entrees (0;4)
 fin niveau
 
 
 
 niveau 3
-taille 20 20
-joueur (10;10)
-temps 100
-terrain
-f   f   >t  >t  >t  >t  >t  >t  >t  >t  >t  >t  >t  >t  >t  >t  >t  >t  >t  vt
-f   f   ^t  f   f   f   f   f   f   f   f   f   f   f   f   f   f   f   f   vt
-f   f   ^t  f   f   f   f   f   f   f   f   f   f   f   f   f   f   f   f   vt
-f   f   ^t  f   f   vt  <t  <t  <t  <t  <P  <t  <t  <t  <t  <t  <t  f   f   vt
-f   f   ^t  f   f   vt  f   f   f   f   f   f   f   f   f   f   ^t  f   f   vt
-f   f   ^t  f   f   vt  f   f   f   f   f   f   f   f   f   f   ^t  f   f   vt
-f   f   ^t  f   f   vt  f   f   f   f   f   f   f   f   f   f   ^t  f   f   vt
-f   f   ^t  f   f   vt  f   f   f   f   f   f   f   f   f   f   ^t  f   f   vt
-f   f   ^t  f   f   vt  f   f   f   f   f   f   f   f   f   f   ^t  f   >Sci vt
->t  s   ^t  f   f   vS> >t  s   f   f   f   f   f   f   f   f   ^t  f   f   vt
-<t  <t  ^S<  f   f  vt  <t  <t  f   f   f   f   f   f   f   f   ^t  f   f   vt
-f   f   ^t  f   f   vt  f   f   f   f   f   f   f   f   f   f   ^t  f   f   vt
-f   f   ^t  f   f   vt  f   f   f   f   f   f   f   f   f   f   ^t  f   f   vt
-f   f   ^t  f   f   vt  f   f   f   f   f   f   f   f   f   f   ^t  f   f   vt
-f   f   ^t  f   f   vt  f   f   f   f   f   f   f   f   f   f   ^t  f   f   vt
-f   f   ^t  f   f   vt  f   f   f   f   f   vSci f   f   f   f  ^t  f   f   vt
-f   f   ^t  f   f   >t  >t  >t  >t  >t  >t  >t  >t  >t  >t  >t  ^t  f   f   vt
-f   f   ^t  f   f   f   f   f   f   f   f   f   f   f   f   f   f   f   f   vt
-f   f   ^t  f   f   f   f   f   f   f   f   f   f   f   f   f   f   f   f   vt
-f   f  <t  <t  <t  <t  <t  <t  <t  <t  <t  <t  <t  <t  <t  <t  <t  <t  <t   <t
-objectifs (PLANCHE;5)
-gevents 1
-generator BOIS spawntime=5 offset=0
-entrees (1;9)
-generator BOIS spawntime=5 offset=0
-entrees (7;11)
-fin niveau
-
-
-
-niveau 4
 taille 12 14
 joueur (3;5)
-temps 100
+temps 90
 terrain
 f   f   f   f   f   f   f   f   f   s   f   f
 >t  >t  >t  >t  >t  vt  >t  >t  >t  >S^ >t  vt
@@ -90,7 +51,7 @@ f   f   f   f   f   f   f   f   f   s   f   f
 ^t  f   f   f   f   vt  ^t  f   f   f   f   vt
 ^t  f   f   f   f   vt  ^t  f   f   f   f   vt
 ^t  f   f   f   f   vt  ^t  f   f   f   f   vt
-^t <Fon f   f   f   vP  ^P  f   f   f  >Fon vt
+^t <Sci f   f   f   vP  ^P  f   f   f  >Bru vt
 ^t  f   f   f   f   vt  ^t  f   f   f   f   vt
 ^t  f   f   f   f   vt  ^t  f   f   f   f   vt
 ^t  f   f   f   f   vt  ^t  f   f   f   f   vt
@@ -98,19 +59,58 @@ f   f   f   f   f   f   f   f   f   s   f   f
 ^t  <t  <Sv  <t <t  <t  ^t  <t  <t  <t <t   <t
 f   f   s   f  ^t   f   f   ^t   f   f   f   f
 f   f   f   f  ^t   f   f   ^t   f   f   f   f
-objectifs (TOLE;5)
+objectifs (PLANCHE;2) (CHARBON;2)
 gevents 1
-generator METAL spawntime=5 offset=0
+generator BOIS spawntime=5 offset=0
 entrees (4;13)
-generator METAL spawntime=5 offset=0
+generator BOIS spawntime=5 offset=0
 entrees (7;13)
 fin niveau
 
 
-niveau 5
+
+niveau 4
+taille 20 20
+joueur (10;10)
+temps 120
+terrain
+f   f   >T  >T  >T  >T  >T  >T  >T  >T  >T  >T  >T  >T  >T  >T  >T  >T  >T  vT
+f   f   ^T  f   f   f   f   f   f   f   f   f   f   f   f   f   f   f   f   vT
+f   f   ^T  f   f   f   f   f   f   f   f   f   f   f   f   f   f   f   f   vT
+f   f   ^T  f   f   vt  <t  <t  <t  <t  <t  <t  <t  <t  <t  <t  <t  f   f   vT
+f   f   ^T  f   f   vt  f   f   f   f   f   f   f   f   f   f   ^t  f   f   vT
+f   f   ^T  f   f   vt  f   f   f   f   f   f   f   f   f   f   ^t  f   f   vT
+f   f   ^T  f   f   vt  f   f   f   f   f   f   f   f   f   f   ^t  f   f   vT
+f   f   ^T  f   f   vt  f   f   f   f   f   f   f   f   f   f   ^t  f   f   vT
+f   f   ^T  f   f   vt  f   f   f   f   f   f   f   f   f   f   ^t  f   >Sci vT
+>t >t   ^T  f   f   vS> >t  s   f   f   f   f   f   f   f   f   ^t  f   f   vT
+s  <t  ^S<  f   f  vt  <t  <t  f   f   f   f   f   f   f   f   ^t  f   f   vT
+f   f   ^T  f   f   vt  f   f   f   f   f   f   f   f   f   f   ^P  f   f   vT
+f   f   ^T  f   f   vt  f   f   f   f   f   f   f   f   f   f   ^t  f   f   vT
+f   f   ^T  f   f   vt  f   f   f   f   f   f   f   f   f   f   ^t  f   f   vT
+f   f   ^T  f   f   vt  f   f   f   f   f   f   f   f   f   f   ^t  f   f   vT
+f   f   ^T  f   f   vt  f   f   f   f   f   vSci f   f   f   f  ^t  f   f   vT
+f   f   ^T  f   f   >t  >t  >t  >t  >t  >t  >t  >t  >t  >t  >t  ^t  f   f   vT
+f   f   ^T  f   f   f   f   f   f   f   f   f   f   f   f   f   f   f   f   vT
+f   f   ^T  f   f   f   f   f   f   f   f   f   f   f   f   f   f   f   f   vT
+f   f  ^T  <T  <T  <T  <T  <T  <T  <T  <T  <T  <T  <T  <T  <T  <T  <T  <T   <T
+objectifs (PLANCHE;5)
+gevents 1
+generator BOIS spawntime=3 offset=0
+entrees (1;9)
+generator BOIS spawntime=3 offset=0
+entrees (7;10)
+fin niveau
+
+
+
+
+
+
+niveau 6
 taille 13 14
 joueur (4;6)
-temps 100
+temps 120
 terrain
 f   f   f   f   f   f   f   f   f   f   f   f   f
 f   f   f   f   f   s   vt  f   f   f   f   f   f
@@ -126,41 +126,41 @@ f   f   ^P  f   f   f   b   f   >f   f  vt  f   f
 f   f   ^t  <t  <t  <t  <t  <t  <t  <t  <t  f   f
 f   f   f   f   f   f   f   f   f   f   f   f   f
 f   f   f   f   f   f   f   f   f   f   f   f   f
-objectifs (LAINE;1) (VIANDE;1)
+objectifs (LAINE;4) (VIANDE;2)
 gevents 1
-generator MOUTON spawntime=1 offset=0
-entrees (7;1)
+generator MOUTON spawntime=4 offset=0
+entrees (6;1)
 fin niveau
 
 
-niveau 6
-taille 17 16
+niveau 5
+taille 18 16
 joueur (9;8)
-temps 100
+temps 90
 terrain
-f	>t  >t  >t  >t  >t  >t  >t  >t  >t  >t  >t  >t  >t  >t  >t  vt
-s	^S< >t  >t  >t  >t  >t  >t  >t  >t  >t  >t  >t  vt  f   f   vt
-f	^t  ^S< >t  >t  >t  >t  >t  >t  >t  vt  f   f   vt  f   f   vt
-f	^t  ^t  ^S< >t  >t  >t  vt  f   f   vP  f   >Bru vt f   f   vt
-f	^t  ^t  ^t  ^S< f   f   vt  f   f   vt  f   f   vt  f   f   vt
-f	^t  ^t  ^t  ^t  f   f   vt  f   f   vt  f   f   vt  f   f   vt
-f	^t  ^t  ^t  ^t  f   >Tol vt f   f   vt  f   f   vt  f   f   vt
-f	^t  ^t  ^t  ^t  f   f   vt  f   f   vt  f   f   vt  f   f   vt
-f	^t  ^t  ^t  ^t  f   f   vt  f   f   vt  f   f   vt  f   f   vt
-f	^t  ^t  ^t  ^t  f   f   vt  f   f   vt  f   f   vt  f   f   vt
-f	^t  ^t  ^t  ^t  f   f   vt  f   f   vt  f   f   vt  f   f   vt
-f	^t  ^t  ^t  ^t  f   f   vP  f   >Tol vt f   f   vt  f   f   vt
-f	^t  ^t  ^t  ^t  <t  <t  <t  f   f   vt  f   f   vt  f   f   vt
-f	^t  ^t  ^t  <t  <t  <t  <t  <t  <t  <t  f   f   vP  f   f   vt
-f	^t  ^t  <t  <t  <t  <t  <t  <t  <t  <t  <t  <t  <t  f   >Fon vt
-f	^t  <t  <t  <t  <t  <t  <t  <t  <t  <t  <t  <t  <t  <t  <t  <t
+f	>t  >t  >t  >t  >t  >t  >t  >t  >t  >t  >t  >t  >t  >t  >t  vt  f
+s	^S< >t  >t  >t  >t  >t  >t  >t  >t  >t  >t  >t  vt  f   f   vt  f
+f	^t  ^S< >t  >t  >t  >t  >t  >t  >t  vt  f   f   vt  f   f   vt  f
+f	^t  ^t  ^S< >t  >t  >t  vt  f   f   vP  f   >Bru vt f   f   vt  f
+f	^t  ^t  ^t  ^S< f   f   vt  f   f   vt  f   f   vt  f   f   vt  f
+f	^t  ^t  ^t  ^t  f   f   vt  f   f   vt  f   f   vt  f   f   vt  f
+f	^t  ^t  ^t  ^t  f   >Tol vt f   f   vt  f   f   vt  f   f   vt  f
+f	^t  ^t  ^t  ^t  f   f   vt  f   f   vt  f   f   vt  f   f   vt  f
+f	^t  ^t  ^t  ^t  f   f   vt  f   f   vt  f   f   vt  f   f   vt  f
+f	^t  ^t  ^t  ^TPout1  f   f   vt  f   f   vt  f   f   vt  f   f   vt  f
+f	^t  ^t  ^t  ^t  f   f   vt  f   f   vt  f   f   vt  f   f   vt  f
+f	^t  ^t  ^t  ^t  f   f   vP  f   >Tol vt f   f   vt  f   f   vt  f
+f	^t  ^t  ^t  ^t  <t  <t  <t  f   f   vt  f   f   vt  f   f   vt  ^TPin1
+f	^t  ^t  ^t  <t  <t  <t  <t  <t  <t  <t  f   f   vP  f   f   vt  ^t
+f	^t  ^t  <t  <t  <t  <t  <t  <t  <t  <t  <t  <t  <t  f   >Fon vt ^t
+f	^t  <t  <t  <t  <t  <t  <t  <t  <t  <t  <t  <t  <t  <t  <t  <t  f
 objectifs (CHARBON;1) (PIERRE;1) (TOLE;1) (METAL_FUSION;1)
 gevents 1
-generator METAL spawntime=2 offset=0
+generator METAL spawntime=1 offset=0
 entrees (1;8)
-generator BOIS spawntime=1 offset=0
+generator BOIS spawntime=2 offset=0
 entrees (2;8)
-generator SABLE spawntime=2 offset=0
+generator SABLE spawntime=1 offset=0
 entrees (3;8)
 generator METAL spawntime=2 offset=0
 entrees (4;8)
@@ -168,26 +168,59 @@ fin niveau
 
 
 niveau 7
-taille 9 8
-joueur (3;3)
-temps 100
+taille 9 16
+joueur (3;8)
+temps 115
 terrain
+f   f        f   f  f        f   f   f        f
 f   vTPout3  f   f  vTPout1  f   f   vTPout2  f
 f   vt       f   f   vt      f   f   vt       f
 f   vt       f   f   vt      f   f   vt       f
 f   vt       f   f   vt      f   f   vt       f
 f   vt       f   f   vt      f   f   vt       f
+f   vt       f   >Tol vt     f   f   vt       f
 f   vt       f   f   vt      f   f   vt       f
+f   vt       f   f   vt      f   f   vt       f
+f   vt       f   f   vt      f   >Sci vt       f
+f   vt       f   f   vt      f   f    vt       f
+f   vt       f   f   vt      f   f   vS>     s
+>Fon vt      f   f   vt      f   f   vt       f
 f   vt       f   f   vt      f   f   vt       f
 f   vTPin1   f   f   vTPin2  f   f   vTPin3   f
-objectifs (CHARBON;1)
+f   f        f   f   f       f   f   f        f
+objectifs (RAIL;1)
+gevents 1
+generator METAL spawntime=3 offset=0
+entrees (1;5)
+generator BOIS spawntime=3 offset=0
+entrees (7;5)
+generator OR_BRUT spawntime=2 offset=0
+entrees (7;5)
+fin niveau
+
+
+niveau 8
+taille 15 11
+joueur (4;3)
+temps 100
+terrain
+f   >t  >t  >t  >t  >t  >t  >t  >t  >t  >t  >t  >t  >t  vt
+f   ^t  b   b   b   b   b   f   f   f   f   f   f   f   vt
+f   ^t  f   f   f   f   b   f   b   b   b   b   b   b   vt
+f   ^t  <Tol f  f   f   b   f   b   f   f   f   f   f   vt
+f   ^t  b   b   f   f   b   f   b   f   f   f   f   >Fon vt
+>t  ^t  f   b   f   f   b   f   b   f   f   b   b   b vt
+<t  ^S< f   b   f   f   b   b   b   f   f   b   f   f   vt
+f   ^t  f   b   f   f   f   f   f   f   f   b   f   f   vt
+f   ^t  f   b   f   f   f   f   f   f   f   b   f   f   vt
+f   ^t  f   b   b   b   b   b   b   b   b   b   f   f   vt
+f   ^t  <t  <t  <t  <t  <t  <t  <t  <t  <t  <t  <t  <t  <t
+objectifs (COUTEAU;2)
 gevents 1
 generator METAL spawntime=2 offset=0
-entrees (1;4)
-generator BOIS spawntime=1 offset=0
-entrees (4;-1)
-generator SABLE spawntime=2 offset=0
-entrees (7;4)
+entrees (0;5)
+generator PLASTIQUE spawntime=2 offset=1
+entrees (0;5)
 fin niveau
 
 

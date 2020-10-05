@@ -27,7 +27,7 @@ public class Tapis extends Entite {
 		super(x, y, null);
 		
 		initAnimations();
-		vitesse = 160;
+		vitesse = 60;
 	
 		this.forme = new Rectangle(pos, W, H);
 		this.direction = direction;
@@ -40,7 +40,7 @@ public class Tapis extends Entite {
 			Tileset tileset = new Tileset("tapis_roulant", 5, 8);
 			for (int i = 0; i < 8; i++)
 			{
-				Animation animation = new Animation(tileset, i * 5, i * 5 + 4, i < 4 ? 10 : 30);
+				Animation animation = new Animation(tileset, i * 5, i * 5 + 4, i < 4 ? 25 : 35);
 				animation.setBegining(System.currentTimeMillis());
 				animations.add(animation);
 			}

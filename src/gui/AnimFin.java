@@ -29,7 +29,7 @@ public class AnimFin extends Scene {
 		translateY = 0;
 		persos = new AnimationSet[15];
 
-		jeu = new DonneesJeu(true);
+		jeu = new DonneesJeu(10);
 		niveau = new ControleurNiveau(jeu);
 		if (!niveau.setNiveauCourant("niveau 10")) {
 			System.out.println("Erreur : le niveau n'a pas pu etre recupere");

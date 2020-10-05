@@ -5,6 +5,7 @@ import config.ConfigKey;
 import graphiques.Assets;
 import menu.PButton;
 import processing.core.PApplet;
+import processing.core.PFont;
 import processing.core.PImage;
 
 /**
@@ -24,6 +25,8 @@ public abstract class Scene {
 		this.p = p;
 		audioImg = Assets.getImage("audio");
 		muteImg = Assets.getImage("mute");
+		PFont fontPixelated = p.createFont("assets/pixelated.ttf", 32);
+		p.textFont(fontPixelated);
 		soundBtn = new PButton(p.width-50, p.height-40, 32, 32, Config.readBoolean(ConfigKey.MUTE) ? audioImg : muteImg);
 		handleMouseHand = true;
 	}
