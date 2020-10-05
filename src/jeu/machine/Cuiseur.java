@@ -16,11 +16,6 @@ public class Cuiseur extends Machine {
 	{
 		super(x, y, new Animation(new Tileset("cuisson", 2, 1), 0, 1, 4), dir);
 	}
-
-	
-	public void afficher(PApplet p) {
-		apparence.afficher(p,  (int)pos.x,  (int)pos.y - 30,  (int)(1.2 * forme.getW()), (int)(2 * forme.getH()));
-	}
 	
 	
 	protected void remplirRecettes(List<Recette> recettes) {
@@ -28,6 +23,12 @@ public class Cuiseur extends Machine {
 		r.ajouterIngredient(TypeProduit.MOUTON);
 		r.ajouterProduit(TypeProduit.VIANDE);
 		recettes.add(r);
+	}
+
+
+	@Override
+	public String getImageName() {
+		return "cuisson";
 	}
 
 }

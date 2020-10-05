@@ -21,16 +21,17 @@ public class Toleuse extends Machine {
 		super(x, y, new Animation(new Tileset("aplatisseur", 2, 1), 0, 1, 4), dir);
 	}
 
-	public void afficher(PApplet p) {
-		apparence.afficher(p,  (int)pos.x,  (int)pos.y - 30,  (int)(1.2 * forme.getW()), (int)(2 * forme.getH()));
-	}
-	
 	
 	protected void remplirRecettes(List<Recette> recettes) {
 		Recette r = new Recette(2, 10, TypeMiniJeu.VISSE_VIS);
 		r.ajouterIngredient(TypeProduit.METAL);
 		r.ajouterProduit(TypeProduit.TOLE);
 		recettes.add(r);
+	}
+	
+	@Override
+	public String getImageName() {
+		return "aplatisseur";
 	}
 
 }

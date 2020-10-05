@@ -34,6 +34,8 @@ import utils.Logger;
 public class DonneesJeu {
 	private static final float MAX_DISTANCE_MACHINE = 50;
 
+	public static final float TEMPS_BLOCAGE_MAX = 6000;
+
 	private long failedMinijeut0;
 	private boolean failedMinijeu;
 	
@@ -150,7 +152,7 @@ public class DonneesJeu {
 		for (Machine m : listeMachines)
 		{
 			m.evoluer(t, this);
-			if (m.getTempsBloque(t) > 5000)
+			if (m.getTempsBloque(t) > TEMPS_BLOCAGE_MAX)
 			{
 				toutPeteParcequeCestBloque = true;
 			}
