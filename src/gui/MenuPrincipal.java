@@ -3,6 +3,8 @@ package gui;
 import java.util.ArrayList;
 import java.util.List;
 
+import config.Config;
+import config.ConfigKey;
 import graphiques.Assets;
 import jeu.DonneesJeu;
 import jeu.machine.Cuiseur;
@@ -35,10 +37,10 @@ public class MenuPrincipal extends Scene {
 		this.setup(p);
 		float widthButton = p.width / 3;
 		float heightButton = p.height / 5;
-		
-		this.buttonCampaign = new PButton(p.width  / 2,  p.height / 4 , widthButton, heightButton, "PLAY");
-		this.buttonCredits = new PButton(p.width / 2, 2 * p.height  / 4 , widthButton, heightButton, "TUTO");
-		this.buttonQuit = new PButton(p.width / 2, 3 * p.height / 4 , widthButton, heightButton, "QUIT");
+
+		this.buttonCampaign = new PButton(p.width / 2, p.height / 4, widthButton, heightButton, "PLAY");
+		this.buttonCredits = new PButton(p.width / 2, 2 * p.height / 4, widthButton, heightButton, "TUTO");
+		this.buttonQuit = new PButton(p.width / 2, 3 * p.height / 4, widthButton, heightButton, "QUIT");
 
 		tapis = new ArrayList<>();
 		produits = new ArrayList<>();
@@ -48,8 +50,7 @@ public class MenuPrincipal extends Scene {
 		machines = new ArrayList<>();
 
 		initTapis();
-		
-		
+
 		machines.add(new Fonderie(20 + Tapis.W * 3, Tapis.H * 1, TypeDirectionTapis.HAUT));
 		machines.add(new Toleuse(20 + Tapis.W * 11, Tapis.H * 1, TypeDirectionTapis.HAUT));
 		machines.add(new Tondeuse(20 + Tapis.W * 3, Tapis.H * ((p.height / Tapis.H) - 2), TypeDirectionTapis.BAS));
@@ -63,7 +64,8 @@ public class MenuPrincipal extends Scene {
 			tapis.add(new Tapis(x, y, TypeDirectionTapis.DROITE));
 		}
 		for (int i = 0; i < nbY - 1; i++) {
-			int x = 20 + (nbX - 1) * Tapis.W + (i >= 3 && i <= 7 ? -2 * Tapis.W : ( i == 8 ? - Tapis.W : 0)), y = i * Tapis.H + 0;
+			int x = 20 + (nbX - 1) * Tapis.W + (i >= 3 && i <= 7 ? -2 * Tapis.W : (i == 8 ? -Tapis.W : 0)),
+					y = i * Tapis.H + 0;
 			tapis.add(new Tapis(x, y, TypeDirectionTapis.BAS));
 		}
 		for (int i = 4; i < 7; i++) {
@@ -81,27 +83,28 @@ public class MenuPrincipal extends Scene {
 
 		tapis.add(new Tapis(Tapis.W + 20, Tapis.H * nbY / 2, TypeDirectionTapis.GAUCHE));
 		tapis.add(new Tapis(20 + (nbX - 1) * Tapis.W, 3 * Tapis.H, TypeDirectionTapis.GAUCHE));
-		tapis.add(new Tapis(20 + (nbX - 2) * Tapis.W , 4* Tapis.H , TypeDirectionTapis.DROITE));
-		tapis.add(new Tapis(20 + (nbX - 3) * Tapis.W , 7* Tapis.H , TypeDirectionTapis.DROITE));
+		tapis.add(new Tapis(20 + (nbX - 2) * Tapis.W, 4 * Tapis.H, TypeDirectionTapis.DROITE));
+		tapis.add(new Tapis(20 + (nbX - 3) * Tapis.W, 7 * Tapis.H, TypeDirectionTapis.DROITE));
 		tapis.add(new Tapis(20 + (nbX - 1) * Tapis.W, 7 * Tapis.H, TypeDirectionTapis.GAUCHE));
 		tapis.add(new Tapis(20 + (nbX - 2) * Tapis.W, 7 * Tapis.H, TypeDirectionTapis.BAS));
 		tapis.add(new Tapis(20 + (nbX - 2) * Tapis.W, 9 * Tapis.H, TypeDirectionTapis.DROITE));
-		
-		selecteur = new Selecteur(20 + (nbX - 2) * Tapis.W, 3 * Tapis.H, TypeDirectionTapis.BAS, TypeDirectionTapis.GAUCHE);
+
+		selecteur = new Selecteur(20 + (nbX - 2) * Tapis.W, 3 * Tapis.H, TypeDirectionTapis.BAS,
+				TypeDirectionTapis.GAUCHE);
 		TypeProduit[] typesProduits = TypeProduit.values();
-		for (int i = 0; i < typesProduits.length / 2; i ++)
+		for (int i = 0; i < typesProduits.length / 2; i++)
 			selecteur.ajouterProduitFiltre(typesProduits[i]);
-			
+
 		tapis.add(selecteur);
 	}
 
 	@Override
 	public void draw() {
 		p.background(0);
-		//background
+		// background
 		PImage background = Assets.getImage("background");
 		p.image(background, 0, 0);
-		
+
 		long courant = System.currentTimeMillis();
 		long tempsBoucle = courant - lastTemps;
 		lastTemps = courant;
@@ -123,10 +126,10 @@ public class MenuPrincipal extends Scene {
 			}
 			prod.afficher(p);
 		}
-		
+
 		for (Machine m : machines)
 			m.afficher(p);
-		
+
 		selecteur.afficher(p);
 		p.fill(70, 180);
 		p.rect(p.width / 2, p.height / 2, p.width, p.height);
@@ -135,13 +138,12 @@ public class MenuPrincipal extends Scene {
 		this.buttonCampaign.afficher(p);
 		this.buttonCredits.afficher(p);
 		this.buttonQuit.afficher(p);
-		
+
 		this.handleButtons();
 	}
 
 	private boolean checkCol(Produit prod) {
-		for (Produit e : produits)
-		{
+		for (Produit e : produits) {
 			if (prod != e && e.collision(prod))
 				return true;
 		}
@@ -151,7 +153,7 @@ public class MenuPrincipal extends Scene {
 	private void genererProduitAleatoire() {
 		if (produits.size() >= 13)
 			return;
-		
+
 		int x = (int) (1.5 * Tapis.W + 20), y = Tapis.H * (p.height / Tapis.H) / 2 + Tapis.H / 2 - 10;
 
 		Produit prod = new Produit(x, y, Utils.random(TypeProduit.values()));
@@ -167,13 +169,11 @@ public class MenuPrincipal extends Scene {
 		if (buttonCampaign.contient(p.mouseX, p.mouseY)) {
 			p.cursor(p.ARROW);
 
-			SceneHandler.setRunning(new Jeu(4));
-
-
+			SceneHandler.setRunning(new Jeu(Config.readInt(ConfigKey.NIVEAU_DEBUT)));
 
 		}
 		if (buttonCredits.contient(p.mouseX, p.mouseY)) {
-			SceneHandler.setRunning(new EcranTuto(p,this));
+			SceneHandler.setRunning(new EcranTuto(p, this));
 			p.cursor(p.ARROW);
 		}
 		if (buttonQuit.contient(p.mouseX, p.mouseY)) {

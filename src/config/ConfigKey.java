@@ -14,7 +14,7 @@ import utils.Utils;
 public enum ConfigKey {
 	
 	//Clef de configuration et leur nom pour le fichier de config
-	OPTION_1("Option1"),
+	NIVEAU_DEBUT("StartingLevel"),
 	LOG_LEVEL("LogLevel"),
 	// Le format de nom des touches est : ToucheNomTouche (Touche + NomTouche en PascalCase)
 	TOUCHE_HAUT("ToucheHaut"),
@@ -75,6 +75,5 @@ public enum ConfigKey {
 	
 	// Utilise par traduire()
 	private static void initNameMap() {
-		noms.put(OPTION_1.key, "Nom de l'option 1");
 	}
 }
