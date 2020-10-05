@@ -25,7 +25,7 @@ public class GenerateurEvenements {
 		
 		tpsApparition = spawntime*1000;
 		decalage = offset*1000;
-		tempsDernierProduitCree = System.currentTimeMillis() + offset;
+		tempsDernierProduitCree = System.currentTimeMillis() + decalage;
 		
 		entrees = new ArrayList<Point>();
 	}

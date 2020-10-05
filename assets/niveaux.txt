@@ -1,7 +1,7 @@
 niveau 1
 taille 6 5
 joueur (2;2)
-temps 40
+temps 60
 terrain
 f   f   f   f   f   f
 f   >t  >t  vt  f   f
@@ -18,7 +18,7 @@ fin niveau
 niveau 2
 taille 10 10
 joueur (5;5)
-temps 100
+temps 65
 terrain
 f f >t >t >t >t >t >t vt f
 f f ^t f f ^Tol f f vt f
@@ -30,12 +30,12 @@ f f ^t f f f f f vt f
 f f ^t f f f f f vt f
 f f ^t f f vSci f f vt f
 f f ^t <t <t <t <t <t <t f
-objectifs (PLANCHE;5) (TOLE;5)
+objectifs (PLANCHE;1) (TOLE;2)
 gevents 1
-generator METAL spawntime=2 offset=0
-entrees (-1;4)
-generator BOIS spawntime=2 offset=1
-entrees (-1;4)
+generator METAL spawntime=6 offset=0
+entrees (0;4)
+generator BOIS spawntime=6 offset=3
+entrees (0;4)
 fin niveau
 
 
