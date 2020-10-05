@@ -7,36 +7,43 @@ public enum TypeProduit {
 	MOUTON("mouton"),
 	SABLE("sable"),
 	OR_BRUT("or brut"),
-	EPEE("sword"),
-	RAIL("rail"),
-	COUTEAU("couteau"),
-	BIJOU("Couronne"),
-	METAL_FUSION("metal fusion"),
-	TOLE("tole"),
-	PLANCHE("planche"),
-	CHARBON("charbon"),
+	EPEE("sword", 125),
+	RAIL("rail", 150),
+	COUTEAU("couteau", 125),
+	BIJOU("Couronne", 90),
+	METAL_FUSION("metal fusion", 50),
+	TOLE("tole", 25),
+	PLANCHE("planche", 50),
+	CHARBON("charbon", 50),
 	PLASTIQUE("plastique"),
-	LAINE("pelote de laine"),
-	VIANDE("viande"),
-	VERRE("verre"),
+	LAINE("pelote de laine", 90),
+	VIANDE("viande", 90),
+	VERRE("verre", 75),
 	POISON("poison"), 
-	PIERRE("pierre");
+	PIERRE("pierre", 0);
 	
 	private String spriteName;
-	
-	private TypeProduit()
-	{
-		this(null);
-	}
+	private int pts;
 	
 	private TypeProduit(String spriteName)
 	{
+		this(spriteName, 0);
+	}
+	
+	private TypeProduit(String spriteName, int pts)
+	{
 		this.spriteName = spriteName;
+		this.pts = pts;
 	}
 	
 	public String getSpriteName()
 	{
 		return spriteName;
+	}
+	
+	public int getPoints()
+	{
+		return pts;
 	}
 
 	public static TypeProduit getFromName(String produit) {

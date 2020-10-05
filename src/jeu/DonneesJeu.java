@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -244,7 +245,11 @@ public class DonneesJeu {
 		}
 		int tempsRestant = clock.getTimeLeft() - (int) clock.getSeconds();
 		
-		score = 50 + 2*tempsRestant - 10*nbCacas - nbProduits;
+		int base = 0;
+		for(Entry<TypeProduit, Integer> pair : objectifs.getProduitsReussis().entrySet())
+			base += pair.getKey().getPoints() * pair.getValue();
+		
+		score = base + 2*tempsRestant - 10*nbCacas - nbProduits;
 	}
 	
 	public int getSCore() {
