@@ -189,6 +189,15 @@ public class Config{
 				return false;
 			}
 		};
+		Predicate<String> checkLevel = str -> {
+			try {
+				int lvl = Integer.parseInt(str);
+				return lvl >= 1 && lvl <= 10;
+			}catch(NumberFormatException e)
+			{
+				return false;
+			}
+		};
 		//Predicate<String> checkBool = str -> str.toLowerCase().equals("true") || str.toLowerCase().equals("false");
 		Predicate<String> checkKey = str -> stringToKey(str) != -1;
 		
@@ -197,6 +206,8 @@ public class Config{
 		checks.put(ConfigKey.LOG_LEVEL, checkInt);
 		config.put(ConfigKey.MUTE, "false");
 		checks.put(ConfigKey.MUTE, checkBoolean);
+		config.put(ConfigKey.NIVEAU_DEBUT, "1");
+		checks.put(ConfigKey.NIVEAU_DEBUT, checkLevel);
 		
 		
 		// Default configuration for keys

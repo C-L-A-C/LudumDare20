@@ -54,6 +54,8 @@ public class Jeu extends Scene {
 
 		jeu.afficher(p);
 		clock.afficher(p);
+		
+		p.image(Assets.getImage("horaire"), p.width - 75, 78, 63, 44);
 
 		//p.text(""+jeu.getSCore(), 5, 25);
 
