@@ -16,12 +16,14 @@ public class TeleporteurEntree extends Tapis {
 	private long derniereReduction;
 	private boolean updateTempsReduction;
 	private TeleporteurSortie sortie;
+	private Rectangle trou;
 	
 	public TeleporteurEntree(float x, float y, TypeDirectionTapis dir) {
 		super(x, y, dir);
 		derniereReduction = 0;
 		updateTempsReduction = false;
 		forme = new Rectangle(pos, Tapis.W, Tapis.H);
+		trou = new Rectangle(pos.x + 8, pos.y + 8, Tapis.W - 16, Tapis.H - 16);
 		vitesse = 5;
 	}
 	
@@ -39,7 +41,7 @@ public class TeleporteurEntree extends Tapis {
 	@Override
 	public void evoluer(long t, DonneesJeu d) {
 		for(Produit p : d.getListeProduits()) {
-			if (p.collision(this.forme) && t-derniereReduction>10) {
+			if (trou.collision(this.forme) && t-derniereReduction>10) {
 				updateTempsReduction = true;
 				float w = p.getForme().getW() -2;
 				float h = p.getForme().getH() -2;
