@@ -109,7 +109,8 @@ public class EcranTuto extends Scene {
 		this.boutonRetour.afficher(p);
 		
 		p.textSize(15);
-		p.text("Go in front of a machine, use it and make products to win !", 300, 140);
+		p.text("You are a lone worker in a huge corporation, you have to achieve your", 300, 120);
+		p.text("daily goals not to be fired. Be careful : do not let the products accumulate !", 300, 140);
 		p.text("Controls : use the direction arrows to move on the map", 300, 160);
 		p.text("C : charge a machine whith the right product (see the recipes below)", 320, 180);
 		p.text("K : show what is charged in the machine", 260, 200);
@@ -147,7 +148,14 @@ public class EcranTuto extends Scene {
 
 	@Override
 	public void mousePressed() {
-		if (boutonRetour.contient(p.mouseX, p.mouseY)) {
+		int x = p.mouseX;
+		int y = p.mouseY;
+		int returnX = (int) boutonRetour.getX()/2;
+		int returnY = (int) boutonRetour.getY();
+		int returnW = (int) boutonRetour.getWidth();
+		int returnH = (int) boutonRetour.getHeight();
+		
+		if (x>=returnX && x<=returnX+returnW && y>=returnY+yScroll && y<=returnY+returnH+yScroll) {
 			SceneHandler.setRunning(previousScene);
 		}
 	}

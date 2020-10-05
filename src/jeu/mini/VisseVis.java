@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import graphiques.Assets;
+import gui.Scene;
 import gui.SceneHandler;
 import jeu.machine.Machine;
 import processing.core.PApplet;
@@ -29,6 +30,7 @@ public class VisseVis extends MiniJeu {
 
 	protected VisseVis(Machine machine) {
 		super(machine);
+		Scene.handleMouseHand = false;
 		
 		this.nbVis = 0;
 		int nbObj = Utils.random(10, 20);
@@ -75,8 +77,10 @@ public class VisseVis extends MiniJeu {
 				p.image(visVissee, vis[0], vis[1]);
 			else
 				p.image(mouton, vis[0], vis[1]);
-		if(end)
-			p.cursor(p.ARROW);
+		if(end) {
+			Scene.handleMouseHand = true;
+			SceneHandler.pAppletInstance.cursor(SceneHandler.pAppletInstance.ARROW);
+		}
 	}
 
 	@Override

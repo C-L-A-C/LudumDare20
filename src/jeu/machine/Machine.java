@@ -23,7 +23,7 @@ import processing.core.PImage;
 
 public abstract class Machine extends Entite {
 
-	private static final long TEMPS_COOLDOWN = 3000;
+	private static final float TEMPS_COOLDOWN = 5000;
 
 	/**
 	 * Produits dans la machine, avec leur nombre
@@ -41,10 +41,10 @@ public abstract class Machine extends Entite {
 	private Rectangle zoneIngredients;
 	private TypeDirectionTapis direction;
 	private Recette recetteCourante;
-	private boolean bloquee;
+	private boolean bloquee, afficheBloquee;
 	private long tBloque;
 	private AnimationSet fumee;
-	private long lastActivation;
+	private long lastActivation, lastActivationMillis;
 	private boolean isCooldown;
 
 	protected Machine(float x, float y, Apparence a, TypeDirectionTapis direction) {
@@ -161,6 +161,7 @@ public abstract class Machine extends Entite {
 				j.ajouterProduit(p);
 				sortieMachine.remove(0);
 				bloquee = false;
+				afficheBloquee = false;
 			}
 			else if (! bloquee) {
 				bloquee = true;
@@ -174,6 +175,8 @@ public abstract class Machine extends Entite {
 		if (bloquee)
 		{
 			int severity = (int) PApplet.map(t - tBloque, 1000, DonneesJeu.TEMPS_BLOCAGE_MAX, 0, 4);
+			if (severity > 0)
+				afficheBloquee = true;
 			severity = PApplet.constrain(severity, 0, 3);
 			fumee.change(severity);
 		}
@@ -182,8 +185,15 @@ public abstract class Machine extends Entite {
 	public void afficher(PApplet p) {		
 		
 		apparence.afficher(p,  (int)pos.x,  (int)pos.y - 30,  (int)(1.2 * forme.getW()), (int)(2 * forme.getH()));
+		
+		if(this.isCooldown) {
+			p.fill(200, 0, 0);
+			p.ellipse(pos.x, pos.y, 20, 20);
+			p.fill(0, 200, 0);
+			p.arc(pos.x, pos.y, 20f, 20f, -p.PI/2, -p.PI/2 + 2*p.PI*(System.currentTimeMillis() - lastActivationMillis)/TEMPS_COOLDOWN, p.PIE);
+		}
 
-		if (bloquee)
+		if (afficheBloquee)
 			fumee.afficher(p,  (int)pos.x,  (int)pos.y - 30,  (int)(1.2 * forme.getW()), (int)(2 * forme.getH()));
 	}
 
@@ -282,6 +292,7 @@ public abstract class Machine extends Entite {
 		produits.clear();
 		
 		lastActivation = time;
+		lastActivationMillis = System.currentTimeMillis();
 		isCooldown = true;
 	}
 
