@@ -28,7 +28,7 @@ f f ^t f f f f f vt f
 s  <t ^S< f f f f f vt f
 f f ^t f f f f f vt f
 f f ^t f f f f f vt f
-f f ^t f f vTol f f vt f
+f f ^t f f vSci f f vt f
 f f ^t <t <t <t <t <t <t f
 objectifs (PLANCHE;5) (TOLE;5)
 gevents 1
