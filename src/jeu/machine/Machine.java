@@ -8,7 +8,9 @@ import java.util.Map.Entry;
 import java.util.Set;
 
 import collision.Rectangle;
+import graphiques.AnimationSet;
 import graphiques.Apparence;
+import graphiques.Tileset;
 import jeu.DonneesJeu;
 import jeu.Entite;
 import jeu.produit.Produit;
@@ -39,6 +41,7 @@ public abstract class Machine extends Entite {
 	private Recette recetteCourante;
 	private boolean bloquee;
 	private long tBloque;
+	private AnimationSet fumee;
 
 	protected Machine(float x, float y, Apparence a, TypeDirectionTapis direction) {
 		super(x, y, a);
@@ -71,6 +74,8 @@ public abstract class Machine extends Entite {
 		sortieMachine = new ArrayList<>();
 		produits = new HashMap<>();
 		bloquee = false;
+		
+		fumee = new AnimationSet(new Tileset("fumee", 4, 4), 8, 0);
 	}
 
 	protected abstract void remplirRecettes(List<Recette> listeRecettes);
@@ -144,6 +149,21 @@ public abstract class Machine extends Entite {
 				tBloque = t;				
 			}
 		}
+		
+		if (bloquee)
+		{
+			int severity = (int) PApplet.map(t - tBloque, 1000, DonneesJeu.TEMPS_BLOCAGE_MAX, 0, 4);
+			severity = PApplet.constrain(severity, 0, 3);
+			fumee.change(severity);
+		}
+	}
+	
+	public void afficher(PApplet p) {		
+		
+		apparence.afficher(p,  (int)pos.x,  (int)pos.y - 30,  (int)(1.2 * forme.getW()), (int)(2 * forme.getH()));
+
+		if (bloquee)
+			fumee.afficher(p,  (int)pos.x,  (int)pos.y - 30,  (int)(1.2 * forme.getW()), (int)(2 * forme.getH()));
 	}
 
 	public Rectangle getZoneInRange() {

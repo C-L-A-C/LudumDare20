@@ -18,11 +18,6 @@ public class Bruleur extends Machine {
 	}
 
 	
-	public void afficher(PApplet p) {
-		apparence.afficher(p,  (int)pos.x,  (int)pos.y - 30,  (int)(1.2 * forme.getW()), (int)(2 * forme.getH()));
-	}
-	
-	
 	@Override
 	protected void remplirRecettes(List<Recette> listeRecettes) {
 		Recette r = new Recette(2, 10, TypeMiniJeu.VISSE_VIS);
