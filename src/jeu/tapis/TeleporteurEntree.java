@@ -44,7 +44,7 @@ public class TeleporteurEntree extends Tapis {
 				float w = p.getForme().getW() -2;
 				float h = p.getForme().getH() -2;
 				if (w<=2 || h<=2) {
-					sortie.teleporter(p);
+					sortie.teleporter(d, p);
 				} else {
 					p.setTaille(w, h);
 				}
