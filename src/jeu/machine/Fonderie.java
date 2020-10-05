@@ -25,10 +25,10 @@ public class Fonderie extends Machine {
 	protected void remplirRecettes(List<Recette> recettes) {
 		Recette r = new Recette(2, 10, TypeMiniJeu.RANGE_PRODUITS);
 		r.ajouterIngredient(TypeProduit.METAL);
-		r.ajouterProduit(TypeProduit.TOLE);
+		r.ajouterProduit(TypeProduit.METAL_FUSION);
 		recettes.add(r);
 		
-		r = new Recette(4, 10, TypeMiniJeu.BOUTONS_MEMOIRE);
+		r = new Recette(5, 10, TypeMiniJeu.BOUTONS_MEMOIRE);
 		r.ajouterIngredient(TypeProduit.OR_BRUT, 2);
 		r.ajouterProduit(TypeProduit.BIJOU);
 		recettes.add(r);

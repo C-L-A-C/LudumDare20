@@ -19,7 +19,7 @@ public class Cuiseur extends Machine {
 	
 	
 	protected void remplirRecettes(List<Recette> recettes) {
-		Recette r = new Recette(2, 10, TypeMiniJeu.RANGE_PRODUITS);
+		Recette r = new Recette(6, 10, TypeMiniJeu.RANGE_PRODUITS);
 		r.ajouterIngredient(TypeProduit.MOUTON);
 		r.ajouterProduit(TypeProduit.VIANDE);
 		recettes.add(r);
