@@ -106,7 +106,12 @@ public abstract class Machine extends Entite {
 				nb = 
 					recetteCourante.getNbIngredients();
 
-			produitsMachine = new ArrayList<>(produits.keySet());
+			produitsMachine = new ArrayList<>();
+			for (Entry<TypeProduit, Integer> pair : produits.entrySet())
+			{
+				for (int i = 0; i < pair.getValue(); i++)
+					produitsMachine.add(pair.getKey());
+			}
 		}
 		else {
 			nb = sortieMachine.size();
