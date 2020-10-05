@@ -94,8 +94,12 @@ public class PButton extends PLabel{
 		
 		setColor(prevC);
 		
-		if(this.contient(p.mouseX, p.mouseY))
+		if(this.contient(p.mouseX, p.mouseY) && this.hoverable)
 			overAButton = true;
+	}
+	
+	public PImage getImage() {
+		return this.img;
 	}
 	
 	public void setImage(PImage img) {
@@ -111,5 +115,10 @@ public class PButton extends PLabel{
 		overAButton = false;
 	}
 	
-	
+	public float getX() {
+		return this.x;
+	}
+	public float getY() {
+		return this.y;
+	}
 }
