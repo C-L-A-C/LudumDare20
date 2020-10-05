@@ -86,8 +86,13 @@ public class EcranFinNiveau extends Scene {
 		super.mousePressed();
 		if (jouer.contient(p.mouseX, p.mouseY))
 		{
-			Jeu jeu = new Jeu(niveauSuivant);
-			SceneHandler.setRunning(jeu);
+			if(niveauSuivant<10) {
+				Jeu jeu = new Jeu(niveauSuivant);
+				SceneHandler.setRunning(jeu);
+			} else {
+				AnimFin jeu = new AnimFin(p);
+				SceneHandler.setRunning(jeu);
+			}
 		}
 		else if (retour.contient(p.mouseX, p.mouseY))
 			SceneHandler.setRunning(new MenuPrincipal(p));

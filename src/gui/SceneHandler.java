@@ -84,6 +84,8 @@ public class SceneHandler extends PApplet {
 	}
 
 	public static void playSoundFast(String path) {
+		if(clip!=null)
+			return;
 		try {
 			File file = new File(path);
 			clip = AudioSystem.getClip();

@@ -167,7 +167,7 @@ entrees (4;8)
 fin niveau
 
 
-niveau 7
+niveau 8
 taille 9 16
 joueur (3;8)
 temps 115
@@ -198,11 +198,38 @@ generator OR_BRUT spawntime=2 offset=0
 entrees (7;5)
 fin niveau
 
+niveau 9
+taille 13 14
+joueur (7;7)
+temps 150
+terrain
+f   f   f   f   f   f   f   f   f   f   f   f   f
+f   f   f   f   f   s   vt  f   f   f   f   f   f
+f   f   >t  >t  >t  >S^ >t  >t  >t  >t  >t  >t  vt
+f   f   ^t  <Tol   f   f   f   f   f   f   f  f   	vt
+f   f   ^t  f f >t  >t  >t  >t  >t  >t  vt   vt
+f   f   ^t  f   >t  ^t  f   f   f   f   f   vt   vTPin1
+f   f   ^t  f   ^t  <Fon f >TPout1 >t vt f   vt  vt
+f   f   ^t  f   ^t  <t  f   f   f   vt f    vt  f   
+f   f   ^t  f   f  ^t  <t <t  <t  <t  f   vt  f   
+f   f   ^t  f   f   f   f   f   f  f f vt f   
+f   f   ^t  f   f   f   f   f   f   f  f  vt  f    
+f   f   ^t  <t  <t  <t  <t  <t  <t  <t  <t <t   f
+f   f   f   f   f   f   f   f   f   f   f   f   f
+f   f   f   f   f   f   f   f   f   f   f   f   f
+objectifs (EPEE;2) (BIJOU;2)
+gevents 1
+generator METAL spawntime=3 offset=0
+entrees (12;2)
+generator OR_BRUT spawntime=5 offset=3
+entrees (12;2)
+fin niveau
 
-niveau 8
+
+niveau 7
 taille 15 11
 joueur (4;3)
-temps 100
+temps 110
 terrain
 f   >t  >t  >t  >t  >t  >t  >t  >t  >t  >t  >t  >t  >t  vt
 f   ^t  b   b   b   b   b   f   f   f   f   f   f   f   vt
@@ -217,12 +244,109 @@ f   ^t  f   b   b   b   b   b   b   b   b   b   f   f   vt
 f   ^t  <t  <t  <t  <t  <t  <t  <t  <t  <t  <t  <t  <t  <t
 objectifs (COUTEAU;2)
 gevents 1
-generator METAL spawntime=2 offset=0
+generator METAL spawntime=4 offset=0
 entrees (0;5)
-generator PLASTIQUE spawntime=2 offset=1
+generator PLASTIQUE spawntime=4 offset=2
 entrees (0;5)
 fin niveau
 
+
+niveau 10
+taille 76 56
+joueur (28;20)
+temps 100
+terrain
+f   f   f   f   f   f       f   f      f       f        f     f   f   f   f   f   f   f   f   f   f  f   f   f   f       f   f      f       f        f      f   f   f   f   f   f   f   f   f   f   f   f   f   f       f       f      f      f       f       f   f   f   f   f   f   f   f  f   f  f   f   f   f       f   f      f       f        f        f   f   f   f   f   f   f   f
+f   f   f   f   f   >TPin2  f   f      vTPout1 f        f     f   f   f   f   f   f   f   f   f   f  f   f   f   >TPin3  f   f      vTPout2 f        f      f   f   f   f   f   f   f   f   f   f   f   f   f   >TPin12 f       f    vTPout11 f       f       f   f   f   f   f   f   f   f  f   f  f   f   f   >TPin13  f   f    vTPout12 f        f        f   f   f   f   f   f   f   f
+f   f   >t  >t  >t  >S^    >t   >t     >t     >t       vt     f   f   f   f   f   f   f   f   f   f  >t  >t  >t  >S^    >t   >t     >t     >t       vt      f   f   f   f   f   f   f   f   f   f   >t  >t  >t  >S^    >t       >t    >t     >t       vt      f   f   f   f   f   f   f   f  f   f  >t  >t  >t  >S^    >t   >t     >t     >t       vt        f   f   f   f   f   f   f   f
+f   f   ^t  f   f   f       b   f       f      f       vP     f   f   f   f   f   f   f   f   f   f  ^t  f   f   f       b   f       f      f       vP      f   f   f   f   f   f   f   f   f   f   ^t  f   f   f       b       f      f      f       vP      f   f   f   f   f   f   f   f  f   f  ^t  f   f   f       b   f       f      f       vP        f   f   f   f   f   f   f   f
+f   f   ^t  <Cui f  f       b   f       f      f       vt     f   f   f   f   f   f   f   f   f   f  ^t  <Cui f  f       b   f       f      f       vt      f   f   f   f   f   f   f   f   f   f   ^t  <Cui f  f       b       f      f      f       vt      f   f   f   f   f   f   f   f  f   f  ^t  <Cui f  f       b   f       f      f       vt        f   f   f   f   f   f   f   f
+f   f   ^t  f   f   f       b   f       f      f       vt     f   f   f   f   f   f   f   f   f   f  ^t  f   f   f       b   f       f      f       vt      f   f   f   f   f   f   f   f   f   f   ^t  f   f   f       b       f      f      f       vt      f   f   f   f   f   f   f   f  f   f  ^t  f   f   f       b   f       f      f       vt        f   f   f   f   f   f   f   f
+f   f   ^t  f   f   f       b   f       f      f       vt     f   f   f   f   f   f   f   f   f   f  ^t  f   f   f       b   f       f      f       vt      f   f   f   f   f   f   f   f   f   f   ^t  f   f   f       b       f      f      f       vt      f   f   f   f   f   f   f   f  f   f  ^t  f   f   f       b   f       f      f       vt        f   f   f   f   f   f   f   f
+f   f   ^t  f   f   f       b   f       f      f       vt     f   f   f   f   f   f   f   f   f   f  ^t  f   f   f       b   f       f      f       vt      f   f   f   f   f   f   f   f   f   f   ^t  f   f   f       b       f      f      f       vt      f   f   f   f   f   f   f   f  f   f  ^t  f   f   f       b   f       f      f       vt        f   f   f   f   f   f   f   f
+f   f   ^t  f   f   f       b   f       f      f       vt     f   f   f   f   f   f   f   f   f   f  ^t  f   f   f       b   f       f      f       vt      f   f   f   f   f   f   f   f   f   f   ^t  f   f   f       b       f      f      f       vt      f   f   f   f   f   f   f   f  f   f  ^t  f   f   f       b   f       f      f       vt        f   f   f   f   f   f   f   f
+f   f   ^t  f   f   f       b   f       f      >Ton     vt    f   f   f   f   f   f   f   f   f   f  ^t  f   f   f       b   f       f      >Ton     vt     f   f   f   f   f   f   f   f   f   f   ^t  f   f   f       b       f      f      >Ton     vt     f   f   f   f   f   f   f   f  f   f  ^t  f   f   f       b   f       f      >Ton     vt       f   f   f   f   f   f   f   f
+f   f   ^P  f   f   f       b   f       >f      f      vt     f   f   f   f   f   f   f   f   f   f  ^P  f   f   f       b   f       >f      f      vt      f   f   f   f   f   f   f   f   f   f   ^P  f   f   f       b       f      >f      f      vt      f   f   f   f   f   f   f   f  f   f  ^P  f   f   f       b   f       >f      f      vt        f   f   f   f   f   f   f   f
+f   f   ^t  <t  <t  <t      <t  <t      <t     <t      <t     f   f   f   f   f   f   f   f   f   f  ^t  <t  <t  <t      <t  <t      <t     <t      <t      f   f   f   f   f   f   f   f   f   f   ^t  <t  <t  <t      <t      <t     <t     <t      <t      f   f   f   f   f   f   f   f  f   f  ^t  <t  <t  <t      <t  <t      <t     <t      <t        f   f   f   f   f   f   f   f
+f   f   f   f   f   f       ^t  f       f      f       f      f   f   f   f   f   f   f   f   f   f  f   f   f   f       ^t  f       f      f       f       f   f   f   f   f   f   f   f   f   f   f   f   f   f       ^t      f      f      f       f       f   f   f   f   f   f   f   f  f   f  f   f   f   f       ^t  f       f      f       f         f   f   f   f   f   f   f   f
+f   f   f   f   f   f       f   f       f      f       f      f   f   f   f   f   f   f   f   f   f  f   f   f   f       f   f       f      f       f       f   f   f   f   f   f   f   f   f   f   f   f   f   f       f       f      f      f       f       f   f   f   f   f   f   f   f  f   f  f   f   f   f       f   f       f      f       f         f   f   f   f   f   f   f   f
+f   f   f   f   f   f       f   f       f      f       f      f   f   f   f   f   f   f   f   f   f  f   f   f   f       f   f       f      f       f       f   f   f   f   f   f   f   f   f   f   f   f   f   f       f       f      f      f       f       f   f   f   f   f   f   f   f  f   f  f   f   f   f       f   f       f      f       f         f   f   f   f   f   f   f   f
+f   f   f   f   f   f       f   f       f      ^TPin1 vTPout7 f   f   f   f   f   f   f   f   f   f  f   f   f   f       f   f       f   ^TPin4     vTPout3 f   f   f   f   f   f   f   f   f   f   f   f   f   f       f       f      f     ^TPin11 vTPout17 f   f   f   f   f   f   f   f  f   f  f   f   f   f   f   f    f    ^TPin14 vTPout13 f         f   f   f   f   f   f   f   f
+f   f   f   f   f   f       >t  >t      >t     >S^    >t     >t  >t  >t  vt   f   f   f   f   f   f  f   f   f   f       >t  >t      >t   >S^        >t     >t  >t  >t  vt  f   f   f   f   f   f   f   f   f   f       >t      >t     >t     >S^    >t      >t  >t  >t  vt   f   f   f   f  f   f  f   f   f   f   >t  >t   >t   >S^      >t     >t         >t  >t  vt  f   f   f   f   f
+f   f   f   f   f   f       ^t  f       f      f       b      f   f   f   vP  f   f   f   f   f   f  f   f   f   f       ^t  f       f       f       b      f   f   f   vP  f   f   f   f   f   f   f   f   f   f       ^t      f      f       f      b       f   f   f   vP  f   f   f   f  f   f  f   f   f   f   ^t  f    f     f       b      f          f   f   vP  f   f   f   f   f
+f   f   f   f   f   f       ^t  <Cui    f      f       b      f   f   f   vt  f   f   f   f   f   f  f   f   f   f       ^t  <Cui    f       f       b      f   f   f   vt  f   f   f   f   f   f   f   f   f   f       ^t      <Cui   f       f      b       f   f   f   vt  f   f   f   f  f   f  f   f   f   f   ^t  <Cui f     f       b      f          f   f   vt  f   f   f   f   f
+f   f   f   f   f   f       ^t  f       f      f       b      f   f   f   vt  f   f   f   f   f   f  f   f   f   f       ^t  f       f       f       b      f   f   f   vt  f   f   f   f   f   f   f   f   f   f       ^t      f      f       f      b       f   f   f   vt  f   f   f   f  f   f  f   f   f   f   ^t  f    f     f       b      f          f   f   vt  f   f   f   f   f
+f   f   f   f   f   f       ^t  f       f      f       b      f   f   f   vt  f   f   f   f   f   f  f   f   f   f       ^t  f       f       f       b      f   f   f   vt  f   f   f   f   f   f   f   f   f   f       ^t      f      f       f      b       f   f   f   vt  f   f   f   f  f   f  f   f   f   f   ^t  f    f     f       b      f          f   f   vt  f   f   f   f   f
+f   f   f   f   f   f       ^t  f       f      f       b      f   f   f   vt  f   f   f   f   f   f  f   f   f   f       ^t  f       f       f       b      f   f   f   vt  f   f   f   f   f   f   f   f   f   f       ^t      f      f       f      b       f   f   f   vt  f   f   f   f  f   f  f   f   f   f   ^t  f    f     f       b      f          f   f   vt  f   f   f   f   f
+f   f   f   f   f   f       ^t  f       f      f       b      f   f   f   vt  f   f   f   f   f   f  f   f   f   f       ^t  f       f       f       b      f   f   f   vt  f   f   f   f   f   f   f   f   f   f       ^t      f      f       f      b       f   f   f   vt  f   f   f   f  f   f  f   f   f   f   ^t  f    f     f       b      f          f   f   vt  f   f   f   f   f
+f   f   f   f   f   f       ^t  f       f      f       b      f   f   >Ton vt f   f   f   f   f   f  f   f   f   f       ^t  f       f       f       b      f   f   >Ton vt f   f   f   f   f   f   f   f   f   f       ^t      f      f       f      b       f   f   >Ton vt f   f   f   f  f   f  f   f   f   f   ^t  f    f     f       b      f          f   >Ton vt f   f   f   f   f
+f   f   f   f   f   f       ^P  f       f      f       b      f   >f   f  vt  f   f   f   f   f   f  f   f   f   f       ^P  f       f       f       b      f   >f   f  vt  f   f   f   f   f   f   f   f   f   f       ^P      f      f       f      b       f   >f   f  vt  f   f   f   f  f   f  f   f   f   f   ^P  f    f     f       b      f          >f   f  vt  f   f   f   f   f
+f   f   f   f   f   f       ^t  <t      <t     <t      <t     <t  <t  <t  <t  f   f   f   f   f   f  f   f   f   f       ^t  <t      <t      <t      <t     <t  <t  <t  <t  f   f   f   f   f   f   f   f   f   f       ^t      <t     <t      <t     <t      <t  <t  <t  <t  f   f   f   f  f   f  f   f   f   f   ^t  <t   <t    <t      <t     <t         <t  <t  <t  f   f   f   f   f
+f   f   f   f   f   f       f   f       ^t     f       f      f   f   f   f   f   f   f   f   f   f  f   f   f   f       f   f       ^t      f       f      f   f   f   f   f   f   f   f   f   f   f   f   f   f       f       f      ^t      f      f       f   f   f   f   f   f   f   f  f   f  f   f   f   f   f   f    ^t    f       f      f          f   f   f   f   f   f   f   f
+f   f   f   f   f   f       f   f       f      f       f      f   f   f   f   f   f   f   f   f   f  f   f   f   f       f   f       f       f       f      f   f   f   f   f   f   f   f   f   f   f   f   f   f       f       f      f       f      f       f   f   f   f   f   f   f   f  f   f  f   f   f   f   f   f    f     f       f      f          f   f   f   f   f   f   f   f
+f   f   f   f   f   f       f   f       f      f       f      f   f   f   f   f   f   f   f   f   f  f   f   f   f       f   f       f       f       f      f   f   f   f   f   f   f   f   f   f   f   f   f   f       f       f      f       f      f       f   f   f   f   f   f   f   f  f   f  f   f   f   f   f   f    f     f       f       f         f   f   f   f   f   f   f   f
+f   f   f   f   f   f       f   >TPin5  f     vTPout4  f      f   f   f   f   f   f   f   f   f   f  f   f   f   f       >TPin6  f   f      vTPout5  f      f   f   f   f   f   f   f   f   f   f   f   f   f   f      >TPin15  f      f    vTPout14  f       f   f   f   f   f   f   f   f  f   f  f   f   f   f   >TPin16  f     f       vTPout15 f        f   f   f   f   f   f   f   f
+f   f   >t  >t  >t  >S^    >t   >t     >t      >t      vt     f   f   f   f   f   f   f   f   f   f  >t  >t  >t  >S^    >t   >t     >t      >t   vt  f      f   f   f   f   f   f   f   f   f   >t  >t  >t  >S^ >t     >t      >t     >t       vt     f       f   f   f   f   f   f   f   f  f   >t >t >t >S^  >t   >t     >t     >t       vt      f         f   f   f   f   f   f   f   f
+f   f   ^t  f   f   f       b   f       f       f      vP     f   f   f   f   f   f   f   f   f   f  ^t  f   f   f       b   f       f       f   vP  f      f   f   f   f   f   f   f   f   f   ^t  f   f   f   b       f       f      f       vP     f       f   f   f   f   f   f   f   f  f   ^t  f   f  f   b   f       f      f       vP      f         f   f   f   f   f   f   f   f
+f   f   ^t  <Cui f  f       b   f       f       f      vt     f   f   f   f   f   f   f   f   f   f  ^t  <Cui f  f       b   f       f       f   vt  f      f   f   f   f   f   f   f   f   f   ^t  <Cui f  f   b       f       f      f       vt     f       f   f   f   f   f   f   f   f  f   ^t <Cui f  f   b   f       f      f       vt      f         f   f   f   f   f   f   f   f
+f   f   ^t  f   f   f       b   f       f       f      vt     f   f   f   f   f   f   f   f   f   f  ^t  f   f   f       b   f       f       f   vt  f      f   f   f   f   f   f   f   f   f   ^t  f   f   f   b       f       f      f       vt     f       f   f   f   f   f   f   f   f  f   ^t  f   f  f   b   f       f      f       vt      f         f   f   f   f   f   f   f   f
+f   f   ^t  f   f   f       b   f       f       f      vt     f   f   f   f   f   f   f   f   f   f  ^t  f   f   f       b   f       f       f   vt  f      f   f   f   f   f   f   f   f   f   ^t  f   f   f   b       f       f      f       vt     f       f   f   f   f   f   f   f   f  f   ^t  f   f  f   b   f       f      f       vt      f         f   f   f   f   f   f   f   f
+f   f   ^t  f   f   f       b   f       f       f      vt     f   f   f   f   f   f   f   f   f   f  ^t  f   f   f       b   f       f       f   vt  f      f   f   f   f   f   f   f   f   f   ^t  f   f   f   b       f       f      f       vt     f       f   f   f   f   f   f   f   f  f   ^t  f   f  f   b   f       f      f       vt      f         f   f   f   f   f   f   f   f
+f   f   ^t  f   f   f       b   f       f       f      vt     f   f   f   f   f   f   f   f   f   f  ^t  f   f   f       b   f       f       f   vt  f      f   f   f   f   f   f   f   f   f   ^t  f   f   f   b       f       f      f       vt     f       f   f   f   f   f   f   f   f  f   ^t  f   f  f   b   f       f      f       vt      f         f   f   f   f   f   f   f   f
+f   f   ^t  f   f   f       b   f       f       >Ton    vt    f   f   f   f   f   f   f   f   f   f  ^t  f   f   f       b   f       f       >Ton vt f      f   f   f   f   f   f   f   f   f   ^t  f   f   f   b       f       f     >Ton     vt     f       f   f   f   f   f   f   f   f  f   ^t  f   f  f   b   f       f      >Ton     vt     f         f   f   f   f   f   f   f   f
+f   f   ^P  f   f   f       b   f       >f       f     vt     f   f   f   f   f   f   f   f   f   f  ^P  f   f   f       b   f       >f       f  vt  f      f   f   f   f   f   f   f   f   f   ^P  f   f   f   b       f       >f      f      vt     f       f   f   f   f   f   f   f   f  f   ^P  f   f  f   b   f       >f      f      vt      f         f   f   f   f   f   f   f   f
+f   f   ^t  <t  <t  <t      <t  <t      <t      <t     <t     f   f   f   f   f   f   f   f   f   f  ^t  <t  <t  <t      <t  <t      <t      <t  <t  f      f   f   f   f   f   f   f   f   f   ^t  <t  <t  <t  <t      <t      <t     <t      <t     f       f   f   f   f   f   f   f   f  f   ^t  <t  <t <t  <t  <t      <t     <t      <t      f         f   f   f   f   f   f   f   f
+f   f   f   f   f   f       ^t  f       f       f      f      f   f   f   f   f   f   f   f   f   f  f   f   f   f       ^t  f       f       f   f   f      f   f   f   f   f   f   f   f   f   f   f   f   f   ^t      f       f      f       f      f       f   f   f   f   f   f   f   f  f   f   f   f  f   ^t  f       f      f       f       f         f   f   f   f   f   f   f   f
+f   f   f   f   f   f       f   f       f       f      f      f   f   f   f   f   f   f   f   f   f  f   f   f   f        f   f       f      f       f      f   f   f   f   f   f   f   f   f   f   f   f   f   f       f       f       f      f      f       f   f   f   f   f   f   f   f  f   f   f   f  f   f   f       f       f       f       f        f   f   f   f   f   f   f   f
+f   f   f   f   f   f       f   f       f       f      f      f   f   f   f   f   f   f   f   f   f  f   f   f   f        f   f       f      f       f      f   f   f   f   f   f   f   f   f   f   f   f   f   f       f       f       f      f      f       f   f   f   f   f   f   f   f  f   f   f   f  f   f   f       f       f       f       f        f   f   f   f   f   f   f   f
+f   f   f   f   f   f       f   f       f       ^TPin7 vTPout6 f  f   f   f   f   f   f   f   f   f  f   f   f   f        f   f       f      ^TPin1 vTPout7 f   f   f   f   f   f   f   f   f   f   f   f   f   f       f       f       f     ^TPin17 vTPout16 f  f   f   f   f   f   f   f  f   f   f   f  f   f   f       f       f       ^TPin11 vTPout17 f   f   f   f   f   f   f   f
+f   f   f   f   f   f       >t  >t      >t       >S^   >t     >t  >t  >t  vt  f   f   f   f   f   f  f   f   f   f        >t  >t      >t      >S^    >t     >t  >t  >t  vt  f   f   f   f   f   f   f   f   f   f       >t      >t      >t      >S^   >t     >t  >t  >t  vt   f   f   f   f  f   f   f   f  f   f   >t      >t      >t       >S^    >t       >t  >t  >t  vt  f   f   f   f
+f   f   f   f   f   f       ^t  f       f       f      b      f   f   f   vP  f   f   f   f   f   f  f   f   f   f        ^t  f       f      f       b      f   f   f   vP  f   f   f   f   f   f   f   f   f   f       ^t      f       f       f      b      f   f   f   vP  f   f   f   f  f   f   f   f  f   f   ^t      f       f       f       b        f   f   f   vP  f   f   f   f
+f   f   f   f   f   f       ^t  <Cui    f       f      b      f   f   f   vt  f   f   f   f   f   f  f   f   f   f        ^t  <Cui    f      f       b      f   f   f   vt  f   f   f   f   f   f   f   f   f   f       ^t      <Cui    f       f      b      f   f   f   vt  f   f   f   f  f   f   f   f  f   f   ^t      <Cui    f       f       b        f   f   f   vt  f   f   f   f
+f   f   f   f   f   f       ^t  f       f       f      b      f   f   f   vt  f   f   f   f   f   f  f   f   f   f        ^t  f       f      f       b      f   f   f   vt  f   f   f   f   f   f   f   f   f   f       ^t      f       f       f      b      f   f   f   vt  f   f   f   f  f   f   f   f  f   f   ^t      f       f       f       b        f   f   f   vt  f   f   f   f
+f   f   f   f   f   f       ^t  f       f       f      b      f   f   f   vt  f   f   f   f   f   f  f   f   f   f        ^t  f       f      f       b      f   f   f   vt  f   f   f   f   f   f   f   f   f   f       ^t      f       f       f      b      f   f   f   vt  f   f   f   f  f   f   f   f  f   f   ^t      f       f       f       b        f   f   f   vt  f   f   f   f
+f   f   f   f   f   f       ^t  f       f       f      b      f   f   f   vt  f   f   f   f   f   f  f   f   f   f        ^t  f       f      f       b      f   f   f   vt  f   f   f   f   f   f   f   f   f   f       ^t      f       f       f      b      f   f   f   vt  f   f   f   f  f   f   f   f  f   f   ^t      f       f       f       b        f   f   f   vt  f   f   f   f
+f   f   f   f   f   f       ^t  f       f       f      b      f   f   f   vt  f   f   f   f   f   f  f   f   f   f        ^t  f       f      f       b      f   f   f   vt  f   f   f   f   f   f   f   f   f   f       ^t      f       f       f      b      f   f   f   vt  f   f   f   f  f   f   f   f  f   f   ^t      f       f       f       b        f   f   f   vt  f   f   f   f
+f   f   f   f   f   f       ^t  f       f       f      b      f   f   >Ton vt f   f   f   f   f   f  f   f   f   f        ^t  f       f      f       b      f   f   >Ton vt f   f   f   f   f   f   f   f   f   f       ^t      f       f       f      b      f   f   >Ton vt f   f   f   f  f   f   f   f  f   f   ^t      f       f       f       b        f   f   >Ton vt f   f   f   f
+f   f   f   f   f   f       ^P  f       f       f      b      f   >f   f  vt  f   f   f   f   f   f  f   f   f   f        ^P  f       f      f       b      f   >f   f  vt  f   f   f   f   f   f   f   f   f   f       ^P      f       f       f      b      f   >f   f  vt  f   f   f   f  f   f   f   f  f   f   ^P      f       f       f       b        f   >f   f  vt  f   f   f   f
+f   f   f   f   f   f       ^t  <t      <t      <t     <t     <t  <t  <t  <t  f   f   f   f   f   f  f   f   f   f        ^t  <t      <t     <t      <t     <t  <t  <t  <t  f   f   f   f   f   f   f   f   f   f       ^t      <t      <t      <t     <t     <t  <t  <t  <t  f   f   f   f  f   f   f   f  f   f   ^t      <t      <t      <t      <t       <t  <t  <t  <t  f   f   f   f
+f   f   f   f   f   f       f   f       ^t      f      f      f   f   f   f   f   f   f   f   f   f  f   f   f   f        f   f       ^t     f       f      f   f   f   f   f   f   f   f   f   f   f   f   f   f       f       f       ^t      f      f      f   f   f   f   f   f   f   f  f   f   f   f  f   f   f       f       ^t      f       f        f   f   f   f   f   f   f   f
+f   f   f   f   f   f       f   f       f       f      f      f   f   f   f   f   f   f   f   f   f  f   f   f   f        f   f       f      f       f      f   f   f   f   f   f   f   f   f   f   f   f   f   f       f       f       f       f      f      f   f   f   f   f   f   f   f  f   f   f   f  f   f   f       f       f       f       f        f   f   f   f   f   f   f   f
+objectifs (LAINE;1) (VIANDE;1)
+gevents 1
+generator VIANDE spawntime=1 offset=0
+entrees (6;12)
+generator VIANDE spawntime=1 offset=0
+entrees (8;26)
+generator VIANDE spawntime=1 offset=0
+entrees (6;40)
+generator VIANDE spawntime=1 offset=0
+entrees (8;54)
+generator VIANDE spawntime=1 offset=0
+entrees (25;12)
+generator VIANDE spawntime=1 offset=0
+entrees (27;26)
+generator VIANDE spawntime=1 offset=0
+entrees (25;40)
+generator VIANDE spawntime=1 offset=0
+entrees (27;54)
+generator VIANDE spawntime=1 offset=0
+entrees (44;12)
+generator VIANDE spawntime=1 offset=0
+entrees (46;26)
+generator VIANDE spawntime=1 offset=0
+entrees (44;40)
+generator VIANDE spawntime=1 offset=0
+entrees (46;54)
+generator VIANDE spawntime=1 offset=0
+entrees (63;12)
+generator VIANDE spawntime=1 offset=0
+entrees (65;26)
+generator VIANDE spawntime=1 offset=0
+entrees (63;40)
+generator VIANDE spawntime=1 offset=0
+entrees (65;54)
+fin niveau
 
 
 

@@ -151,10 +151,12 @@ public class EcranTuto extends Scene {
 		}
 
 		p.popMatrix();
+		handleButtons();
 	}
 
 	@Override
 	public void mousePressed() {
+		super.mousePressed();
 		int x = p.mouseX;
 		int y = p.mouseY;
 		int returnX = (int) boutonRetour.getX() / 2;

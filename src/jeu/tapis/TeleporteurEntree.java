@@ -23,8 +23,8 @@ public class TeleporteurEntree extends Tapis {
 		derniereReduction = 0;
 		updateTempsReduction = false;
 		forme = new Rectangle(pos, Tapis.W, Tapis.H);
-		trou = new Rectangle(pos.x + 8, pos.y + 8, Tapis.W - 16, Tapis.H - 16);
-		vitesse = 5;
+		trou = new Rectangle(pos.x + 13, pos.y + 13, Tapis.W - 26, Tapis.H - 26);
+		vitesse = 50;
 	}
 	
 
@@ -41,10 +41,12 @@ public class TeleporteurEntree extends Tapis {
 	@Override
 	public void evoluer(long t, DonneesJeu d) {
 		for(Produit p : d.getListeProduits()) {
-			if (trou.collision(this.forme) && t-derniereReduction>10) {
+			if (p.collision(trou) && t-derniereReduction>10) {
 				updateTempsReduction = true;
 				float w = p.getForme().getW() -2;
 				float h = p.getForme().getH() -2;
+				p.setX(p.getX() + 1);
+				p.setY(p.getY() + 1);
 				if (w<=2 || h<=2) {
 					sortie.teleporter(d, p);
 				} else {

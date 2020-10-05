@@ -39,6 +39,7 @@ public class DonneesJeu {
 
 	private long failedMinijeut0;
 	private boolean failedMinijeu;
+	private boolean finalAnimation;
 	
 	private Horloge clock;
 	private int[] scores;
@@ -66,6 +67,7 @@ public class DonneesJeu {
 
 	public DonneesJeu(int niveau) {
 		int viewW = 640, viewH = 400;
+		finalAnimation = niveau==10;
 
 		joueur = new Joueur(0, 0);
 		scroll = new Scroll(viewW, viewH, viewW, viewH);
@@ -82,7 +84,7 @@ public class DonneesJeu {
 		scores = new int[9];
 			
 		miniJeuCourant = null;
-		afficherOverlay = false;
+		afficherOverlay = true;
 		toutPeteParcequeCestBloque = false;
 		this.niveau = niveau;
 		phaseTuto = 0;
@@ -356,7 +358,7 @@ public class DonneesJeu {
 
 		if (estEnMiniJeu())
 			miniJeuCourant.afficher(p);
-		else {
+		else if(!finalAnimation) {
 			afficherObjectif(p);
 		}
 		
