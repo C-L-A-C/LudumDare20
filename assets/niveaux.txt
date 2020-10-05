@@ -43,7 +43,7 @@ fin niveau
 niveau 3
 taille 12 14
 joueur (3;5)
-temps 100
+temps 90
 terrain
 f   f   f   f   f   f   f   f   f   s   f   f
 >t  >t  >t  >t  >t  vt  >t  >t  >t  >S^ >t  vt
@@ -51,7 +51,7 @@ f   f   f   f   f   f   f   f   f   s   f   f
 ^t  f   f   f   f   vt  ^t  f   f   f   f   vt
 ^t  f   f   f   f   vt  ^t  f   f   f   f   vt
 ^t  f   f   f   f   vt  ^t  f   f   f   f   vt
-^t <Fon f   f   f   vP  ^P  f   f   f  >Fon vt
+^t <Sci f   f   f   vP  ^P  f   f   f  >Bru vt
 ^t  f   f   f   f   vt  ^t  f   f   f   f   vt
 ^t  f   f   f   f   vt  ^t  f   f   f   f   vt
 ^t  f   f   f   f   vt  ^t  f   f   f   f   vt
@@ -74,32 +74,32 @@ taille 20 20
 joueur (10;10)
 temps 100
 terrain
-f   f   >t  >t  >t  >t  >t  >t  >t  >t  >t  >t  >t  >t  >t  >t  >t  >t  >t  vt
-f   f   ^t  f   f   f   f   f   f   f   f   f   f   f   f   f   f   f   f   vt
-f   f   ^t  f   f   f   f   f   f   f   f   f   f   f   f   f   f   f   f   vt
-f   f   ^t  f   f   vt  <t  <t  <t  <t  <P  <t  <t  <t  <t  <t  <t  f   f   vt
-f   f   ^t  f   f   vt  f   f   f   f   f   f   f   f   f   f   ^t  f   f   vt
-f   f   ^t  f   f   vt  f   f   f   f   f   f   f   f   f   f   ^t  f   f   vt
-f   f   ^t  f   f   vt  f   f   f   f   f   f   f   f   f   f   ^t  f   f   vt
-f   f   ^t  f   f   vt  f   f   f   f   f   f   f   f   f   f   ^t  f   f   vt
-f   f   ^t  f   f   vt  f   f   f   f   f   f   f   f   f   f   ^t  f   >Sci vt
->t  s   ^t  f   f   vS> >t  s   f   f   f   f   f   f   f   f   ^t  f   f   vt
-<t  <t  ^S<  f   f  vt  <t  <t  f   f   f   f   f   f   f   f   ^t  f   f   vt
-f   f   ^t  f   f   vt  f   f   f   f   f   f   f   f   f   f   ^t  f   f   vt
-f   f   ^t  f   f   vt  f   f   f   f   f   f   f   f   f   f   ^t  f   f   vt
-f   f   ^t  f   f   vt  f   f   f   f   f   f   f   f   f   f   ^t  f   f   vt
-f   f   ^t  f   f   vt  f   f   f   f   f   f   f   f   f   f   ^t  f   f   vt
-f   f   ^t  f   f   vt  f   f   f   f   f   vSci f   f   f   f  ^t  f   f   vt
-f   f   ^t  f   f   >t  >t  >t  >t  >t  >t  >t  >t  >t  >t  >t  ^t  f   f   vt
-f   f   ^t  f   f   f   f   f   f   f   f   f   f   f   f   f   f   f   f   vt
-f   f   ^t  f   f   f   f   f   f   f   f   f   f   f   f   f   f   f   f   vt
-f   f  <t  <t  <t  <t  <t  <t  <t  <t  <t  <t  <t  <t  <t  <t  <t  <t  <t   <t
+f   f   >T  >T  >T  >T  >T  >T  >T  >T  >T  >T  >T  >T  >T  >T  >T  >T  >T  vT
+f   f   ^T  f   f   f   f   f   f   f   f   f   f   f   f   f   f   f   f   vT
+f   f   ^T  f   f   f   f   f   f   f   f   f   f   f   f   f   f   f   f   vT
+f   f   ^T  f   f   vt  <t  <t  <t  <t  <t  <t  <t  <t  <t  <t  <t  f   f   vT
+f   f   ^T  f   f   vt  f   f   f   f   f   f   f   f   f   f   ^t  f   f   vT
+f   f   ^T  f   f   vt  f   f   f   f   f   f   f   f   f   f   ^t  f   f   vT
+f   f   ^T  f   f   vt  f   f   f   f   f   f   f   f   f   f   ^t  f   f   vT
+f   f   ^T  f   f   vt  f   f   f   f   f   f   f   f   f   f   ^t  f   f   vT
+f   f   ^T  f   f   vt  f   f   f   f   f   f   f   f   f   f   ^t  f   >Sci vT
+>t >t   ^T  f   f   vS> >t  s   f   f   f   f   f   f   f   f   ^t  f   f   vT
+s  <t  ^S<  f   f  vt  <t  <t  f   f   f   f   f   f   f   f   ^t  f   f   vT
+f   f   ^T  f   f   vt  f   f   f   f   f   f   f   f   f   f   ^P  f   f   vT
+f   f   ^T  f   f   vt  f   f   f   f   f   f   f   f   f   f   ^t  f   f   vT
+f   f   ^T  f   f   vt  f   f   f   f   f   f   f   f   f   f   ^t  f   f   vT
+f   f   ^T  f   f   vt  f   f   f   f   f   f   f   f   f   f   ^t  f   f   vT
+f   f   ^T  f   f   vt  f   f   f   f   f   vSci f   f   f   f  ^t  f   f   vT
+f   f   ^T  f   f   >t  >t  >t  >t  >t  >t  >t  >t  >t  >t  >t  ^t  f   f   vT
+f   f   ^T  f   f   f   f   f   f   f   f   f   f   f   f   f   f   f   f   vT
+f   f   ^T  f   f   f   f   f   f   f   f   f   f   f   f   f   f   f   f   vT
+f   f  <T  <T  <T  <T  <T  <T  <T  <T  <T  <T  <T  <T  <T  <T  <T  <T  <T   <T
 objectifs (PLANCHE;5)
 gevents 1
 generator BOIS spawntime=5 offset=0
 entrees (1;9)
 generator BOIS spawntime=5 offset=0
-entrees (7;11)
+entrees (7;10)
 fin niveau
 
 
