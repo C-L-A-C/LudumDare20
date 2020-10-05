@@ -225,6 +225,33 @@ generator OR_BRUT spawntime=5 offset=3
 entrees (12;2)
 fin niveau
 
+niveau 9
+taille 13 14
+joueur (7;7)
+temps 100
+terrain
+f   f   f   f   f   f   f   f   f   f   f   f   f
+f   f   f   f   f   s   vt  f   f   f   f   f   f
+f   f   >t  >t  >t  >S^ >t  >t  >t  >t  >t  >t  vt
+f   f   ^t  f   f   f   f   f   f   f   f  f   	vt
+f   f   ^t  <Cui f >t  >t  >t  >t  >t  >t  vt   vt
+f   f   ^t  f   >t  ^t  f   f   f   f   f   vt   vTPin1
+f   f   ^t  f   ^t  <Fon f >TPout1 >t vt f   vt  vt
+f   f   ^t  f   ^t  <t  f   f   f   vt f    vt  f   
+f   f   ^t  f   f  ^t  <t <t  <t  <t  f   vt  f   
+f   f   ^t  f   f   f   f   f   f  >Ton f vt f   
+f   f   ^t  f   f   f   f   f   f   f  f  vt  f    
+f   f   ^t  <t  <t  <t  <t  <t  <t  <t  <t <t   f
+f   f   f   f   f   f   f   f   f   f   f   f   f
+f   f   f   f   f   f   f   f   f   f   f   f   f
+objectifs (EPEE;2) (BIJOU;2)
+gevents 1
+generator METAL spawntime=2 offset=0
+entrees (12;2)
+generator OR_BRUT spawntime=3 offset=3
+entrees (12;2)
+fin niveau
+
 
 niveau 7
 taille 15 11
