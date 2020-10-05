@@ -276,7 +276,7 @@ public class DonneesJeu {
 		p.fill(20);
 		p.textSize(14);
 		p.textAlign(PApplet.CORNER, PApplet.CORNER);
-		p.text("Objectifs", 5, p.height - h + 15);
+		p.text("Objectives", 5, p.height - h + 15);
 		
 		int i = 0, wCase = 30, hCase = 25;
 		for (Map.Entry<TypeProduit, Integer> reussi : objectifs.getProduitsReussis().entrySet())
