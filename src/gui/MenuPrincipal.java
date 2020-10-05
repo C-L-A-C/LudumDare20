@@ -26,7 +26,7 @@ import utils.Utils;
 
 public class MenuPrincipal extends Scene {
 
-	private PButton buttonCampaign, buttonCredits, buttonQuit;
+	private PButton buttonCampaign, buttonCredits, buttonQuit, buttonReset;
 	private List<Tapis> tapis;
 	private List<Produit> produits;
 	private List<Machine> machines;
@@ -41,6 +41,7 @@ public class MenuPrincipal extends Scene {
 		this.buttonCampaign = new PButton(p.width  / 2,  p.height / 4 , widthButton, heightButton, "PLAY");
 		this.buttonCredits = new PButton(p.width / 2, 2 * p.height  / 4 , widthButton, heightButton, "HELP");
 		this.buttonQuit = new PButton(p.width / 2, 3 * p.height / 4 , widthButton, heightButton, "QUIT");
+		this.buttonReset =  new PButton(110, 450, 200, 30, "Reset  level  progression");
 
 		tapis = new ArrayList<>();
 		produits = new ArrayList<>();
@@ -138,6 +139,8 @@ public class MenuPrincipal extends Scene {
 		this.buttonCampaign.afficher(p);
 		this.buttonCredits.afficher(p);
 		this.buttonQuit.afficher(p);
+		if (Config.readInt(ConfigKey.NIVEAU_DEBUT) != 1)
+			this.buttonReset.afficher(p);
 
 		this.handleButtons();
 	}
@@ -176,6 +179,9 @@ public class MenuPrincipal extends Scene {
 		}
 		if (buttonQuit.contient(p.mouseX, p.mouseY)) {
 			p.exit();
+		}
+		if (buttonReset.contient(p.mouseX, p.mouseY)) {
+			Config.set(ConfigKey.NIVEAU_DEBUT, "1");
 		}
 	}
 

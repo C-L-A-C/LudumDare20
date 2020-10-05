@@ -3,6 +3,8 @@ package gui;
 import menu.PLabel;
 import processing.core.PApplet;
 import utils.Utils;
+import config.Config;
+import config.ConfigKey;
 import graphiques.Assets;
 import gui.MenuPrincipal;
 

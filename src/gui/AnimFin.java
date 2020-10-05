@@ -1,5 +1,7 @@
 package gui;
 
+import config.Config;
+import config.ConfigKey;
 import graphiques.AnimationSet;
 import graphiques.Tileset;
 import jeu.ControleurNiveau;
@@ -20,6 +22,7 @@ public class AnimFin extends Scene {
 	private boolean animated;
 
 	public AnimFin(PApplet p) {
+		Config.set(ConfigKey.NIVEAU_DEBUT, "1");
 		this.setup(p);
 		animated = false;
 		lastFrameTime = System.currentTimeMillis();
