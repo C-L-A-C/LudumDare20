@@ -61,6 +61,10 @@ public abstract class PComponent {
 	public float getWidth() {
 		return w;
 	}
+
+	public void setWidth(int w) {
+		this.w = w;
+	}
 	
 	public boolean click(int x, int y)
 	{

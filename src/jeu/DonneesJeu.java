@@ -79,7 +79,7 @@ public class DonneesJeu {
 		this.failedMinijeu = false;
 		listeMachines = new ArrayList<>();
 		objectifs = new Objectif();
-		scores = new int[4];
+		scores = new int[9];
 			
 		miniJeuCourant = null;
 		afficherOverlay = false;
@@ -237,22 +237,23 @@ public class DonneesJeu {
 	
 	private void calculScore() {
 		scores[1] = listeProduits.size();
-		scores[2] = 0;
-		for (Produit p:listeProduits) {
-			if(p.getType() == TypeProduit.DECHET) {
-				scores[2] += 1;
-			}
-		}
+		scores[2] = (int) listeProduits.stream().filter(p -> p.getType() == TypeProduit.DECHET).count();
 		scores[3] = clock.getTimeLeft() - (int) clock.getSeconds();
-		
-		scores[0] = 50 + 2*scores[3] - 10*scores[2] - scores[1];
+		scores[4] = objectifs.getProduitsReussis().values().stream().reduce(0, (nb1, nb2) -> nb1 + nb2);
 		
 		int base = 0;
 		for(Entry<TypeProduit, Integer> pair : objectifs.getProduitsReussis().entrySet())
 			base += pair.getKey().getPoints() * pair.getValue();
+		
+		scores[5] = - scores[1];
+		scores[6] = - scores[2] * 10;
+		scores[7] = scores[3] * 2;
+		scores[8] = base;
+		
+		scores[0] = scores[5] + scores[6] + scores[7] + scores[8];
 	}
 	
-	public int[] getSCores() {
+	public int[] getScores() {
 		calculScore();
 		return scores;
 	}
