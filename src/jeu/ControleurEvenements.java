@@ -28,7 +28,7 @@ public class ControleurEvenements {
 		tailleCasePixels = tailleCase;
 	}
 	
-	public void evoluer(List<Produit> l) {
+	public void evoluer(DonneesJeu j) {
 		float x;
 		float y;
 		
@@ -81,7 +81,7 @@ public class ControleurEvenements {
 					
 					Produit p = new Produit(x,y,gevent.getTypeProduit());
 					p.setVitesse(vitesse);
-					l.add(p);
+					j.ajouterProduit(p);
 				}
 			}
 		} else {
