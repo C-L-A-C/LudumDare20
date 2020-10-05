@@ -7,7 +7,7 @@ public class TapisRapide extends Tapis {
 
 	public TapisRapide(float x, float y, TypeDirectionTapis direction) {
 		super(x, y, direction);
-		vitesse = 70;
+		vitesse = 85;
 	}
 	
 	@Override
