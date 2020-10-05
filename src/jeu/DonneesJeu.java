@@ -40,7 +40,7 @@ public class DonneesJeu {
 	private boolean failedMinijeu;
 	
 	private Horloge clock;
-	private int score;
+	private int[] scores;
 
 	private Joueur joueur;
 	private Scroll scroll;
@@ -77,6 +77,7 @@ public class DonneesJeu {
 		this.failedMinijeu = false;
 		listeMachines = new ArrayList<>();
 		objectifs = new Objectif();
+		scores = new int[4];
 			
 		miniJeuCourant = null;
 		afficherOverlay = false;
@@ -194,24 +195,24 @@ public class DonneesJeu {
 		}
 		
 		eCtrl.evoluer(this);
-		calculScore();
 	}
 	
 	private void calculScore() {
-		int nbProduits = listeProduits.size();
-		int nbCacas = 0;
+		scores[1] = listeProduits.size();
+		scores[2] = 0;
 		for (Produit p:listeProduits) {
 			if(p.getType() == TypeProduit.DECHET) {
-				nbCacas += 1;
+				scores[2] += 1;
 			}
 		}
-		int tempsRestant = clock.getTimeLeft() - (int) clock.getSeconds();
+		scores[3] = clock.getTimeLeft() - (int) clock.getSeconds();
 		
-		score = 50 + 2*tempsRestant - 10*nbCacas - nbProduits;
+		scores[0] = 50 + 2*scores[3] - 10*scores[2] - scores[1];
 	}
 	
-	public int getSCore() {
-		return score;
+	public int[] getSCores() {
+		calculScore();
+		return scores;
 	}
 
 	

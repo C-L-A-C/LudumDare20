@@ -54,12 +54,12 @@ public class Jeu extends Scene {
 
 		jeu.afficher(p);
 		clock.afficher(p);
-		p.text(""+jeu.getSCore(), 5, 25);
+		p.text(""+jeu.getSCores()[0], 5, 25);
 
 		jeu.evoluer((long) (clock.getSeconds() * 1000));
 
 		if (clock.journeeFinie() || jeu.estFini()) {
-			SceneHandler.setRunning(new EcranFinNiveau(jeu.estGagne(), numeroNiveau + (jeu.estGagne() ? 1 : 0)));
+			SceneHandler.setRunning(new EcranFinNiveau(jeu.estGagne(), numeroNiveau + (jeu.estGagne() ? 1 : 0),jeu.getSCores()));
 		}
 
 		this.handleButtons();

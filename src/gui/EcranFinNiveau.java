@@ -11,8 +11,15 @@ public class EcranFinNiveau extends Scene {
 	private boolean gagne;
 	private int niveauSuivant;
 	
-	public EcranFinNiveau(boolean gagne, int niveauSuivant)
-	{
+	private int[] scores;
+	private PLabel score;
+	private PLabel nbProduits;
+	private PLabel nbCacas;
+	private PLabel tempsRestant;
+	
+	
+	public EcranFinNiveau(boolean gagne, int niveauSuivant, int[] scores) {
+		this.scores = scores;
 		this.gagne = gagne;
 		this.niveauSuivant = niveauSuivant;
 	}
@@ -21,9 +28,13 @@ public class EcranFinNiveau extends Scene {
 	public void setup(PApplet p)
 	{
 		super.setup(p);
-		titre = new PLabel(p.width / 2, 1 * p.height / 8, 200, 80, "You have " + (gagne ? "won" : "failed") + " !");
-		jouer = new PButton(p.width / 2, 4 * p.height / 8, 200, 80, gagne ? "NEXT LEVEL" : "RETRY");
-		retour = new PButton(p.width / 2, 6 * p.height / 8, 200, 80, "BACK TO MENU");
+		titre = new PLabel(p.width / 2, 1 * p.height / 16, 200, 80, "You have " + (gagne ? "won" : "failed") + " !");
+		score = new PLabel(p.width / 2, 2 * p.height / 16, 200, 80, "Score : "+scores[0]);
+		nbProduits = new PLabel(p.width / 2, 4 * p.height / 16, 200, 80, "Products on conveyor belts : "+scores[1]);
+		nbCacas = new PLabel(p.width / 2, 6 * p.height / 16, 200, 80, "Waste on conveyor belts : "+scores[2]);
+		tempsRestant = new PLabel(p.width / 2, 8 * p.height / 16, 200, 80, "Time left : "+scores[3]+" s");
+		jouer = new PButton(p.width / 2, 12 * p.height / 16, 200, 80, gagne ? "NEXT LEVEL" : "RETRY");
+		retour = new PButton(p.width / 2, 14 * p.height / 16, 200, 80, "BACK TO MENU");
 		
 		p.cursor(p.ARROW);
 	}
