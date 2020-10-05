@@ -10,18 +10,17 @@ public enum TypeProduit {
 	EPEE("sword"),
 	RAIL("rail"),
 	COUTEAU("couteau"),
-	VITRE,
 	BIJOU("Couronne"),
 	METAL_FUSION("metal fusion"),
 	TOLE("tole"),
 	PLANCHE("planche"),
 	CHARBON("charbon"),
 	PLASTIQUE("plastique"),
-	ESSENCE,
 	LAINE("pelote de laine"),
 	VIANDE("viande"),
 	VERRE("verre"),
-	POISON("poison");
+	POISON("poison"), 
+	PIERRE("pierre");
 	
 	private String spriteName;
 	

@@ -13,7 +13,7 @@ public class PButton extends PLabel{
 	public PButton(float x, float y, float w, float h, String str)
 	{
 		this(x, y, w, h, str, null);
-		this.colorButton = Utils.color(128);
+		this.colorButton = Utils.color(30);
 	}
 	
 	public PButton(float x, float y, float w, float h, PImage img)
@@ -70,7 +70,7 @@ public class PButton extends PLabel{
 		p.tint(color);
 
 		if (toDisplay != null) {
-			p.image(toDisplay, x, y, w, h);
+			p.image(toDisplay, x-w/2, y-h/2, w, h);
 		}
 		
 		if (this.colorButton != null) {
@@ -79,8 +79,10 @@ public class PButton extends PLabel{
 			p.rect(x, y, w, h);
 		}
 		
-		if (label != null)
+		if (label != null) {
+			setColor(Utils.color(200, 255, 200));
 			super.afficher(p);
+		}
 		
 		setColor(prevC);
 	}

@@ -34,7 +34,7 @@ public class RangeProduits extends MiniJeu {
 		rail = Assets.getImage("rail");
 		sword = Assets.getImage("sword");
 		//nbFoisMinijeu++;
-		SceneHandler.preloadSound("assets/sounds/ding.wav");
+		SceneHandler.preloadSound("ding");
 	}
 	
 	@Override
@@ -70,7 +70,7 @@ public class RangeProduits extends MiniJeu {
 		for(ProduitsRanges paf : pPafs) {
 			if(!paf.evoluer()) {
 				paf.markDirty();
-				SceneHandler.playSound("assets/sounds/ding.wav", 1, 1, 0, false);
+				SceneHandler.playSound("ding", 1, 1, 0, false);
 			}
 		}
 		if(this.pPafs.size()!=0 && this.pPafs.get(0).getDirty()) // seul le premier peut-être dirty

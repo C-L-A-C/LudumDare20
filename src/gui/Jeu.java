@@ -35,7 +35,6 @@ public class Jeu extends Scene {
 		
 		clock = jeu.getHorloge();
 		
-		SceneHandler.playSoundAmbiance("assets/sounds/factory.wav", (float)0.2);
 		RangeProduits.resetDifficulty();
 		BoutonsMemoire.resetDifficulty();
 	}

@@ -16,18 +16,18 @@ public class Tondeuse extends Machine {
 	{
 		super(x, y, new Animation(new Tileset("rase", 2, 1), 0, 1, 4), dir);
 	}
-
-	
-	public void afficher(PApplet p) {
-		apparence.afficher(p,  (int)pos.x,  (int)pos.y - 30,  (int)(1.2 * forme.getW()), (int)(2 * forme.getH()));
-	}
 	
 	
 	protected void remplirRecettes(List<Recette> recettes) {
-		Recette r = new Recette(2, 10, TypeMiniJeu.RANGE_PRODUITS);
+		Recette r = new Recette(8, 10, TypeMiniJeu.BOUTONS_MEMOIRE);
 		r.ajouterIngredient(TypeProduit.MOUTON);
-		r.ajouterProduit(TypeProduit.LAINE);
+		r.ajouterProduit(TypeProduit.LAINE, 2);
 		recettes.add(r);
+	}
+	
+	@Override
+	public String getImageName() {
+		return "rase";
 	}
 
 }

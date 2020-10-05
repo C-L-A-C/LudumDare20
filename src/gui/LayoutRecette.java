@@ -2,11 +2,10 @@ package gui;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 import java.util.Map.Entry;
 
 import graphiques.Assets;
-import jeu.machine.Machine;
+import graphiques.Tileset;
 import jeu.produit.Produit;
 import jeu.produit.Recette;
 import jeu.produit.TypeProduit;
@@ -37,18 +36,26 @@ public class LayoutRecette {
 	
 	public void affiche(PApplet p, int x, int y) {
 		p.rectMode(PApplet.CORNER);
-		PImage imgMachine = Assets.getImage(machine);
-		float wMachine = imgMachine.width;
+		
+		// récupère la première image de la machine
+		Tileset machineTileset;
+		if(machine.equals("fonderie")) {
+			machineTileset = new Tileset(machine,4,1);
+		} else {
+			machineTileset = new Tileset(machine,2,1);
+		}
+		PImage imgMachine = machineTileset.get(0);
+		
+		
 		float hMachine = imgMachine.height;
 		
 		float wCaseProd = 40, hCaseProd = 32;
-		float wCaseMach = wMachine + 4;
 		float hCaseMach = hMachine + 4;
 		float wBord = 8;
 		
 		// taille du layout affiché
 		float wTot = 45 + (wCaseProd+3)*(reactifs.size()+produits.size());
-		float hTot = hCaseProd + hCaseMach-10;
+		float hTot = hCaseProd + hCaseMach-20;
 		height = hTot;
 		p.fill(100);
 		p.rect(x, y, wTot, hTot);
@@ -58,7 +65,7 @@ public class LayoutRecette {
 		float xDep = x+5;
 		float yDep = y+30;
 
-		
+		// les réactifs/ingrédients
 		for (int i = 0; i < reactifs.size(); i++)
 		{
 			p.rect(xDep + i * (wCaseProd+3), yDep, wCaseProd - wBord, hCaseProd);
@@ -66,13 +73,13 @@ public class LayoutRecette {
 			p.image(img, xDep + i * (wCaseProd+3) + 2, yDep + 2, wCaseProd - wBord - 4, hCaseProd - 4);
 		
 		}
-		
+		// la flèche
 		PImage imgFleche = Assets.getImage("fleche");
 		p.image(imgFleche, xDep + reactifs.size() * (wCaseProd+3) + 2, yDep, wCaseProd - wBord - 4, hCaseProd - 4);
+		// la machine
+		p.image(imgMachine, xDep + reactifs.size() * (wCaseProd+3), yDep-25, wCaseProd - wBord - 4, hCaseProd - 4);
 		
-		p.image(imgMachine, xDep + reactifs.size() * (wCaseProd+3) + 10, yDep-25, wCaseProd - wBord - 4, hCaseProd - 4);
-		
-		
+		// les produits
 		xDep = xDep + reactifs.size() * (wCaseProd+3) + 40;
 		for (int i = 0; i < produits.size(); i++)
 		{

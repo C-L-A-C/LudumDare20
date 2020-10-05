@@ -31,7 +31,7 @@ f f ^t f f ^Tol f f vt f
 f f ^t f f f f f vt f
 f f ^t f f f f f vt f
 >t >t ^t f f f f f vt f
-<t <t ^S< f f f f f vt f
+s  <t ^S< f f f f f vt f
 f f ^t f f f f f vt f
 f f ^t f f f f f vt f
 f f ^t f f vTol f f vt f
@@ -52,13 +52,13 @@ terrain
 f   f   >t  >t  >t  >t  >t  >t  >t  >t  >t  >t  >t  >t  >t  >t  >t  >t  >t  vt
 f   f   ^t  f   f   f   f   f   f   f   f   f   f   f   f   f   f   f   f   vt
 f   f   ^t  f   f   f   f   f   f   f   f   f   f   f   f   f   f   f   f   vt
-f   f   ^t  f   f   vt  <t  <t  <t  <t  <P   <t  <t  <t  <t  <t  <t  f   f   vt
+f   f   ^t  f   f   vt  <t  <t  <t  <t  <P  <t  <t  <t  <t  <t  <t  f   f   vt
 f   f   ^t  f   f   vt  f   f   f   f   f   f   f   f   f   f   ^t  f   f   vt
 f   f   ^t  f   f   vt  f   f   f   f   f   f   f   f   f   f   ^t  f   f   vt
 f   f   ^t  f   f   vt  f   f   f   f   f   f   f   f   f   f   ^t  f   f   vt
 f   f   ^t  f   f   vt  f   f   f   f   f   f   f   f   f   f   ^t  f   f   vt
 f   f   ^t  f   f   vt  f   f   f   f   f   f   f   f   f   f   ^t  f   >Sci vt
->t  >t  ^t  f   f   vS> >t  >t  f   f   f   f   f   f   f   f   ^t  f   f   vt
+>t  s   ^t  f   f   vS> >t  s   f   f   f   f   f   f   f   f   ^t  f   f   vt
 <t  <t  ^S<  f   f  vt  <t  <t  f   f   f   f   f   f   f   f   ^t  f   f   vt
 f   f   ^t  f   f   vt  f   f   f   f   f   f   f   f   f   f   ^t  f   f   vt
 f   f   ^t  f   f   vt  f   f   f   f   f   f   f   f   f   f   ^t  f   f   vt
@@ -66,9 +66,9 @@ f   f   ^t  f   f   vt  f   f   f   f   f   f   f   f   f   f   ^t  f   f   vt
 f   f   ^t  f   f   vt  f   f   f   f   f   f   f   f   f   f   ^t  f   f   vt
 f   f   ^t  f   f   vt  f   f   f   f   f   vSci f   f   f   f  ^t  f   f   vt
 f   f   ^t  f   f   >t  >t  >t  >t  >t  >t  >t  >t  >t  >t  >t  ^t  f   f   vt
-f  f   ^t  f   f   f   f   f   f   f   f   f   f   f   f   f   f   f   f   vt
-f  f   ^t  f   f   f   f   f   f   f   f   f   f   f   f   f   f   f   f   vt
-f  f  <t  <t  <t  <t  <t  <t  <t  <t  <t  <t  <t  <t  <t  <t  <t  <t  <t  <t
+f   f   ^t  f   f   f   f   f   f   f   f   f   f   f   f   f   f   f   f   vt
+f   f   ^t  f   f   f   f   f   f   f   f   f   f   f   f   f   f   f   f   vt
+f   f  <t  <t  <t  <t  <t  <t  <t  <t  <t  <t  <t  <t  <t  <t  <t  <t  <t   <t
 objectifs (PLANCHE;5)
 gevents 1
 generator BOIS spawntime=5 offset=0
@@ -80,7 +80,7 @@ fin niveau
 
 
 niveau 4
-taille 12 13
+taille 12 14
 joueur (3;5)
 temps 100
 terrain
@@ -90,19 +90,20 @@ f   f   f   f   f   f   f   f   f   s   f   f
 ^t  f   f   f   f   vt  ^t  f   f   f   f   vt
 ^t  f   f   f   f   vt  ^t  f   f   f   f   vt
 ^t  f   f   f   f   vt  ^t  f   f   f   f   vt
-^t  <Fon f  f   f   vP  ^P  f   f   f   >Fon vt
+^t <Fon f   f   f   vP  ^P  f   f   f  >Fon vt
 ^t  f   f   f   f   vt  ^t  f   f   f   f   vt
 ^t  f   f   f   f   vt  ^t  f   f   f   f   vt
 ^t  f   f   f   f   vt  ^t  f   f   f   f   vt
 ^t  f   f   f   f   vt  ^t  f   f   f   f   vt
-^t  <t  <Sv  <t <t  <t  ^t  <t  <t  <t <t  <t
-f   f   s   f  f   ^t  f   f   f   f   f   f
-objectifs (LAINE;5)
+^t  <t  <Sv  <t <t  <t  ^t  <t  <t  <t <t   <t
+f   f   s   f  ^t   f   f   ^t   f   f   f   f
+f   f   f   f  ^t   f   f   ^t   f   f   f   f
+objectifs (TOLE;5)
 gevents 1
-generator MOUTON spawntime=5 offset=0
-entrees (4;11)
-generator MOUTON spawntime=5 offset=0
-entrees (5;11)
+generator METAL spawntime=5 offset=0
+entrees (4;13)
+generator METAL spawntime=5 offset=0
+entrees (7;13)
 fin niveau
 
 

@@ -17,18 +17,18 @@ public class Scie extends Machine {
 		
 	}
 	
-	@Override
-	public void afficher(PApplet p) {
-		apparence.afficher(p,  (int)pos.x,  (int)pos.y - 10,  (int)(1.2 * forme.getW()), (int)(2 * forme.getH()));
-	}
-	
 	
 	@Override
 	protected void remplirRecettes(List<Recette> listeRecettes) {
-		Recette r = new Recette (2, 10, TypeMiniJeu.RANGE_PRODUITS);
+		Recette r = new Recette (2, 10, TypeMiniJeu.BUZZER);
 		r.ajouterIngredient(TypeProduit.BOIS);
 		r.ajouterProduit(TypeProduit.PLANCHE);
 		listeRecettes.add(r);
+	}
+	
+	@Override
+	public String getImageName() {
+		return "scie";
 	}
 
 }

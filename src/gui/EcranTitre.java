@@ -11,12 +11,11 @@ public class EcranTitre extends Scene {
 	
 	public void setup(PApplet p) {
 		super.setup(p);
-		SceneHandler.playSoundMusique("assets/sounds/musique.wav", (float)1);
+		SceneHandler.playSoundFast("assets/sounds/musique.wav");
 	}
 	
 	@Override
 	public void draw() {
-		p.background(0);
 		PLabel titre = new PLabel(p.width / 2, p.height / 2, "TROUVER UN NOM", p);
 		titre.textSize(40);
 		titre.refreshSize(p);

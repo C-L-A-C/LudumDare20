@@ -74,9 +74,9 @@ public class Joueur extends EntiteMobile implements Controlable {
 				m = jeu.getNearestMachine(this);
 				if (m != null) {
 					if (!m.prendreIngredient(jeu))
-						SceneHandler.playSound("assets/sounds/negative_beep.mp3", (float)0.3, 1, 0, false);
+						SceneHandler.playSound("negative_beep", 1, 1, 0, false);
 					else
-						SceneHandler.playSound("assets/sounds/charger.wav", (float)0.6, 1, 0, false);
+						SceneHandler.playSound("charger", 1, 1, 0, false);
 				}
 			}
 			activeOnce = false;

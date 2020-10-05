@@ -8,7 +8,9 @@ import java.util.Map.Entry;
 import java.util.Set;
 
 import collision.Rectangle;
+import graphiques.AnimationSet;
 import graphiques.Apparence;
+import graphiques.Tileset;
 import jeu.DonneesJeu;
 import jeu.Entite;
 import jeu.produit.Produit;
@@ -39,6 +41,7 @@ public abstract class Machine extends Entite {
 	private Recette recetteCourante;
 	private boolean bloquee;
 	private long tBloque;
+	private AnimationSet fumee;
 
 	protected Machine(float x, float y, Apparence a, TypeDirectionTapis direction) {
 		super(x, y, a);
@@ -71,6 +74,8 @@ public abstract class Machine extends Entite {
 		sortieMachine = new ArrayList<>();
 		produits = new HashMap<>();
 		bloquee = false;
+		
+		fumee = new AnimationSet(new Tileset("fumee", 4, 4), 8, 0);
 	}
 
 	protected abstract void remplirRecettes(List<Recette> listeRecettes);
@@ -104,18 +109,30 @@ public abstract class Machine extends Entite {
 			
 		float wMachine = getForme().getW() * 1.2f;
 		float hMachine = getForme().getH() * 1.2f;
-		float wCase = 40, hCase = 32;
+		float wCase = 40, hCase = 40;
 		float wBord = 8;
-		float xDep = getX() + wMachine / 2 - (wCase * nb) / 2;
-		float yDep = getY() + hMachine + 5;
+		float xDep, yDep;
+		if (direction == TypeDirectionTapis.BAS || direction == TypeDirectionTapis.HAUT) {
+			xDep = getX() + wMachine / 2 - (wCase * nb) / 2;
+			yDep = getY() - direction.vecteurDirecteur().y * (hMachine + 5);
+		}
+		else {
+
+			xDep = getX() - direction.vecteurDirecteur().x * (wMachine + 3);
+			if (direction == TypeDirectionTapis.DROITE)
+				xDep += 12;
+			yDep = getY() + hMachine / 2 - (hCase * nb) / 2;
+		}
 		
 		for (int i = 0; i < nb; i++)
 		{
-			p.rect(xDep + i * wCase, yDep, wCase - wBord, hCase);
+			float xCase = xDep + PApplet.abs(direction.vecteurDirecteur().y) * i * wCase;
+			float yCase = yDep + PApplet.abs(direction.vecteurDirecteur().x) * i * hCase;
+			p.rect(xCase, yCase, wCase - wBord, hCase - wBord);
 			if (i < produitsMachine.size())
 			{
 				PImage img = Produit.getImage(produitsMachine.get(i));
-				p.image(img, xDep + i * wCase + 2, yDep + 2, wCase - wBord - 4, hCase - 4);
+				p.image(img, xCase + 2, yCase + 2, wCase - wBord - 4, hCase - wBord - 4);
 			}
 		}
 	}
@@ -144,6 +161,21 @@ public abstract class Machine extends Entite {
 				tBloque = t;				
 			}
 		}
+		
+		if (bloquee)
+		{
+			int severity = (int) PApplet.map(t - tBloque, 1000, DonneesJeu.TEMPS_BLOCAGE_MAX, 0, 4);
+			severity = PApplet.constrain(severity, 0, 3);
+			fumee.change(severity);
+		}
+	}
+	
+	public void afficher(PApplet p) {		
+		
+		apparence.afficher(p,  (int)pos.x,  (int)pos.y - 30,  (int)(1.2 * forme.getW()), (int)(2 * forme.getH()));
+
+		if (bloquee)
+			fumee.afficher(p,  (int)pos.x,  (int)pos.y - 30,  (int)(1.2 * forme.getW()), (int)(2 * forme.getH()));
 	}
 
 	public Rectangle getZoneInRange() {
@@ -235,6 +267,8 @@ public abstract class Machine extends Entite {
 		recetteCourante = null;
 		produits.clear();
 	}
+
+	public abstract String getImageName();
 
 	@Override
 	protected void faireCollision(Entite collider, DonneesJeu d) {

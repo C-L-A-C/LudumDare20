@@ -4,6 +4,7 @@ import processing.core.PApplet;
 import processing.core.PImage;
 import processing.core.PVector;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -28,9 +29,12 @@ import jeu.tapis.Tapis;
 import jeu.tapis.TypeDirectionTapis;
 
 import processing.sound.*;
+import utils.Logger;
 
 public class DonneesJeu {
 	private static final float MAX_DISTANCE_MACHINE = 50;
+
+	public static final float TEMPS_BLOCAGE_MAX = 6000;
 
 	private long failedMinijeut0;
 	private boolean failedMinijeu;
@@ -76,8 +80,8 @@ public class DonneesJeu {
 		toutPeteParcequeCestBloque = false;
 		
 		// Preloading sounds
-		SceneHandler.preloadSound("assets/sounds/failed.mp3");
-		SceneHandler.preloadSound("assets/sounds/positive_beep.wav");
+		SceneHandler.preloadSound("failed");
+		SceneHandler.preloadSound("positive_beep");
 	}
 	
 	public void ajouterObjectif(TypeProduit type, int nb)
@@ -130,7 +134,7 @@ public class DonneesJeu {
 		joueur.evoluer(t, this);
 		// changement des vitesses des produits
 		for (Produit p : listeProduits) {
-			p.adhererTapis(this);
+			p.adhererTapis(listeTapis);
 			p.evoluer(t, this);
 		}
 		
@@ -148,7 +152,7 @@ public class DonneesJeu {
 		for (Machine m : listeMachines)
 		{
 			m.evoluer(t, this);
-			if (m.getTempsBloque(t) > 5000)
+			if (m.getTempsBloque(t) > TEMPS_BLOCAGE_MAX)
 			{
 				toutPeteParcequeCestBloque = true;
 			}
@@ -260,9 +264,9 @@ public class DonneesJeu {
 		}
 
 		if (playSound==-1)
-			SceneHandler.playSound("assets/sounds/failed.mp3", (float)0.5, 1, 0, false);
+			SceneHandler.playSound("failed", 1, 1, 0, false);
 		else if(playSound==1)
-			SceneHandler.playSound("assets/sounds/positive_beep.wav", (float)0.5, 1, 0, false);
+			SceneHandler.playSound("positive_beep", 1, 1, 0, false);
 		playSound = 0;
 	}
 

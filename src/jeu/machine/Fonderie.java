@@ -22,16 +22,27 @@ public class Fonderie extends Machine {
 	}
 
 	
-	public void afficher(PApplet p) {
-		apparence.afficher(p,  (int)pos.x,  (int)pos.y - 30,  (int)(1.2 * forme.getW()), (int)(2 * forme.getH()));
-	}
-	
-	
 	protected void remplirRecettes(List<Recette> recettes) {
 		Recette r = new Recette(2, 10, TypeMiniJeu.RANGE_PRODUITS);
 		r.ajouterIngredient(TypeProduit.METAL);
-		r.ajouterProduit(TypeProduit.TOLE);
+		r.ajouterProduit(TypeProduit.METAL_FUSION);
 		recettes.add(r);
+		
+		r = new Recette(5, 10, TypeMiniJeu.BOUTONS_MEMOIRE);
+		r.ajouterIngredient(TypeProduit.OR_BRUT, 2);
+		r.ajouterProduit(TypeProduit.BIJOU);
+		recettes.add(r);
+		
+		r = new Recette(5, 10, TypeMiniJeu.BUZZER);
+		r.ajouterIngredient(TypeProduit.PLASTIQUE);
+		r.ajouterIngredient(TypeProduit.TOLE);
+		r.ajouterProduit(TypeProduit.COUTEAU);
+		recettes.add(r);
+	}
+	
+	@Override
+	public String getImageName() {
+		return "fonderie";
 	}
 
 }
