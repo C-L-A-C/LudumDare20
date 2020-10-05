@@ -35,10 +35,10 @@ public class EcranFinNiveau extends Scene {
 		
 		String[] texts = {
 				"You have " + (gagne ? "won" : "failed") + " !",
-				"Total produced items : " + scores[4],
-				"Time left : " + scores[3] + "s",
-				"Products on conveyor belts : " + scores[1],
-				"Waste on conveyor belts : " + scores[2],				
+				"Total produced items : " + scores[1],
+				"Time left : " + scores[2] + "s",
+				"Products on conveyor belts : " + scores[3],
+				"Waste on conveyor belts : " + scores[4],				
 					};
 		for (int i = 0; i < texts.length; i++)
 			labels.add(new PLabel(p.width / 2, ((i == 0 ? -1 : 0) + (i + 2)) * p.height / 14, 300, 80, texts[i]));
@@ -70,7 +70,7 @@ public class EcranFinNiveau extends Scene {
 		
 		p.stroke(255);
 		p.strokeWeight(3);
-		p.line(p.width / 2 + 180, 3 * p.height / 14 - 15, p.width / 2 + 180, 7 * p.height / 14 + 15);
+		p.line(p.width / 2 + 160, 3 * p.height / 14 - 15, p.width / 2 + 160, 7 * p.height / 14 + 15);
 		p.line(p.width / 2 - 150, 7 * p.height / 14 - 10, p.width / 2 + 230, 7 * p.height / 14 - 10);
 		
 		this.handleButtons();

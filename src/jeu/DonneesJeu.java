@@ -236,19 +236,19 @@ public class DonneesJeu {
 	}
 	
 	private void calculScore() {
-		scores[1] = listeProduits.size();
-		scores[2] = (int) listeProduits.stream().filter(p -> p.getType() == TypeProduit.DECHET).count();
-		scores[3] = clock.getTimeLeft() - (int) clock.getSeconds();
-		scores[4] = objectifs.getProduitsReussis().values().stream().reduce(0, (nb1, nb2) -> nb1 + nb2);
+		scores[1] = objectifs.getProduitsReussis().values().stream().reduce(0, (nb1, nb2) -> nb1 + nb2);
+		scores[2] = clock.getTimeLeft() - (int) clock.getSeconds();
+		scores[3] = listeProduits.size();
+		scores[4] = (int) listeProduits.stream().filter(p -> p.getType() == TypeProduit.DECHET).count();
 		
 		int base = 0;
 		for(Entry<TypeProduit, Integer> pair : objectifs.getProduitsReussis().entrySet())
 			base += pair.getKey().getPoints() * pair.getValue();
 		
-		scores[5] = - scores[1];
-		scores[6] = - scores[2] * 10;
-		scores[7] = scores[3] * 2;
-		scores[8] = base;
+		scores[5] = base;
+		scores[6] = scores[2] * 2;
+		scores[7] = - scores[3];
+		scores[8] = - scores[4] * 10;
 		
 		scores[0] = scores[5] + scores[6] + scores[7] + scores[8];
 	}
