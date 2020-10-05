@@ -148,7 +148,14 @@ public class EcranTuto extends Scene {
 
 	@Override
 	public void mousePressed() {
-		if (boutonRetour.contient(p.mouseX, p.mouseY)) {
+		int x = p.mouseX;
+		int y = p.mouseY;
+		int returnX = (int) boutonRetour.getX()/2;
+		int returnY = (int) boutonRetour.getY();
+		int returnW = (int) boutonRetour.getWidth();
+		int returnH = (int) boutonRetour.getHeight();
+		
+		if (x>=returnX && x<=returnX+returnW && y>=returnY+yScroll && y<=returnY+returnH+yScroll) {
 			SceneHandler.setRunning(previousScene);
 		}
 	}
