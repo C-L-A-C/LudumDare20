@@ -17,6 +17,7 @@ public abstract class Scene {
 	protected PApplet p;
 	private PImage audioImg, muteImg;
 	private PButton soundBtn;
+	public static boolean handleMouseHand;
 	
 	public void setup(PApplet p)
 	{
@@ -24,6 +25,7 @@ public abstract class Scene {
 		audioImg = Assets.getImage("audio");
 		muteImg = Assets.getImage("mute");
 		soundBtn = new PButton(p.width-50, p.height-40, 32, 32, Config.readBoolean(ConfigKey.MUTE) ? audioImg : muteImg);
+		handleMouseHand = true;
 	}
 	
 	public void fermer() {};
@@ -31,10 +33,12 @@ public abstract class Scene {
 	public abstract void draw();
 	
 	public void handleButtons() {
-		if(PButton.getOverAButton())
-			p.cursor(p.HAND);
-		else
-			p.cursor(p.ARROW);
+		if(handleMouseHand) {
+			if(PButton.getOverAButton())
+				p.cursor(p.HAND);
+			else
+				p.cursor(p.ARROW);
+		}
 		PButton.resetOverAButton();
 		
 		if(Config.readBoolean(ConfigKey.MUTE))

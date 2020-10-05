@@ -164,7 +164,7 @@ public class MenuPrincipal extends Scene {
 		super.mousePressed();
 		if (buttonCampaign.contient(p.mouseX, p.mouseY)) {
 			p.cursor(p.ARROW);
-			SceneHandler.setRunning(new Jeu(4));
+			SceneHandler.setRunning(new Jeu(2));
 		}
 		if (buttonCredits.contient(p.mouseX, p.mouseY)) {
 			p.cursor(p.ARROW);
