@@ -24,7 +24,7 @@ public enum ConfigKey {
 	TOUCHE_MACHINE("ToucheActiveMachine"),
 	TOUCHE_PAUSE("TouchePause"),
 	TOUCHE_PRODUIT("ToucheChargerMachine"),
-	TOUCHE_OVERLAY("ToucheOverlay");
+	TOUCHE_OVERLAY("ToucheOverlay"), MUTE("MuteSound");
 	
 	
 	private final static Map<String, String> noms = new HashMap<>();

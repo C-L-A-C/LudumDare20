@@ -23,6 +23,8 @@ import processing.core.PImage;
 
 public abstract class Machine extends Entite {
 
+	private static final long TEMPS_COOLDOWN = 3000;
+
 	/**
 	 * Produits dans la machine, avec leur nombre
 	 */
@@ -42,6 +44,8 @@ public abstract class Machine extends Entite {
 	private boolean bloquee;
 	private long tBloque;
 	private AnimationSet fumee;
+	private long lastActivation;
+	private boolean isCooldown;
 
 	protected Machine(float x, float y, Apparence a, TypeDirectionTapis direction) {
 		super(x, y, a);
@@ -76,6 +80,8 @@ public abstract class Machine extends Entite {
 		bloquee = false;
 		
 		fumee = new AnimationSet(new Tileset("fumee", 4, 4), 8, 0);
+		lastActivation = 0;
+		isCooldown = false;
 	}
 
 	protected abstract void remplirRecettes(List<Recette> listeRecettes);
@@ -162,6 +168,9 @@ public abstract class Machine extends Entite {
 			}
 		}
 		
+		if (t - lastActivation > TEMPS_COOLDOWN)
+			isCooldown = false;
+		
 		if (bloquee)
 		{
 			int severity = (int) PApplet.map(t - tBloque, 1000, DonneesJeu.TEMPS_BLOCAGE_MAX, 0, 4);
@@ -183,7 +192,7 @@ public abstract class Machine extends Entite {
 	}
 
 	public boolean prendreIngredient(DonneesJeu j) {
-		if (machineActivee || estPrete() || !sortieMachine.isEmpty())
+		if (estEnCooldown() || machineActivee || estPrete() || !sortieMachine.isEmpty())
 			return false;
 
 		Produit p = j.prendreProduitZone(zoneIngredients, getProduitsManquants().keySet());
@@ -213,8 +222,13 @@ public abstract class Machine extends Entite {
 	 * @return l'état de la machin e
 	 */
 	public boolean estPrete() {
-		return getProduitsManquants().isEmpty();
+		return !estEnCooldown() && getProduitsManquants().isEmpty();
 
+	}
+	
+	public boolean estEnCooldown()
+	{
+		return isCooldown;
 	}
 
 	private Map<TypeProduit, Integer> getProduitsManquants() {
@@ -252,7 +266,7 @@ public abstract class Machine extends Entite {
 	 * 
 	 * @param succes A-t-on reussi le mini jeu ?
 	 */
-	public void finirActivation(boolean succes) {
+	public void finirActivation(boolean succes, long time) {
 
 		Set<Entry<TypeProduit, Integer>> production;
 		if (succes)
@@ -266,6 +280,9 @@ public abstract class Machine extends Entite {
 		}
 		recetteCourante = null;
 		produits.clear();
+		
+		lastActivation = time;
+		isCooldown = true;
 	}
 
 	public abstract String getImageName();

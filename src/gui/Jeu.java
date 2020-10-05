@@ -12,7 +12,7 @@ import jeu.mini.RangeProduits;
 import processing.core.PApplet;
 
 public class Jeu extends Scene {
-	
+
 	private DonneesJeu jeu;
 	private ControleurNiveau niveau;
 	private ControleurClavier controleur;
@@ -22,19 +22,19 @@ public class Jeu extends Scene {
 	public Jeu(int numeroNiveau) {
 		// créé le niveau courant
 		jeu = new DonneesJeu();
-		
+
 		clock = new Horloge(60);
-		
+
 		controleur = new ControleurClavier(jeu.getJoueur());
 		niveau = new ControleurNiveau(jeu);
 		this.numeroNiveau = numeroNiveau;
-		
-		if(!niveau.setNiveauCourant("niveau " + numeroNiveau)) {
+
+		if (!niveau.setNiveauCourant("niveau " + numeroNiveau)) {
 			System.out.println("Erreur : le niveau n'a pas pu etre recupere");
 		}
-		
+
 		clock = jeu.getHorloge();
-		
+
 		RangeProduits.resetDifficulty();
 		BoutonsMemoire.resetDifficulty();
 	}
@@ -49,20 +49,21 @@ public class Jeu extends Scene {
 		p.background(70);
 		p.rectMode(PApplet.CORNER);
 
-		if (! jeu.estEnMiniJeu())
+		if (!jeu.estEnMiniJeu())
 			controleur.doActions(jeu);
-		
+
 		jeu.afficher(p);
 		clock.afficher(p);
-		
+
 		jeu.evoluer((long) (clock.getSeconds() * 1000));
-		
-		if (clock.journeeFinie() || jeu.estFini())
-		{
+
+		if (clock.journeeFinie() || jeu.estFini()) {
 			SceneHandler.setRunning(new EcranFinNiveau(jeu.estGagne(), numeroNiveau + (jeu.estGagne() ? 1 : 0)));
 		}
+
+		this.handleButtons();
 	}
-	
+
 	@Override
 	public void keyPressed() {
 		controleur.keyPressed(p.keyCode);
@@ -70,18 +71,17 @@ public class Jeu extends Scene {
 			MenuPause pause = new MenuPause(p, this);
 			this.clock.stopClock();
 			SceneHandler.setRunning(pause);
-		}
-		else if (p.keyCode == Config.readKey(ConfigKey.TOUCHE_OVERLAY))
+		} else if (p.keyCode == Config.readKey(ConfigKey.TOUCHE_OVERLAY))
 			jeu.setAffichageOverlay(!jeu.getAffichageOverlay());
-		
+
 		if (jeu.estEnMiniJeu())
 			jeu.getMiniJeu().keyPressed(p.keyCode);
 	}
-	
+
 	@Override
 	public void keyReleased() {
 		controleur.keyReleased(p.keyCode);
-		
+
 		if (jeu.estEnMiniJeu())
 			jeu.getMiniJeu().keyReleased(p.keyCode);
 	}
@@ -94,6 +94,7 @@ public class Jeu extends Scene {
 
 	@Override
 	public void mousePressed() {
+		super.mousePressed();
 		if (jeu.estEnMiniJeu())
 			jeu.getMiniJeu().mousePressed(p.mouseX, p.mouseY, p.mouseButton);
 	}
@@ -104,11 +105,9 @@ public class Jeu extends Scene {
 	public Horloge getClock() {
 		return clock;
 	}
-	
+
 	public int getNumeroNiveau() {
 		return numeroNiveau;
 	}
-	
-	
 
 }

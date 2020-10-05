@@ -2,6 +2,8 @@ package jeu;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 import collision.Point;
@@ -17,6 +19,8 @@ import jeu.tapis.Selecteur;
 import jeu.tapis.Sortie;
 import jeu.tapis.Tapis;
 import jeu.tapis.TapisRapide;
+import jeu.tapis.TeleporteurEntree;
+import jeu.tapis.TeleporteurSortie;
 import jeu.tapis.TypeDirectionTapis;
 
 public class ControleurNiveau {
@@ -29,6 +33,8 @@ public class ControleurNiveau {
 	// taille du niveau en nombre de cases
 	private int largeur;
 	private int hauteur;
+	private Map<Integer, TeleporteurEntree> tpEntrees;
+	private Map<Integer, TeleporteurSortie> tpSorties;
 
 	public ControleurNiveau(DonneesJeu jeu) {
 		this.donneesJeu = jeu;
@@ -37,6 +43,9 @@ public class ControleurNiveau {
 
 		eCtrl = new ControleurEvenements(tailleCasePixels);
 		jeu.setControleurEvenements(eCtrl);
+		
+		tpEntrees = new HashMap<>();
+		tpSorties = new HashMap<>();
 	}
 
 	/*
@@ -147,6 +156,9 @@ public class ControleurNiveau {
 						System.out.println("Erreur dans la lecture du fichier des niveaux : "
 								+ "taille du terrain incorrecte ou pas d'objectif(s) specifie(s)");
 					}
+					
+					if (! tpEntrees.keySet().equals(tpSorties.keySet()))
+						System.err.println("Erreur des téléporteurs : ils ne font pas la paire");
 				}
 				
 				if (analyseObjectifs) {
@@ -253,6 +265,9 @@ public class ControleurNiveau {
 		int x = i * this.tailleCasePixels, y = j * this.tailleCasePixels;
 
 		switch (chaineLue) {
+		case "f":
+			//floor
+			break;
 		case "t":
 			donneesJeu.addTapis(new Tapis(x, y, direction));
 			break;
@@ -286,7 +301,31 @@ public class ControleurNiveau {
 		case "s":
 			donneesJeu.addSortie(new Sortie(x, y));
 			break;
+		case "b":
+			donneesJeu.addBloc(new Bloc(x, y));
+			break;
 		default:
+			if (chaineLue.startsWith("TPin"))
+			{
+				int id = Integer.parseInt(chaineLue.substring(4));
+				TeleporteurEntree e = new TeleporteurEntree(x, y, direction);
+				TeleporteurSortie s = tpSorties.get(id);
+				e.associerSortie(s);
+				tpEntrees.put(id, e);
+				donneesJeu.addTapis(e);
+			}
+			else if (chaineLue.startsWith("TPout"))
+			{
+				int id = Integer.parseInt(chaineLue.substring(5));
+				TeleporteurSortie s = new TeleporteurSortie(x, y, direction);
+				TeleporteurEntree e = tpEntrees.get(id);
+				if (e != null)
+					e.associerSortie(s);
+				tpSorties.put(id, s); 
+				donneesJeu.addTapis(s);
+			}
+			else
+				System.err.println("Token inconnu : " + chaineLue);
 		}
 	}
 

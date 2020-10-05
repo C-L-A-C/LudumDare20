@@ -27,10 +27,12 @@ public class MenuPause extends Scene {
 		this.buttonRetry.afficher(p);
 		this.buttonReturnMenu.afficher(p);
 		this.buttonQuit.afficher(p);
+		this.handleButtons();
 	}
 
 	@Override
 	public void mousePressed() {
+		super.mousePressed();
 		if (buttonResume.contient(p.mouseX, p.mouseY)) {
 			this.jeu.getClock().restartClock();
 			SceneHandler.setRunningWithoutClosing(this.jeu);

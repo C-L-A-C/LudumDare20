@@ -28,7 +28,8 @@ public class Horloge {
 			AffichageImage clock = new AffichageImage(Assets.getImage("clock"));
 			clock.afficher(p, p.width-clock.getWidth()-10, 10, clock.getWidth(), clock.getHeight());
 			
-			p.stroke(7);
+			p.strokeWeight(2);
+			p.stroke(0);
 			/* Affichage de l'aiguille des minutes */
 			final int mx1 = p.width-clock.getWidth()/2-10;
 			final int my1 = 10+clock.getHeight()/2;

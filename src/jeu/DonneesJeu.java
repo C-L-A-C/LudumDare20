@@ -48,6 +48,7 @@ public class DonneesJeu {
 	private List<Produit> listeProduits;
 	private List<Machine> listeMachines;
 	private List<Sortie> listeSorties;
+	private List<Bloc> listeBlocs;
 	private int playSound;
 	private List<Selecteur> listeSelecteurs;
 
@@ -70,6 +71,7 @@ public class DonneesJeu {
 		listeSorties = new ArrayList<>();
 		playSound = 0;
 		listeSelecteurs = new ArrayList<>();
+		listeBlocs = new ArrayList<>();
 		
 		this.failedMinijeu = false;
 		listeMachines = new ArrayList<>();
@@ -126,6 +128,13 @@ public class DonneesJeu {
 				return s;
 			}
 		}
+		
+		for (Bloc b : listeBlocs) {
+			if (e != b && e.collision(b)) {
+				return b;
+			}
+		}
+		
 
 		return null;
 	}
@@ -136,6 +145,10 @@ public class DonneesJeu {
 		for (Produit p : listeProduits) {
 			p.adhererTapis(listeTapis);
 			p.evoluer(t, this);
+		}
+		
+		for (Tapis tapis : listeTapis) {
+			tapis.evoluer(t, this);
 		}
 		
 		for (Sortie s: listeSorties) {
@@ -166,7 +179,7 @@ public class DonneesJeu {
 					failedMinijeu = true;
 					playSound = -1;
 				} else {
-					miniJeuCourant.getMachine().finirActivation(miniJeuCourant.estReussi());
+					miniJeuCourant.getMachine().finirActivation(miniJeuCourant.estReussi(), t);
 					miniJeuCourant = null;
 					playSound = 1;
 				}
@@ -174,7 +187,7 @@ public class DonneesJeu {
 			
 			if(failedMinijeu && this.failedMinijeut0 + 2200 < System.currentTimeMillis()) { // 2200 le temps que le sound se termine
 				failedMinijeu = false;
-				miniJeuCourant.getMachine().finirActivation(miniJeuCourant.estReussi());
+				miniJeuCourant.getMachine().finirActivation(miniJeuCourant.estReussi(), t);
 				miniJeuCourant = null;
 			}
 		}
@@ -200,12 +213,7 @@ public class DonneesJeu {
 
 		p.pushMatrix();
 		p.translate(-(int) scroll.getX(), -(int) scroll.getY());
-		
-		
 
-		// On separe les tapis devant les produits de derriere les produits
-		Map<Boolean, List<Tapis>> listeTapisEstDevant = listeTapis.stream()
-				.collect(Collectors.partitioningBy(t -> t.getLayer() != 0));
 		
 		//background
 		PImage background = Assets.getImage("background");
@@ -214,6 +222,11 @@ public class DonneesJeu {
 				p.image(background, i * background.width, j * background.height);
 			}
 		}
+		
+
+		// On separe les tapis devant les produits de derriere les produits
+		Map<Boolean, List<Tapis>> listeTapisEstDevant = listeTapis.stream()
+				.collect(Collectors.partitioningBy(t -> t.getLayer() != 0));
 		
 		//On affiche les differentes entites dans le bon ordre : du plus derriere au plus devant
 		for (Tapis t : listeTapisEstDevant.get(false))
@@ -232,11 +245,8 @@ public class DonneesJeu {
 		for (Tapis t : listeSelecteurs) 
 			t.afficher(p);
 		
-		if (afficherOverlay) {
-			for (Machine m : listeMachines) {
-				m.afficherOverlay(p);
-			}
-		}
+		for (Bloc b : listeBlocs)
+			b.afficher(p);
 		
 		// On separe les machine en dessous du perso et au dessus du perso
 		Map<Boolean, List<Machine>> listeMachineEstDevant = listeMachines.stream()
@@ -249,6 +259,12 @@ public class DonneesJeu {
 		
 		for (Machine machine : listeMachineEstDevant.get(true))
 			machine.afficher(p);
+		
+		if (afficherOverlay) {
+			for (Machine m : listeMachines) {
+				m.afficherOverlay(p);
+			}
+		}
 
 		p.popMatrix();
 
@@ -272,21 +288,22 @@ public class DonneesJeu {
 
 	private void afficherObjectif(PApplet p) {
 		int h = 80;
-		p.fill(190);
-		p.stroke(20);
-		p.rect(0, p.height - h, p.width, h);
+		p.fill(30);
+		p.stroke(220);
+		p.strokeWeight(3);
+		p.rect(-3, p.height - h, p.width+5, h+5);
 		
 		p.noStroke();
-		p.fill(20);
+		p.fill(200);
 		p.textSize(14);
 		p.textAlign(PApplet.CORNER, PApplet.CORNER);
-		p.text("Objectives", 5, p.height - h + 15);
+		p.text("Goals", 10, p.height - h + 27);
 		
 		int i = 0, wCase = 30, hCase = 25;
 		for (Map.Entry<TypeProduit, Integer> reussi : objectifs.getProduitsReussis().entrySet())
 		{
 			for (int j = 0; j < reussi.getValue(); j++) {
-				int xCase = 5 + i * wCase, yCase = p.height - h + 25;
+				int xCase = 15 + i * wCase, yCase = p.height - h + 40;
 				p.image(Produit.getImage(reussi.getKey()), xCase + 3, yCase + 3, wCase - 6, hCase - 6);
 				
 				p.fill(50, 255, 100, 120);
@@ -299,7 +316,7 @@ public class DonneesJeu {
 		for (Map.Entry<TypeProduit, Integer> reussi : objectifs.getProduitsManquants().entrySet())
 		{
 			for (int j = 0; j < reussi.getValue(); j++) {
-				int xCase = 5 + i * wCase, yCase = p.height - h + 25;
+				int xCase = 15 + i * wCase, yCase = p.height - h + 40;
 				p.image(Produit.getImage(reussi.getKey()), xCase + 3, yCase + 3, wCase - 6, hCase - 6);
 				
 				p.fill(255, 100, 50, 120);
@@ -321,6 +338,10 @@ public class DonneesJeu {
 
 	public void addTapis(Tapis tapis) {
 		this.listeTapis.add(tapis);
+	}
+	
+	public void addBloc(Bloc bloc) {
+		this.listeBlocs.add(bloc);
 	}
 	
 	public void setAffichageOverlay(boolean status)
@@ -429,6 +450,10 @@ public class DonneesJeu {
 	
 	public boolean getAffichageOverlay() {
 		return afficherOverlay;
+	}
+
+	public List<Produit> getListeProduits() {
+		return listeProduits;
 	}
 
 }

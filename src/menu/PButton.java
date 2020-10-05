@@ -1,5 +1,6 @@
 package menu;
 
+import gui.SceneHandler;
 import processing.core.PApplet;
 import processing.core.PImage;
 import utils.Utils;
@@ -9,11 +10,13 @@ public class PButton extends PLabel{
 	private PImage img, hoverImg;
 	private boolean hoverable;
 	private Integer colorButton;
+	private static boolean overAButton;
 	
 	public PButton(float x, float y, float w, float h, String str)
 	{
 		this(x, y, w, h, str, null);
 		this.colorButton = Utils.color(30);
+		overAButton = false;
 	}
 	
 	public PButton(float x, float y, float w, float h, PImage img)
@@ -45,6 +48,11 @@ public class PButton extends PLabel{
 	public void setHoverable(boolean b)
 	{
 		hoverable = b;
+	}
+	
+	@Override
+	public void finalize() {
+		SceneHandler.pAppletInstance.cursor(SceneHandler.pAppletInstance.ARROW);
 	}
 	
 	public void afficher(PApplet p)
@@ -85,6 +93,22 @@ public class PButton extends PLabel{
 		}
 		
 		setColor(prevC);
+		
+		if(this.contient(p.mouseX, p.mouseY))
+			overAButton = true;
+	}
+	
+	public void setImage(PImage img) {
+		this.img = img;
+		this.hoverImg = img;
+	}
+	
+	public static boolean getOverAButton() {
+		return overAButton;
+	}
+	
+	public static void resetOverAButton() {
+		overAButton = false;
 	}
 	
 	
