@@ -36,11 +36,13 @@ public class EcranFinNiveau extends Scene {
 		jouer.afficher(p);
 		retour.afficher(p);
 		
+		this.handleButtons();
 	}
 	
 	@Override
 	public void mousePressed()
 	{
+		super.mousePressed();
 		if (jouer.contient(p.mouseX, p.mouseY))
 		{
 			Jeu jeu = new Jeu(niveauSuivant);

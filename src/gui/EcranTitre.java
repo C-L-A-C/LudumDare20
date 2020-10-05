@@ -16,6 +16,7 @@ public class EcranTitre extends Scene {
 	
 	@Override
 	public void draw() {
+		p.background(0);
 		PLabel titre = new PLabel(p.width / 2, p.height / 2, "TROUVER UN NOM", p);
 		titre.textSize(40);
 		titre.refreshSize(p);
@@ -26,14 +27,12 @@ public class EcranTitre extends Scene {
 		pressAKey.refreshSize(p);
 		pressAKey.setColor(128);
 		pressAKey.afficher(p);
+		
+		this.handleButtons();
 	}
 	
 	@Override
 	public void keyPressed() {
 		SceneHandler.setRunning(new MenuPrincipal(p));
 	}
-
-
-	
-
 }

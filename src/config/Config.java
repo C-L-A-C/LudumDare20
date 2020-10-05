@@ -179,6 +179,7 @@ public class Config{
 	private static void loadDefaults() {
 		Predicate<String> checkString = str -> str != null && !str.isEmpty();
 		Predicate<String> checkDir = str -> str != null && Files.isDirectory(Paths.get(str));
+		Predicate<String> checkBoolean = str -> str == "true" || str == "false";
 		Predicate<String> checkInt = str -> {
 			try {
 				Integer.parseInt(str);
@@ -193,7 +194,9 @@ public class Config{
 		
 		//Default configuration and type checks
 		config.put(ConfigKey.LOG_LEVEL, "2");
-		checks.put(ConfigKey.LOG_LEVEL, checkInt);	
+		checks.put(ConfigKey.LOG_LEVEL, checkInt);
+		config.put(ConfigKey.MUTE, "false");
+		checks.put(ConfigKey.MUTE, checkBoolean);
 		
 		
 		// Default configuration for keys

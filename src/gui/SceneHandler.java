@@ -9,6 +9,8 @@ import javax.sound.sampled.FloatControl;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
+import config.Config;
+import config.ConfigKey;
 import graphiques.Assets;
 import processing.core.PApplet;
 import processing.sound.SoundFile;
@@ -24,6 +26,7 @@ public class SceneHandler extends PApplet {
 
 	public static PApplet pAppletInstance;
 	private static Scene runningScene;
+	private static Clip clip;
 
 	public static void launch(Scene scene) {
 		// Launch le main de processing
@@ -67,7 +70,7 @@ public class SceneHandler extends PApplet {
 
 	public static SoundFile playSound(String path, float amp, float rate, float offset, boolean replay) {
 		SoundFile sound = Assets.getSound(path);
-		if (sound == null)
+		if (Config.readBoolean(ConfigKey.MUTE) || sound==null)
 			return null;
 
 		sound.amp(amp);
@@ -81,13 +84,15 @@ public class SceneHandler extends PApplet {
 	}
 
 	public static void playSoundFast(String path) {
-		File file = new File(path);
 		try {
-			Clip clip = AudioSystem.getClip();
+			File file = new File(path);
+			clip = AudioSystem.getClip();
 			clip.open(AudioSystem.getAudioInputStream(file));
 			FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
 			gainControl.setValue(-3.0f);
-			clip.loop(Clip.LOOP_CONTINUOUSLY);
+			if(!Config.readBoolean(ConfigKey.MUTE))
+				clip.loop(Clip.LOOP_CONTINUOUSLY);
+			
 		} catch (UnsupportedAudioFileException e1) {
 			e1.printStackTrace();
 		} catch (IOException e2) {
@@ -95,6 +100,14 @@ public class SceneHandler extends PApplet {
 		} catch (LineUnavailableException e3) {
 			e3.printStackTrace();
 		}
+	}
+	
+	public static void mute() {
+		clip.stop();
+	}
+	
+	public static void unmute() {
+		clip.loop(Clip.LOOP_CONTINUOUSLY);
 	}
 
 	public void keyPressed() {

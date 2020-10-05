@@ -272,21 +272,22 @@ public class DonneesJeu {
 
 	private void afficherObjectif(PApplet p) {
 		int h = 80;
-		p.fill(190);
-		p.stroke(20);
-		p.rect(0, p.height - h, p.width, h);
+		p.fill(30);
+		p.stroke(220);
+		p.strokeWeight(3);
+		p.rect(-3, p.height - h, p.width+5, h+5);
 		
 		p.noStroke();
-		p.fill(20);
+		p.fill(200);
 		p.textSize(14);
 		p.textAlign(PApplet.CORNER, PApplet.CORNER);
-		p.text("Objectives", 5, p.height - h + 15);
+		p.text("Goals", 10, p.height - h + 27);
 		
 		int i = 0, wCase = 30, hCase = 25;
 		for (Map.Entry<TypeProduit, Integer> reussi : objectifs.getProduitsReussis().entrySet())
 		{
 			for (int j = 0; j < reussi.getValue(); j++) {
-				int xCase = 5 + i * wCase, yCase = p.height - h + 25;
+				int xCase = 15 + i * wCase, yCase = p.height - h + 40;
 				p.image(Produit.getImage(reussi.getKey()), xCase + 3, yCase + 3, wCase - 6, hCase - 6);
 				
 				p.fill(50, 255, 100, 120);
@@ -299,7 +300,7 @@ public class DonneesJeu {
 		for (Map.Entry<TypeProduit, Integer> reussi : objectifs.getProduitsManquants().entrySet())
 		{
 			for (int j = 0; j < reussi.getValue(); j++) {
-				int xCase = 5 + i * wCase, yCase = p.height - h + 25;
+				int xCase = 15 + i * wCase, yCase = p.height - h + 40;
 				p.image(Produit.getImage(reussi.getKey()), xCase + 3, yCase + 3, wCase - 6, hCase - 6);
 				
 				p.fill(255, 100, 50, 120);
