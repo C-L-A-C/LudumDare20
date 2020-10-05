@@ -16,12 +16,13 @@ import graphiques.AffichageImage;
 
 public class Produit extends EntiteMobile {
 
+	public static final float W = 26, H = 26;
 	private TypeProduit type;
 	private TypeDirectionTapis lastDirection;
 
 	public Produit(float x, float y, TypeProduit type) {
 		super(x, y, new AffichageImage(getImage(type)));
-		forme = new Rectangle(pos, 26, 26);
+		forme = new Rectangle(pos, W, H);
 		this.setLayer(1);
 		this.type = type;
 		lastDirection = null;

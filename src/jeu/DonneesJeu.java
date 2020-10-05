@@ -147,6 +147,10 @@ public class DonneesJeu {
 			p.evoluer(t, this);
 		}
 		
+		for (Tapis tapis : listeTapis) {
+			tapis.evoluer(t, this);
+		}
+		
 		for (Sortie s: listeSorties) {
 			List<Produit> produitsSortis = new ArrayList<>();
 			produitsSortis = s.reduireCollisions(listeProduits, t);
@@ -188,7 +192,7 @@ public class DonneesJeu {
 			}
 		}
 		
-		eCtrl.evoluer(listeProduits);
+		eCtrl.evoluer(this);
 	}
 
 	
@@ -209,12 +213,7 @@ public class DonneesJeu {
 
 		p.pushMatrix();
 		p.translate(-(int) scroll.getX(), -(int) scroll.getY());
-		
-		
 
-		// On separe les tapis devant les produits de derriere les produits
-		Map<Boolean, List<Tapis>> listeTapisEstDevant = listeTapis.stream()
-				.collect(Collectors.partitioningBy(t -> t.getLayer() != 0));
 		
 		//background
 		PImage background = Assets.getImage("background");
@@ -223,6 +222,11 @@ public class DonneesJeu {
 				p.image(background, i * background.width, j * background.height);
 			}
 		}
+		
+
+		// On separe les tapis devant les produits de derriere les produits
+		Map<Boolean, List<Tapis>> listeTapisEstDevant = listeTapis.stream()
+				.collect(Collectors.partitioningBy(t -> t.getLayer() != 0));
 		
 		//On affiche les differentes entites dans le bon ordre : du plus derriere au plus devant
 		for (Tapis t : listeTapisEstDevant.get(false))
@@ -446,6 +450,10 @@ public class DonneesJeu {
 	
 	public boolean getAffichageOverlay() {
 		return afficherOverlay;
+	}
+
+	public List<Produit> getListeProduits() {
+		return listeProduits;
 	}
 
 }

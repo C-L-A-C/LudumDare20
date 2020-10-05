@@ -35,9 +35,10 @@ public class MenuPrincipal extends Scene {
 		this.setup(p);
 		float widthButton = p.width / 3;
 		float heightButton = p.height / 5;
-		this.buttonCampaign = new PButton(p.width / 2, p.height / 4, widthButton, heightButton, "PLAY");
-		this.buttonCredits = new PButton(p.width / 2, 2 * p.height / 4, widthButton, heightButton, "CREDITS");
-		this.buttonQuit = new PButton(p.width / 2, 3 * p.height / 4, widthButton, heightButton, "QUIT");
+		
+		this.buttonCampaign = new PButton(p.width  / 2,  p.height / 4 , widthButton, heightButton, "PLAY");
+		this.buttonCredits = new PButton(p.width / 2, 2 * p.height  / 4 , widthButton, heightButton, "TUTO");
+		this.buttonQuit = new PButton(p.width / 2, 3 * p.height / 4 , widthButton, heightButton, "QUIT");
 
 		tapis = new ArrayList<>();
 		produits = new ArrayList<>();
@@ -92,8 +93,6 @@ public class MenuPrincipal extends Scene {
 			selecteur.ajouterProduitFiltre(typesProduits[i]);
 			
 		tapis.add(selecteur);
-			
-
 	}
 
 	@Override
@@ -129,6 +128,9 @@ public class MenuPrincipal extends Scene {
 			m.afficher(p);
 		
 		selecteur.afficher(p);
+		p.fill(70, 180);
+		p.rect(p.width / 2, p.height / 2, p.width, p.height);
+		p.filter(PApplet.BLUR, 2);
 
 		this.buttonCampaign.afficher(p);
 		this.buttonCredits.afficher(p);
@@ -167,6 +169,7 @@ public class MenuPrincipal extends Scene {
 			SceneHandler.setRunning(new Jeu(2));
 		}
 		if (buttonCredits.contient(p.mouseX, p.mouseY)) {
+			SceneHandler.setRunning(new EcranTuto(p,this));
 			p.cursor(p.ARROW);
 		}
 		if (buttonQuit.contient(p.mouseX, p.mouseY)) {

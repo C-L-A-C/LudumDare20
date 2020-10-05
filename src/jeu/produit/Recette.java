@@ -89,6 +89,11 @@ public class Recette {
 	{
 		return produits.entrySet();
 	}
+	
+	public Set<Entry<TypeProduit, Integer>> getIngredients()
+	{
+		return ingredients.entrySet();
+	}
 
 	public Set<Entry<TypeProduit, Integer>> getDechets() {
 		 Set<Entry<TypeProduit, Integer>> set = new HashSet<>();
