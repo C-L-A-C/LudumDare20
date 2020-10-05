@@ -3,6 +3,8 @@ package gui;
 import java.util.ArrayList;
 import java.util.List;
 
+import config.Config;
+import config.ConfigKey;
 import graphiques.Assets;
 import jeu.DonneesJeu;
 import jeu.machine.Cuiseur;
@@ -166,11 +168,7 @@ public class MenuPrincipal extends Scene {
 		super.mousePressed();
 		if (buttonCampaign.contient(p.mouseX, p.mouseY)) {
 			p.cursor(p.ARROW);
-
-			SceneHandler.setRunning(new Jeu(3));
-
-
-
+			SceneHandler.setRunning(new Jeu(Config.readInt(ConfigKey.NIVEAU_DEBUT)));
 		}
 		if (buttonCredits.contient(p.mouseX, p.mouseY)) {
 			SceneHandler.setRunning(new EcranTuto(p,this));
