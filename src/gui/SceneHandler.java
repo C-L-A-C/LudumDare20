@@ -1,8 +1,11 @@
 package gui;
 
+import java.io.IOException;
+
 import graphiques.Assets;
 import processing.core.PApplet;
 import processing.sound.SoundFile;
+import utils.Logger;
 
 /**
  * Gere la fenetre graphique et la scene couramment affichee
@@ -14,9 +17,6 @@ public class SceneHandler extends PApplet {
 
 	public static PApplet pAppletInstance;
 	private static Scene runningScene;
-	private static SoundFile sound;
-	private static SoundFile soundAmbiance;
-	private static SoundFile soundMusique;
 	
 
 	public static void launch(Scene scene) {
@@ -51,12 +51,19 @@ public class SceneHandler extends PApplet {
 		runningScene.draw();
 	}
 	
-	public static SoundFile preloadSound(String path) {
-		return new SoundFile(pAppletInstance, path);
+	public static void preloadSound(String path) {
+		try {
+			Assets.preload(path, "sound");
+		} catch(IOException e) {
+			Logger.printlnErr(e.getMessage());
+		}
 	}
 	
 	public static SoundFile playSound(String path, float amp, float rate, float offset, boolean replay) {
-		sound = new SoundFile(pAppletInstance, path);
+		SoundFile sound = Assets.getSound(path);
+		if(sound==null)
+			return null;
+		
 		sound.amp(amp);
 		sound.cue(offset);
 		sound.rate(rate);
@@ -65,20 +72,6 @@ public class SceneHandler extends PApplet {
 		else
 			sound.play();
 		return sound;
-	}
-	
-	public static SoundFile playSoundAmbiance(String path, float amp) {	
-		soundAmbiance = new SoundFile(pAppletInstance, path);
-		soundAmbiance.amp(amp);
-		soundAmbiance.loop();
-		return soundAmbiance;
-	}
-	
-	public static SoundFile playSoundMusique(String path, float amp) {	
-		soundMusique = new SoundFile(pAppletInstance, path);
-		soundMusique.amp(amp);
-		soundMusique.loop();
-		return soundMusique;
 	}
 
 	public void keyPressed() {

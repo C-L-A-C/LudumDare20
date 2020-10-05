@@ -25,7 +25,7 @@ public class Bruleur extends Machine {
 	
 	@Override
 	protected void remplirRecettes(List<Recette> listeRecettes) {
-		Recette r = new Recette(2, 10, TypeMiniJeu.RANGE_PRODUITS);
+		Recette r = new Recette(2, 10, TypeMiniJeu.VISSE_VIS);
 		r.ajouterIngredient(TypeProduit.BOIS);
 		r.ajouterProduit(TypeProduit.CHARBON);
 		listeRecettes.add(r);

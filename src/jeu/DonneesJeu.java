@@ -4,6 +4,7 @@ import processing.core.PApplet;
 import processing.core.PImage;
 import processing.core.PVector;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -27,6 +28,7 @@ import jeu.tapis.Tapis;
 import jeu.tapis.TypeDirectionTapis;
 
 import processing.sound.*;
+import utils.Logger;
 
 public class DonneesJeu {
 	private static final float MAX_DISTANCE_MACHINE = 50;
@@ -72,8 +74,8 @@ public class DonneesJeu {
 		afficherOverlay = false;
 		
 		// Preloading sounds
-		SceneHandler.preloadSound("assets/sounds/failed.mp3");
-		SceneHandler.preloadSound("assets/sounds/positive_beep.wav");
+		SceneHandler.preloadSound("failed");
+		SceneHandler.preloadSound("positive_beep");
 	}
 	
 	public void ajouterObjectif(TypeProduit type, int nb)
@@ -253,9 +255,9 @@ public class DonneesJeu {
 		}
 
 		if (playSound==-1)
-			SceneHandler.playSound("assets/sounds/failed.mp3", (float)0.5, 1, 0, false);
+			SceneHandler.playSound("failed", (float)0.5, 1, 0, false);
 		else if(playSound==1)
-			SceneHandler.playSound("assets/sounds/positive_beep.wav", (float)0.5, 1, 0, false);
+			SceneHandler.playSound("positive_beep", (float)0.5, 1, 0, false);
 		playSound = 0;
 	}
 

@@ -25,6 +25,8 @@ public class EcranFinNiveau extends Scene {
 		titre = new PLabel(p.width / 2, 1 * p.height / 8, 200, 80, "Vous avez " + (gagne ? "réussi" : "échoué") + " !");
 		jouer = new PButton(p.width / 2, 4 * p.height / 8, 200, 80, gagne ? "NIVEAU SUIVANT" : "REESSAYER");
 		retour = new PButton(p.width / 2, 6 * p.height / 8, 200, 80, "RETOUR AU MENU");
+		
+		p.cursor(p.ARROW);
 	}
 
 	@Override
