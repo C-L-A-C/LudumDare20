@@ -166,7 +166,7 @@ public class MenuPrincipal extends Scene {
 			SceneHandler.setRunning(new Jeu(4));
 		}
 		if (buttonCredits.contient(p.mouseX, p.mouseY)) {
-			SceneHandler.setRunning(new EcranTuto(p));
+			SceneHandler.setRunning(new EcranTuto(p,this));
 			p.cursor(p.ARROW);
 		}
 		if (buttonQuit.contient(p.mouseX, p.mouseY)) {
