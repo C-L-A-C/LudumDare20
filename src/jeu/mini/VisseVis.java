@@ -54,7 +54,7 @@ public class VisseVis extends MiniJeu {
 		this.reussi = true;
 		this.end = false;
 		
-		SceneHandler.preloadSound("assets/sounds/marteau.wav");
+		SceneHandler.preloadSound("marteau");
 		SceneHandler.pAppletInstance.cursor(Assets.getImage("marteauup"), 10, 10);
 	}
 	

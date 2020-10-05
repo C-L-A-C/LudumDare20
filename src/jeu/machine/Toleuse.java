@@ -27,7 +27,7 @@ public class Toleuse extends Machine {
 	
 	
 	protected void remplirRecettes(List<Recette> recettes) {
-		Recette r = new Recette(2, 10, TypeMiniJeu.RANGE_PRODUITS);
+		Recette r = new Recette(2, 10, TypeMiniJeu.VISSE_VIS);
 		r.ajouterIngredient(TypeProduit.METAL);
 		r.ajouterProduit(TypeProduit.TOLE);
 		recettes.add(r);

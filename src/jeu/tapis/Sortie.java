@@ -1,4 +1,4 @@
-package jeu;
+package jeu.tapis;
 
 
 import java.util.ArrayList;
@@ -8,20 +8,20 @@ import java.util.List;
 import collision.Rectangle;
 import graphiques.AffichageImage;
 import graphiques.Assets;
+import jeu.DonneesJeu;
+import jeu.Entite;
 import jeu.produit.Produit;
 
 public class Sortie extends Entite {
 
-	public static int W = 40, H = 40;
 	private long derniereReduction;
 	private boolean updateTempsReduction;
 	
 	public Sortie(float x, float y) {
-		super(x, y, new AffichageImage(Assets.getImage("default")));
+		super(x, y, new AffichageImage(Assets.getImage("sortie")));
 		derniereReduction = 0;
 		updateTempsReduction = false;
-	
-		this.forme = new Rectangle(pos, W, H);
+		forme = new Rectangle(pos, Tapis.W, Tapis.H);
 	}
 
 	/*
@@ -52,4 +52,5 @@ public class Sortie extends Entite {
 	@Override
 	protected void faireCollision(Entite collider, DonneesJeu d) {
 	}
+
 }

@@ -37,6 +37,8 @@ public abstract class Machine extends Entite {
 	private Rectangle zoneIngredients;
 	private TypeDirectionTapis direction;
 	private Recette recetteCourante;
+	private boolean bloquee;
+	private long tBloque;
 
 	protected Machine(float x, float y, Apparence a, TypeDirectionTapis direction) {
 		super(x, y, a);
@@ -68,6 +70,7 @@ public abstract class Machine extends Entite {
 		machineActivee = false;
 		sortieMachine = new ArrayList<>();
 		produits = new HashMap<>();
+		bloquee = false;
 	}
 
 	protected abstract void remplirRecettes(List<Recette> listeRecettes);
@@ -116,6 +119,11 @@ public abstract class Machine extends Entite {
 			}
 		}
 	}
+	
+	public long getTempsBloque(long t)
+	{
+		return bloquee ? t - tBloque : 0;
+	}
 
 	@Override
 	public void evoluer(long t, DonneesJeu j) {
@@ -129,6 +137,11 @@ public abstract class Machine extends Entite {
 			if (j.checkCollision(p) == null) {
 				j.ajouterProduit(p);
 				sortieMachine.remove(0);
+				bloquee = false;
+			}
+			else if (! bloquee) {
+				bloquee = true;
+				tBloque = t;				
 			}
 		}
 	}

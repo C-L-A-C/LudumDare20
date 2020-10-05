@@ -22,7 +22,7 @@ public class Jeu extends Scene {
 	public Jeu(int numeroNiveau) {
 		// créé le niveau courant
 		jeu = new DonneesJeu();
-
+		
 		clock = new Horloge(60);
 		
 		controleur = new ControleurClavier(jeu.getJoueur());
@@ -32,6 +32,9 @@ public class Jeu extends Scene {
 		if(!niveau.setNiveauCourant("niveau " + numeroNiveau)) {
 			System.out.println("Erreur : le niveau n'a pas pu etre recupere");
 		}
+		
+		clock = jeu.getHorloge();
+		
 		RangeProduits.resetDifficulty();
 		BoutonsMemoire.resetDifficulty();
 	}
@@ -54,7 +57,7 @@ public class Jeu extends Scene {
 		
 		jeu.evoluer((long) (clock.getSeconds() * 1000));
 		
-		if (clock.journeeFinie() || jeu.estGagne())
+		if (clock.journeeFinie() || jeu.estFini())
 		{
 			SceneHandler.setRunning(new EcranFinNiveau(jeu.estGagne(), numeroNiveau + (jeu.estGagne() ? 1 : 0)));
 		}
@@ -100,6 +103,10 @@ public class Jeu extends Scene {
 	 */
 	public Horloge getClock() {
 		return clock;
+	}
+	
+	public int getNumeroNiveau() {
+		return numeroNiveau;
 	}
 	
 	

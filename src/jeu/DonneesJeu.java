@@ -24,6 +24,7 @@ import jeu.mini.TypeMiniJeu;
 import jeu.produit.Produit;
 import jeu.produit.TypeProduit;
 import jeu.tapis.Selecteur;
+import jeu.tapis.Sortie;
 import jeu.tapis.Tapis;
 import jeu.tapis.TypeDirectionTapis;
 
@@ -35,7 +36,8 @@ public class DonneesJeu {
 
 	private long failedMinijeut0;
 	private boolean failedMinijeu;
-	private long tempsDernierProduitCree;
+	
+	private Horloge clock;
 
 	private Joueur joueur;
 	private Scroll scroll;
@@ -52,11 +54,12 @@ public class DonneesJeu {
 	
 	private boolean afficherOverlay;
 
+	private boolean toutPeteParcequeCestBloque;
+
 	//private PVector debugPos;
 
 	public DonneesJeu() {
 		int viewW = 640, viewH = 400;
-		tempsDernierProduitCree = 0;
 
 		joueur = new Joueur(0, 0);
 		scroll = new Scroll(viewW, viewH, viewW, viewH);
@@ -72,6 +75,7 @@ public class DonneesJeu {
 			
 		miniJeuCourant = null;
 		afficherOverlay = false;
+		toutPeteParcequeCestBloque = false;
 		
 		// Preloading sounds
 		SceneHandler.preloadSound("failed");
@@ -144,7 +148,13 @@ public class DonneesJeu {
 		}
 		
 		for (Machine m : listeMachines)
+		{
 			m.evoluer(t, this);
+			if (m.getTempsBloque(t) > 5000)
+			{
+				toutPeteParcequeCestBloque = true;
+			}
+		}
 
 		if (estEnMiniJeu()) {	
 			
@@ -166,23 +176,20 @@ public class DonneesJeu {
 				miniJeuCourant = null;
 			}
 		}
-
-		if (t - tempsDernierProduitCree > 500) {
-
-			Produit nouveauProduit = eCtrl.creerNouveauProduit();
-			if (nouveauProduit != null) {
-				listeProduits.add(nouveauProduit);
-
-			}
-
-			tempsDernierProduitCree = t;
-		}
+		
+		eCtrl.evoluer(listeProduits);
 	}
 
 	
 	public boolean estGagne()
 	{
-		return objectifs.sontSatisfaits();
+		return !toutPeteParcequeCestBloque && objectifs.sontSatisfaits();
+	}
+	
+	public boolean estFini()
+	{
+		return toutPeteParcequeCestBloque || objectifs.sontSatisfaits();
+
 	}
 
 	public void afficher(PApplet p) {
@@ -271,7 +278,7 @@ public class DonneesJeu {
 		p.fill(20);
 		p.textSize(14);
 		p.textAlign(PApplet.CORNER, PApplet.CORNER);
-		p.text("Objectifs", 5, p.height - h + 15);
+		p.text("Objectives", 5, p.height - h + 15);
 		
 		int i = 0, wCase = 30, hCase = 25;
 		for (Map.Entry<TypeProduit, Integer> reussi : objectifs.getProduitsReussis().entrySet())
@@ -331,6 +338,14 @@ public class DonneesJeu {
 	
 	public void addSortie(Sortie s) {
 		listeSorties.add(s);
+	}
+	
+	public Horloge getHorloge() {
+		return clock;
+	}
+	
+	public void setTimer(int secondes) {
+		clock = new Horloge(secondes);
 	}
 
 	/**

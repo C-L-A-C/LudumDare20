@@ -21,10 +21,9 @@ public class EcranFinNiveau extends Scene {
 	public void setup(PApplet p)
 	{
 		super.setup(p);
-
-		titre = new PLabel(p.width / 2, 1 * p.height / 8, 200, 80, "Vous avez " + (gagne ? "réussi" : "échoué") + " !");
-		jouer = new PButton(p.width / 2, 4 * p.height / 8, 200, 80, gagne ? "NIVEAU SUIVANT" : "REESSAYER");
-		retour = new PButton(p.width / 2, 6 * p.height / 8, 200, 80, "RETOUR AU MENU");
+		titre = new PLabel(p.width / 2, 1 * p.height / 8, 200, 80, "You have " + (gagne ? "won" : "failed") + " !");
+		jouer = new PButton(p.width / 2, 4 * p.height / 8, 200, 80, gagne ? "NEXT LEVEL" : "RETRY");
+		retour = new PButton(p.width / 2, 6 * p.height / 8, 200, 80, "BACK TO MENU");
 		
 		p.cursor(p.ARROW);
 	}

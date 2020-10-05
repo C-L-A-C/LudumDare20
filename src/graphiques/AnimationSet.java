@@ -36,6 +36,10 @@ public class AnimationSet implements Apparence{
 	public void add(Animation anim) {
 		anims.add(anim);
 	}
+	
+	public void setStatic(boolean status) {
+		anims.get(current).setStatic(status);
+	}
 
 	public PImage getFrame() {
 		anims.get(current).resume();

@@ -21,6 +21,8 @@ public class Joueur extends EntiteMobile implements Controlable {
 		super(x, y, new AnimationSet(new Tileset("perso", 4, 4), 6, 0));
 		activeOnce = true;
 		forme = new Rectangle(pos, W, H);
+
+		((AnimationSet) apparence).setStatic(true);
 	}
 
 	@Override
@@ -85,10 +87,12 @@ public class Joueur extends EntiteMobile implements Controlable {
 		default:
 			break;
 		}
-
-		// TODO: rendre ça plus propre
+		
 		if (animation != -1)
 			((AnimationSet) apparence).change(animation);
+		
+		((AnimationSet) apparence).setStatic(vitesse.magSq() < 0.1);
+			
 
 		vitesse.limit(vitesseMax);
 
