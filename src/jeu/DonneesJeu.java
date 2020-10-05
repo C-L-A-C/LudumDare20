@@ -166,7 +166,7 @@ public class DonneesJeu {
 					failedMinijeu = true;
 					playSound = -1;
 				} else {
-					miniJeuCourant.getMachine().finirActivation(miniJeuCourant.estReussi());
+					miniJeuCourant.getMachine().finirActivation(miniJeuCourant.estReussi(), t);
 					miniJeuCourant = null;
 					playSound = 1;
 				}
@@ -174,7 +174,7 @@ public class DonneesJeu {
 			
 			if(failedMinijeu && this.failedMinijeut0 + 2200 < System.currentTimeMillis()) { // 2200 le temps que le sound se termine
 				failedMinijeu = false;
-				miniJeuCourant.getMachine().finirActivation(miniJeuCourant.estReussi());
+				miniJeuCourant.getMachine().finirActivation(miniJeuCourant.estReussi(), t);
 				miniJeuCourant = null;
 			}
 		}
