@@ -167,7 +167,7 @@ entrees (4;8)
 fin niveau
 
 
-niveau 7
+niveau 8
 taille 9 16
 joueur (3;8)
 temps 115
@@ -226,10 +226,10 @@ entrees (12;2)
 fin niveau
 
 
-niveau 8
+niveau 7
 taille 15 11
 joueur (4;3)
-temps 100
+temps 110
 terrain
 f   >t  >t  >t  >t  >t  >t  >t  >t  >t  >t  >t  >t  >t  vt
 f   ^t  b   b   b   b   b   f   f   f   f   f   f   f   vt
@@ -244,9 +244,9 @@ f   ^t  f   b   b   b   b   b   b   b   b   b   f   f   vt
 f   ^t  <t  <t  <t  <t  <t  <t  <t  <t  <t  <t  <t  <t  <t
 objectifs (COUTEAU;2)
 gevents 1
-generator METAL spawntime=2 offset=0
+generator METAL spawntime=4 offset=0
 entrees (0;5)
-generator PLASTIQUE spawntime=2 offset=1
+generator PLASTIQUE spawntime=4 offset=2
 entrees (0;5)
 fin niveau
 
