@@ -24,13 +24,17 @@ import processing.core.PImage;
 
 public class EcranTuto extends Scene {
 	
-	private PButton boutonRetourMenu;
+	private Scene previousScene;
+	
+	private PButton boutonRetour;
 	private List<LayoutRecette> layouts;
+	
 	private Scroll scroll;
 	private ControleurClavier controleur;
 	private float yScroll;
 	
-	public EcranTuto(PApplet p) {
+	public EcranTuto(PApplet p, Scene scene) {
+		previousScene = scene;
 		int viewW = 640, viewH = 400;
 
 		scroll = new Scroll(viewW, viewH*3, viewW, viewH);
@@ -38,7 +42,7 @@ public class EcranTuto extends Scene {
 		
 		float widthButton = p.width / 2;
 		float heightButton = 75.0f;
-		this.boutonRetourMenu = new PButton(p.width / 2,  50.0f, widthButton, heightButton, "RETURN MENU");
+		this.boutonRetour = new PButton(p.width / 2,  50.0f, widthButton, heightButton, "RETURN");
 		
 		initialiseLayoutsRecettes();
 		yScroll = 0;
@@ -102,7 +106,7 @@ public class EcranTuto extends Scene {
 		p.translate(0, yScroll);
 		p.background(0);
 		
-		this.boutonRetourMenu.afficher(p);
+		this.boutonRetour.afficher(p);
 		
 		p.textSize(15);
 		p.text("Go in front of a machine, use it and make products to win !", 300, 140);
@@ -143,8 +147,8 @@ public class EcranTuto extends Scene {
 
 	@Override
 	public void mousePressed() {
-		if (boutonRetourMenu.contient(p.mouseX, p.mouseY)) {
-			SceneHandler.setRunning(new MenuPrincipal(p));
+		if (boutonRetour.contient(p.mouseX, p.mouseY)) {
+			SceneHandler.setRunning(previousScene);
 		}
 	}
 

@@ -128,6 +128,9 @@ public class MenuPrincipal extends Scene {
 			m.afficher(p);
 		
 		selecteur.afficher(p);
+		p.fill(70, 180);
+		p.rect(p.width / 2, p.height / 2, p.width, p.height);
+		p.filter(PApplet.BLUR, 2);
 
 		this.buttonCampaign.afficher(p);
 		this.buttonCredits.afficher(p);
@@ -166,7 +169,7 @@ public class MenuPrincipal extends Scene {
 			SceneHandler.setRunning(new Jeu(6));
 		}
 		if (buttonCredits.contient(p.mouseX, p.mouseY)) {
-			SceneHandler.setRunning(new EcranTuto(p));
+			SceneHandler.setRunning(new EcranTuto(p,this));
 			p.cursor(p.ARROW);
 		}
 		if (buttonQuit.contient(p.mouseX, p.mouseY)) {

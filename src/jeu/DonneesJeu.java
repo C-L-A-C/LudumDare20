@@ -192,7 +192,7 @@ public class DonneesJeu {
 			}
 		}
 		
-		eCtrl.evoluer(listeProduits);
+		eCtrl.evoluer(this);
 	}
 
 	
