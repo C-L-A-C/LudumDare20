@@ -41,8 +41,8 @@ public class ControleurEvenements {
 					
 					// définit le point d'apparition exact
 					
-					x = entree.getCenter().x*tailleCasePixels;
-					y = entree.getCenter().y*tailleCasePixels;
+					x = entree.getCenter().x*tailleCasePixels + tailleCasePixels / 2 - Produit.W /2;
+					y = entree.getCenter().y*tailleCasePixels + tailleCasePixels / 2 - Produit.H /2;
 					
 					
 					

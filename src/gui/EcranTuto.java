@@ -20,6 +20,7 @@ import jeu.produit.Recette;
 import jeu.tapis.TypeDirectionTapis;
 import menu.PButton;
 import processing.core.PApplet;
+import processing.core.PFont;
 import processing.core.PImage;
 
 public class EcranTuto extends Scene {
@@ -36,6 +37,8 @@ public class EcranTuto extends Scene {
 	public EcranTuto(PApplet p, Scene scene) {
 		previousScene = scene;
 		int viewW = 640, viewH = 400;
+		PFont fontPixelated = p.createFont("assets/Asap-Regular.ttf", 32);
+		p.textFont(fontPixelated);
 
 		scroll = new Scroll(viewW, viewH*3, viewW, viewH);
 		this.setup(p);
@@ -108,7 +111,7 @@ public class EcranTuto extends Scene {
 		
 		this.boutonRetour.afficher(p);
 		
-		p.textSize(15);
+		p.textSize(20);
 		p.text("You are a lone worker in a huge corporation, you have to achieve your", 300, 120);
 		p.text("daily goals not to be fired. Be careful : do not let the products accumulate !", 300, 140);
 		p.text("Controls : use the direction arrows to move on the map", 300, 160);

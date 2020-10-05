@@ -11,7 +11,7 @@ f   ^t  <t  <t  f   f
 objectifs (TOLE;2)
 gevents 1
 generator METAL spawntime=5 offset=0
-entrees (5;3)
+entrees (4;3)
 fin niveau
 
 
