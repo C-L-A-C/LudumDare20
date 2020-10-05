@@ -18,7 +18,7 @@ fin niveau
 niveau 2
 taille 10 10
 joueur (5;5)
-temps 65
+temps 70
 terrain
 f f >t >t >t >t >t >t vt f
 f f ^t f f ^Tol f f vt f
