@@ -239,5 +239,9 @@ public abstract class Machine extends Entite {
 	@Override
 	protected void faireCollision(Entite collider, DonneesJeu d) {
 	}
+	
+	public List<Recette> getListRecettes() {
+		return listeRecettes;
+	}
 
 }

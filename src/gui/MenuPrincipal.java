@@ -13,7 +13,7 @@ public class MenuPrincipal extends Scene {
 		float widthButton = p.width / 3;
 		float heightButton = p.height / 5;
 		this.buttonCampaign = new PButton(p.width  / 2,  p.height / 4 , widthButton, heightButton, "PLAY");
-		this.buttonCredits = new PButton(p.width / 2, 2 * p.height  / 4 , widthButton, heightButton, "CREDITS");
+		this.buttonCredits = new PButton(p.width / 2, 2 * p.height  / 4 , widthButton, heightButton, "TUTO");
 		this.buttonQuit = new PButton(p.width / 2, 3 * p.height / 4 , widthButton, heightButton, "QUIT");
 	}
 	
@@ -31,7 +31,7 @@ public class MenuPrincipal extends Scene {
 			SceneHandler.setRunning(new Jeu(2));
 		}
 		if (buttonCredits.contient(p.mouseX, p.mouseY)) {
-			//TODO
+			SceneHandler.setRunning(new EcranTuto(p));
 		}
 		if (buttonQuit.contient(p.mouseX, p.mouseY)) {
 			p.exit();
