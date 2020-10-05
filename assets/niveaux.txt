@@ -96,9 +96,9 @@ f   f   ^T  f   f   f   f   f   f   f   f   f   f   f   f   f   f   f   f   vT
 f   f  ^T  <T  <T  <T  <T  <T  <T  <T  <T  <T  <T  <T  <T  <T  <T  <T  <T   <T
 objectifs (PLANCHE;5)
 gevents 1
-generator BOIS spawntime=5 offset=0
+generator BOIS spawntime=3 offset=0
 entrees (1;9)
-generator BOIS spawntime=5 offset=0
+generator BOIS spawntime=3 offset=0
 entrees (7;10)
 fin niveau
 

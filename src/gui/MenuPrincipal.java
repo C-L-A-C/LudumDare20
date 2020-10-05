@@ -167,7 +167,7 @@ public class MenuPrincipal extends Scene {
 		if (buttonCampaign.contient(p.mouseX, p.mouseY)) {
 			p.cursor(p.ARROW);
 
-			SceneHandler.setRunning(new Jeu(3));
+			SceneHandler.setRunning(new Jeu(4));
 
 
 
