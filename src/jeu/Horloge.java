@@ -50,6 +50,10 @@ public class Horloge {
 		return (float)(System.currentTimeMillis() - this.millis0)/1000;
 	}
 	
+	public int getTimeLeft() {
+		return nbSecondes;
+	}
+	
 	public void stopClock() {
 		this.pauseMillis = System.currentTimeMillis();
 		this.paused = true;
