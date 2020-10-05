@@ -21,7 +21,7 @@ public class Jeu extends Scene {
 
 	public Jeu(int numeroNiveau) {
 		// créé le niveau courant
-		jeu = new DonneesJeu();
+		jeu = new DonneesJeu(numeroNiveau);
 
 		clock = new Horloge(60);
 
@@ -54,7 +54,8 @@ public class Jeu extends Scene {
 
 		jeu.afficher(p);
 		clock.afficher(p);
-		p.text(""+jeu.getSCores()[0], 5, 25);
+
+		//p.text(""+jeu.getSCore(), 5, 25);
 
 		jeu.evoluer((long) (clock.getSeconds() * 1000));
 
