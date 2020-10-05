@@ -3,6 +3,8 @@ package gui;
 import java.util.ArrayList;
 import java.util.List;
 
+import config.Config;
+import config.ConfigKey;
 import menu.PButton;
 import menu.PLabel;
 import processing.core.PApplet;
@@ -23,6 +25,8 @@ public class EcranFinNiveau extends Scene {
 		this.gagne = gagne;
 		this.niveauSuivant = niveauSuivant;
 		labels = new ArrayList<>();
+
+		Config.set(ConfigKey.NIVEAU_DEBUT, "" + niveauSuivant);
 	}
 	
 	@Override

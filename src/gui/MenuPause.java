@@ -14,7 +14,7 @@ public class MenuPause extends Scene {
 		float heightButton = p.height / 6;
 		this.buttonResume = new PButton(p.width / 4, p.height / 5 , widthButton, heightButton, "RESUME");
 		this.buttonRetry = new PButton(3 * p.width / 4, p.height / 5, widthButton, heightButton, "RETRY");
-		this.buttonTuto = new PButton(p.width / 2, 2 * p.height / 5, widthButton, heightButton, "TUTO");
+		this.buttonTuto = new PButton(p.width / 2, 2 * p.height / 5, widthButton, heightButton, "HELP");
 		this.buttonReturnMenu = new PButton(p.width / 2, 3 * p.height / 5, widthButton, heightButton, "RETURN MENU");
 		this.buttonQuit = new PButton(p.width / 2, 4 * p.height / 5 , widthButton, heightButton, "QUIT");
 		this.jeu = jeu;
@@ -43,7 +43,7 @@ public class MenuPause extends Scene {
 			SceneHandler.setRunning(new Jeu(this.jeu.getNumeroNiveau()));
 		}
 		if (buttonTuto.contient(p.mouseX, p.mouseY)) {
-			SceneHandler.setRunningWithoutClosing(new EcranTuto(p,this));
+			SceneHandler.setRunning(new EcranTuto(p,this));
 		}
 		if (buttonReturnMenu.contient(p.mouseX, p.mouseY)) {
 			SceneHandler.setRunning(new MenuPrincipal(p));

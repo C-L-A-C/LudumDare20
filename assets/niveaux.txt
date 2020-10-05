@@ -107,10 +107,10 @@ fin niveau
 
 
 
-niveau 5
+niveau 6
 taille 13 14
 joueur (4;6)
-temps 100
+temps 120
 terrain
 f   f   f   f   f   f   f   f   f   f   f   f   f
 f   f   f   f   f   s   vt  f   f   f   f   f   f
@@ -126,17 +126,17 @@ f   f   ^P  f   f   f   b   f   >f   f  vt  f   f
 f   f   ^t  <t  <t  <t  <t  <t  <t  <t  <t  f   f
 f   f   f   f   f   f   f   f   f   f   f   f   f
 f   f   f   f   f   f   f   f   f   f   f   f   f
-objectifs (LAINE;1) (VIANDE;1)
+objectifs (LAINE;4) (VIANDE;2)
 gevents 1
-generator MOUTON spawntime=1 offset=0
-entrees (7;1)
+generator MOUTON spawntime=4 offset=0
+entrees (6;1)
 fin niveau
 
 
-niveau 6
+niveau 5
 taille 18 16
 joueur (9;8)
-temps 100
+temps 90
 terrain
 f	>t  >t  >t  >t  >t  >t  >t  >t  >t  >t  >t  >t  >t  >t  >t  vt  f
 s	^S< >t  >t  >t  >t  >t  >t  >t  >t  >t  >t  >t  vt  f   f   vt  f
@@ -156,24 +156,26 @@ f	^t  ^t  <t  <t  <t  <t  <t  <t  <t  <t  <t  <t  <t  f   >Fon vt ^t
 f	^t  <t  <t  <t  <t  <t  <t  <t  <t  <t  <t  <t  <t  <t  <t  <t  f
 objectifs (CHARBON;1) (PIERRE;1) (TOLE;1) (METAL_FUSION;1)
 gevents 1
-generator METAL spawntime=2 offset=0
+generator METAL spawntime=1 offset=0
 entrees (1;8)
-generator BOIS spawntime=1 offset=0
+generator BOIS spawntime=2 offset=0
 entrees (2;8)
-generator SABLE spawntime=2 offset=0
+generator SABLE spawntime=1 offset=0
 entrees (3;8)
 generator METAL spawntime=2 offset=0
-entrees (18;14)
+entrees (4;8)
 fin niveau
 
 
 niveau 7
-taille 9 14
-joueur (3;6)
-temps 100
+taille 9 16
+joueur (3;8)
+temps 115
 terrain
 f   f        f   f  f        f   f   f        f
 f   vTPout3  f   f  vTPout1  f   f   vTPout2  f
+f   vt       f   f   vt      f   f   vt       f
+f   vt       f   f   vt      f   f   vt       f
 f   vt       f   f   vt      f   f   vt       f
 f   vt       f   f   vt      f   f   vt       f
 f   vt       f   >Tol vt     f   f   vt       f
@@ -186,11 +188,13 @@ f   vt       f   f   vt      f   f   vS>     s
 f   vt       f   f   vt      f   f   vt       f
 f   vTPin1   f   f   vTPin2  f   f   vTPin3   f
 f   f        f   f   f       f   f   f        f
-objectifs (RAIL;2)
+objectifs (RAIL;1)
 gevents 1
-generator METAL spawntime=2 offset=0
+generator METAL spawntime=3 offset=0
 entrees (1;5)
-generator BOIS spawntime=1 offset=0
+generator BOIS spawntime=3 offset=0
+entrees (7;5)
+generator OR_BRUT spawntime=2 offset=0
 entrees (7;5)
 fin niveau
 

@@ -38,9 +38,9 @@ public class MenuPrincipal extends Scene {
 		float widthButton = p.width / 3;
 		float heightButton = p.height / 5;
 
-		this.buttonCampaign = new PButton(p.width / 2, p.height / 4, widthButton, heightButton, "PLAY");
-		this.buttonCredits = new PButton(p.width / 2, 2 * p.height / 4, widthButton, heightButton, "TUTO");
-		this.buttonQuit = new PButton(p.width / 2, 3 * p.height / 4, widthButton, heightButton, "QUIT");
+		this.buttonCampaign = new PButton(p.width  / 2,  p.height / 4 , widthButton, heightButton, "PLAY");
+		this.buttonCredits = new PButton(p.width / 2, 2 * p.height  / 4 , widthButton, heightButton, "HELP");
+		this.buttonQuit = new PButton(p.width / 2, 3 * p.height / 4 , widthButton, heightButton, "QUIT");
 
 		tapis = new ArrayList<>();
 		produits = new ArrayList<>();
@@ -168,9 +168,7 @@ public class MenuPrincipal extends Scene {
 		super.mousePressed();
 		if (buttonCampaign.contient(p.mouseX, p.mouseY)) {
 			p.cursor(p.ARROW);
-
 			SceneHandler.setRunning(new Jeu(Config.readInt(ConfigKey.NIVEAU_DEBUT)));
-
 		}
 		if (buttonCredits.contient(p.mouseX, p.mouseY)) {
 			SceneHandler.setRunning(new EcranTuto(p, this));
