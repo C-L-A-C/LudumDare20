@@ -19,7 +19,8 @@ public enum TypeProduit {
 	LAINE("pelote de laine"),
 	VIANDE("viande"),
 	VERRE("verre"),
-	POISON("poison");
+	POISON("poison"), 
+	PIERRE("pierre");
 	
 	private String spriteName;
 	

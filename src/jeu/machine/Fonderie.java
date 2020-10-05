@@ -27,6 +27,17 @@ public class Fonderie extends Machine {
 		r.ajouterIngredient(TypeProduit.METAL);
 		r.ajouterProduit(TypeProduit.TOLE);
 		recettes.add(r);
+		
+		r = new Recette(4, 10, TypeMiniJeu.BOUTONS_MEMOIRE);
+		r.ajouterIngredient(TypeProduit.OR_BRUT, 2);
+		r.ajouterProduit(TypeProduit.BIJOU);
+		recettes.add(r);
+		
+		r = new Recette(5, 10, TypeMiniJeu.BUZZER);
+		r.ajouterIngredient(TypeProduit.PLASTIQUE);
+		r.ajouterIngredient(TypeProduit.TOLE);
+		r.ajouterProduit(TypeProduit.COUTEAU);
+		recettes.add(r);
 	}
 	
 	@Override
