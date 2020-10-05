@@ -195,6 +195,29 @@ entrees (7;5)
 fin niveau
 
 
+niveau 8
+taille 15 11
+joueur (4;3)
+temps 100
+terrain
+f   >t  >t  >t  >t  >t  >t  >t  >t  >t  >t  >t  >t  >t  vt
+f   ^t  b   b   b   b   b   f   f   f   f   f   f   f   vt
+f   ^t  f   f   f   f   b   f   b   b   b   b   b   b   vt
+f   ^t  <Tol f  f   f   b   f   b   f   f   f   f   f   vt
+f   ^t  b   b   f   f   b   f   b   f   f   f   f   >Fon vt
+>t  ^t  f   b   f   f   b   f   b   f   f   b   b   b vt
+<t  ^S< f   b   f   f   b   b   b   f   f   b   f   f   vt
+f   ^t  f   b   f   f   f   f   f   f   f   b   f   f   vt
+f   ^t  f   b   f   f   f   f   f   f   f   b   f   f   vt
+f   ^t  f   b   b   b   b   b   b   b   b   b   f   f   vt
+f   ^t  <t  <t  <t  <t  <t  <t  <t  <t  <t  <t  <t  <t  <t
+objectifs (COUTEAU;2)
+gevents 1
+generator METAL spawntime=2 offset=0
+entrees (0;5)
+generator PLASTIQUE spawntime=2 offset=1
+entrees (0;5)
+fin niveau
 
 
 
