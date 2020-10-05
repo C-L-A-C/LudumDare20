@@ -197,7 +197,7 @@ public class BoutonsMemoire extends MiniJeu {
 	@Override
 	public void mouseReleased(int x, int y, int button) {
 		if(!memorise && button == PApplet.LEFT) {
-			SceneHandler.playSound("assets/sounds/marteau.wav", 1, 1, 0.0f, true);
+			SceneHandler.playSound("assets/sounds/clic_souris.wav", 1, 1, 0.0f, true);
 			couleurCharbon = 255;
 			couleurCouronne = 255;
 			couleurPoison = 255;
