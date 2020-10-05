@@ -20,7 +20,7 @@ public class Scie extends Machine {
 	
 	@Override
 	protected void remplirRecettes(List<Recette> listeRecettes) {
-		Recette r = new Recette (2, 10, TypeMiniJeu.RANGE_PRODUITS);
+		Recette r = new Recette (2, 10, TypeMiniJeu.BUZZER);
 		r.ajouterIngredient(TypeProduit.BOIS);
 		r.ajouterProduit(TypeProduit.PLANCHE);
 		listeRecettes.add(r);

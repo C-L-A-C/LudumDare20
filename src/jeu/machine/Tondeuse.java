@@ -19,9 +19,9 @@ public class Tondeuse extends Machine {
 	
 	
 	protected void remplirRecettes(List<Recette> recettes) {
-		Recette r = new Recette(2, 10, TypeMiniJeu.VISSE_VIS);
+		Recette r = new Recette(8, 10, TypeMiniJeu.BOUTONS_MEMOIRE);
 		r.ajouterIngredient(TypeProduit.MOUTON);
-		r.ajouterProduit(TypeProduit.LAINE);
+		r.ajouterProduit(TypeProduit.LAINE, 2);
 		recettes.add(r);
 	}
 	

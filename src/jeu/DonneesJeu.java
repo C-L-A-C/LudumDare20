@@ -48,6 +48,7 @@ public class DonneesJeu {
 	private List<Produit> listeProduits;
 	private List<Machine> listeMachines;
 	private List<Sortie> listeSorties;
+	private List<Bloc> listeBlocs;
 	private int playSound;
 	private List<Selecteur> listeSelecteurs;
 
@@ -70,6 +71,7 @@ public class DonneesJeu {
 		listeSorties = new ArrayList<>();
 		playSound = 0;
 		listeSelecteurs = new ArrayList<>();
+		listeBlocs = new ArrayList<>();
 		
 		this.failedMinijeu = false;
 		listeMachines = new ArrayList<>();
@@ -126,6 +128,13 @@ public class DonneesJeu {
 				return s;
 			}
 		}
+		
+		for (Bloc b : listeBlocs) {
+			if (e != b && e.collision(b)) {
+				return b;
+			}
+		}
+		
 
 		return null;
 	}
@@ -166,7 +175,7 @@ public class DonneesJeu {
 					failedMinijeu = true;
 					playSound = -1;
 				} else {
-					miniJeuCourant.getMachine().finirActivation(miniJeuCourant.estReussi());
+					miniJeuCourant.getMachine().finirActivation(miniJeuCourant.estReussi(), t);
 					miniJeuCourant = null;
 					playSound = 1;
 				}
@@ -174,7 +183,7 @@ public class DonneesJeu {
 			
 			if(failedMinijeu && this.failedMinijeut0 + 2200 < System.currentTimeMillis()) { // 2200 le temps que le sound se termine
 				failedMinijeu = false;
-				miniJeuCourant.getMachine().finirActivation(miniJeuCourant.estReussi());
+				miniJeuCourant.getMachine().finirActivation(miniJeuCourant.estReussi(), t);
 				miniJeuCourant = null;
 			}
 		}
@@ -232,11 +241,8 @@ public class DonneesJeu {
 		for (Tapis t : listeSelecteurs) 
 			t.afficher(p);
 		
-		if (afficherOverlay) {
-			for (Machine m : listeMachines) {
-				m.afficherOverlay(p);
-			}
-		}
+		for (Bloc b : listeBlocs)
+			b.afficher(p);
 		
 		// On separe les machine en dessous du perso et au dessus du perso
 		Map<Boolean, List<Machine>> listeMachineEstDevant = listeMachines.stream()
@@ -249,6 +255,12 @@ public class DonneesJeu {
 		
 		for (Machine machine : listeMachineEstDevant.get(true))
 			machine.afficher(p);
+		
+		if (afficherOverlay) {
+			for (Machine m : listeMachines) {
+				m.afficherOverlay(p);
+			}
+		}
 
 		p.popMatrix();
 
@@ -322,6 +334,10 @@ public class DonneesJeu {
 
 	public void addTapis(Tapis tapis) {
 		this.listeTapis.add(tapis);
+	}
+	
+	public void addBloc(Bloc bloc) {
+		this.listeBlocs.add(bloc);
 	}
 	
 	public void setAffichageOverlay(boolean status)

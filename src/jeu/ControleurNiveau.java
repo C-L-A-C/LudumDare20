@@ -286,6 +286,8 @@ public class ControleurNiveau {
 		case "s":
 			donneesJeu.addSortie(new Sortie(x, y));
 			break;
+		case "b":
+			donneesJeu.addBloc(new Bloc(x, y));
 		default:
 		}
 	}
