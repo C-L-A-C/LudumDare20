@@ -16,6 +16,12 @@ public class Bruleur extends Machine {
 	{
 		super(x, y, new Animation(new Tileset("bruleur", 2, 1), 0, 1, 4), dir);
 	}
+	
+	@Override
+	public String getImageName()
+	{
+		return "bruleur";
+	}
 
 	
 	@Override

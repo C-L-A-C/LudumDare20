@@ -109,18 +109,30 @@ public abstract class Machine extends Entite {
 			
 		float wMachine = getForme().getW() * 1.2f;
 		float hMachine = getForme().getH() * 1.2f;
-		float wCase = 40, hCase = 32;
+		float wCase = 40, hCase = 40;
 		float wBord = 8;
-		float xDep = getX() + wMachine / 2 - (wCase * nb) / 2;
-		float yDep = getY() + hMachine + 5;
+		float xDep, yDep;
+		if (direction == TypeDirectionTapis.BAS || direction == TypeDirectionTapis.HAUT) {
+			xDep = getX() + wMachine / 2 - (wCase * nb) / 2;
+			yDep = getY() - direction.vecteurDirecteur().y * (hMachine + 5);
+		}
+		else {
+
+			xDep = getX() - direction.vecteurDirecteur().x * (wMachine + 3);
+			if (direction == TypeDirectionTapis.DROITE)
+				xDep += 12;
+			yDep = getY() + hMachine / 2 - (hCase * nb) / 2;
+		}
 		
 		for (int i = 0; i < nb; i++)
 		{
-			p.rect(xDep + i * wCase, yDep, wCase - wBord, hCase);
+			float xCase = xDep + PApplet.abs(direction.vecteurDirecteur().y) * i * wCase;
+			float yCase = yDep + PApplet.abs(direction.vecteurDirecteur().x) * i * hCase;
+			p.rect(xCase, yCase, wCase - wBord, hCase - wBord);
 			if (i < produitsMachine.size())
 			{
 				PImage img = Produit.getImage(produitsMachine.get(i));
-				p.image(img, xDep + i * wCase + 2, yDep + 2, wCase - wBord - 4, hCase - 4);
+				p.image(img, xCase + 2, yCase + 2, wCase - wBord - 4, hCase - wBord - 4);
 			}
 		}
 	}
@@ -255,6 +267,8 @@ public abstract class Machine extends Entite {
 		recetteCourante = null;
 		produits.clear();
 	}
+
+	public abstract String getImageName();
 
 	@Override
 	protected void faireCollision(Entite collider, DonneesJeu d) {

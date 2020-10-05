@@ -24,5 +24,10 @@ public class Tondeuse extends Machine {
 		r.ajouterProduit(TypeProduit.LAINE);
 		recettes.add(r);
 	}
+	
+	@Override
+	public String getImageName() {
+		return "rase";
+	}
 
 }

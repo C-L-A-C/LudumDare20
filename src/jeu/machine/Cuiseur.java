@@ -17,11 +17,18 @@ public class Cuiseur extends Machine {
 		super(x, y, new Animation(new Tileset("cuisson", 2, 1), 0, 1, 4), dir);
 	}
 	
+	
 	protected void remplirRecettes(List<Recette> recettes) {
 		Recette r = new Recette(2, 10, TypeMiniJeu.RANGE_PRODUITS);
 		r.ajouterIngredient(TypeProduit.MOUTON);
 		r.ajouterProduit(TypeProduit.VIANDE);
 		recettes.add(r);
+	}
+
+
+	@Override
+	public String getImageName() {
+		return "cuisson";
 	}
 
 }

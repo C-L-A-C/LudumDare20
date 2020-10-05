@@ -28,5 +28,10 @@ public class Fonderie extends Machine {
 		r.ajouterProduit(TypeProduit.TOLE);
 		recettes.add(r);
 	}
+	
+	@Override
+	public String getImageName() {
+		return "fonderie";
+	}
 
 }

@@ -25,5 +25,10 @@ public class Scie extends Machine {
 		r.ajouterProduit(TypeProduit.PLANCHE);
 		listeRecettes.add(r);
 	}
+	
+	@Override
+	public String getImageName() {
+		return "scie";
+	}
 
 }
