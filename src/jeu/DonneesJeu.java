@@ -38,6 +38,7 @@ public class DonneesJeu {
 
 	private long failedMinijeut0;
 	private boolean failedMinijeu;
+	private boolean finalAnimation;
 	
 	private Horloge clock;
 
@@ -61,8 +62,9 @@ public class DonneesJeu {
 
 	//private PVector debugPos;
 
-	public DonneesJeu() {
+	public DonneesJeu(boolean animFin) {
 		int viewW = 640, viewH = 400;
+		finalAnimation = animFin;
 
 		joueur = new Joueur(0, 0);
 		scroll = new Scroll(viewW, viewH, viewW, viewH);
@@ -270,7 +272,7 @@ public class DonneesJeu {
 
 		if (estEnMiniJeu())
 			miniJeuCourant.afficher(p);
-		else {
+		else if(!finalAnimation) {
 			afficherObjectif(p);
 		}
 		

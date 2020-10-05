@@ -143,10 +143,12 @@ public class EcranTuto extends Scene {
 		}
 		
 		p.popMatrix();
+		handleButtons();
 	}
 
 	@Override
 	public void mousePressed() {
+		super.mousePressed();
 		if (boutonRetour.contient(p.mouseX, p.mouseY)) {
 			SceneHandler.setRunning(previousScene);
 		}

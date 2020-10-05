@@ -21,7 +21,7 @@ public class Jeu extends Scene {
 
 	public Jeu(int numeroNiveau) {
 		// créé le niveau courant
-		jeu = new DonneesJeu();
+		jeu = new DonneesJeu(false);
 
 		clock = new Horloge(60);
 
