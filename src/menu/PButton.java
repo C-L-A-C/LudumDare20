@@ -13,7 +13,7 @@ public class PButton extends PLabel{
 	public PButton(float x, float y, float w, float h, String str)
 	{
 		this(x, y, w, h, str, null);
-		this.colorButton = Utils.color(128);
+		this.colorButton = Utils.color(30);
 	}
 	
 	public PButton(float x, float y, float w, float h, PImage img)

@@ -1,6 +1,13 @@
 package gui;
 
+import java.io.File;
 import java.io.IOException;
+
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.FloatControl;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 
 import graphiques.Assets;
 import processing.core.PApplet;
@@ -17,7 +24,6 @@ public class SceneHandler extends PApplet {
 
 	public static PApplet pAppletInstance;
 	private static Scene runningScene;
-	
 
 	public static void launch(Scene scene) {
 		// Launch le main de processing
@@ -32,14 +38,14 @@ public class SceneHandler extends PApplet {
 		runningScene = s;
 		s.setup(pAppletInstance);
 	}
-	
+
 	public static void setRunningWithoutClosing(Scene s) {
 		runningScene = s;
 	}
 
 	public void settings() {
 		size(640, 480);
-		Assets.init(this);		
+		Assets.init(this);
 	}
 
 	public void setup() {
@@ -50,28 +56,45 @@ public class SceneHandler extends PApplet {
 	public void draw() {
 		runningScene.draw();
 	}
-	
+
 	public static void preloadSound(String path) {
 		try {
 			Assets.preload(path, "sound");
-		} catch(IOException e) {
+		} catch (IOException e) {
 			Logger.printlnErr(e.getMessage());
 		}
 	}
-	
+
 	public static SoundFile playSound(String path, float amp, float rate, float offset, boolean replay) {
 		SoundFile sound = Assets.getSound(path);
-		if(sound==null)
+		if (sound == null)
 			return null;
-		
+
 		sound.amp(amp);
 		sound.cue(offset);
 		sound.rate(rate);
-		if(replay)
+		if (replay)
 			sound.loop();
 		else
 			sound.play();
 		return sound;
+	}
+
+	public static void playSoundFast(String path) {
+		File file = new File(path);
+		try {
+			Clip clip = AudioSystem.getClip();
+			clip.open(AudioSystem.getAudioInputStream(file));
+			FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+			gainControl.setValue(-3.0f);
+			clip.loop(Clip.LOOP_CONTINUOUSLY);
+		} catch (UnsupportedAudioFileException e1) {
+			e1.printStackTrace();
+		} catch (IOException e2) {
+			e2.printStackTrace();
+		} catch (LineUnavailableException e3) {
+			e3.printStackTrace();
+		}
 	}
 
 	public void keyPressed() {

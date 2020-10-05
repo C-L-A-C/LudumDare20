@@ -85,7 +85,6 @@ public class Assets {
 				ajoute = true;
 				break;
 			} else if(sound!=null) {
-				System.out.println(nom);
 				ressources.put(nom, sound);
 				ajoute = true;
 				break;

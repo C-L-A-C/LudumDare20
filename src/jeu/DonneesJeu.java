@@ -262,9 +262,9 @@ public class DonneesJeu {
 		}
 
 		if (playSound==-1)
-			SceneHandler.playSound("failed", (float)0.5, 1, 0, false);
+			SceneHandler.playSound("failed", 1, 1, 0, false);
 		else if(playSound==1)
-			SceneHandler.playSound("positive_beep", (float)0.5, 1, 0, false);
+			SceneHandler.playSound("positive_beep", 1, 1, 0, false);
 		playSound = 0;
 	}
 

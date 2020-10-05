@@ -93,7 +93,7 @@ public class VisseVis extends MiniJeu {
 			if(vis[0]<x && vis[0]+VIS_SIZE_X>x && vis[1]<y && vis[1]+VIS_SIZE_Y>y) {
 				if(vis[2]==0) {
 					vis[2] = 1;
-					SceneHandler.playSound("marteau", (float)0.4, 1, (float)0.7, false);
+					SceneHandler.playSound("marteau", 1, 1, (float)0.7, false);
 					nbVis--;
 				} else if(vis[2]==-1) {
 					this.reussi = false;

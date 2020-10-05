@@ -133,6 +133,15 @@ public class MenuPrincipal extends Scene {
 		this.buttonCampaign.afficher(p);
 		this.buttonCredits.afficher(p);
 		this.buttonQuit.afficher(p);
+		
+		if (buttonCampaign.contient(p.mouseX, p.mouseY))
+			p.cursor(p.HAND);
+		else if (buttonCredits.contient(p.mouseX, p.mouseY))
+			p.cursor(p.HAND);
+		else if (buttonQuit.contient(p.mouseX, p.mouseY))
+			p.cursor(p.HAND);
+		else
+			p.cursor(p.ARROW);
 	}
 
 	private boolean checkCol(Produit prod) {
@@ -160,10 +169,11 @@ public class MenuPrincipal extends Scene {
 	@Override
 	public void mousePressed() {
 		if (buttonCampaign.contient(p.mouseX, p.mouseY)) {
-			SceneHandler.setRunning(new Jeu(2));
+			p.cursor(p.ARROW);
+			SceneHandler.setRunning(new Jeu(4));
 		}
 		if (buttonCredits.contient(p.mouseX, p.mouseY)) {
-			// TODO
+			p.cursor(p.ARROW);
 		}
 		if (buttonQuit.contient(p.mouseX, p.mouseY)) {
 			p.exit();
