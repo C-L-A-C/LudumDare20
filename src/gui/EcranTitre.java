@@ -33,6 +33,6 @@ public class EcranTitre extends Scene {
 	
 	@Override
 	public void keyPressed() {
-		SceneHandler.setRunning(new Jeu(7));
+		SceneHandler.setRunning(new MenuPrincipal(p));
 	}
 }
