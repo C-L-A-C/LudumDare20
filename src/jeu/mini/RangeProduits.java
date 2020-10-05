@@ -34,7 +34,7 @@ public class RangeProduits extends MiniJeu {
 		rail = Assets.getImage("rail");
 		sword = Assets.getImage("sword");
 		//nbFoisMinijeu++;
-		SceneHandler.preloadSound("assets/sounds/ding.wav");
+		SceneHandler.preloadSound("ding");
 	}
 	
 	@Override
