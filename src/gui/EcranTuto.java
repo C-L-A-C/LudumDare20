@@ -103,6 +103,8 @@ public class EcranTuto extends Scene {
 		} else if (p.keyCode == PApplet.DOWN) {
 			yScroll -= 10;
 		}
+		
+		yScroll = PApplet.constrain(yScroll, -400, 0);
 
 	}
 
@@ -114,7 +116,7 @@ public class EcranTuto extends Scene {
 
 		this.boutonRetour.afficher(p);
 
-		p.textSize(20);
+		p.textSize(17);
 		p.text("You are a lone worker in a huge corporation, you have to achieve your", 300, 120);
 		p.text("daily goals not to be fired. Be careful : do not let the products accumulate !", 300, 140);
 		p.text("Controls : use the direction arrows to move on the map", 300, 160);
