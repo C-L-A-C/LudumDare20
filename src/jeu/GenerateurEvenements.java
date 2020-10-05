@@ -24,7 +24,13 @@ public class GenerateurEvenements {
 		typeProduit = produit;
 		
 		tpsApparition = spawntime*1000;
-		decalage = offset*1000;
+		
+		if(offset<spawntime) {
+			decalage = -offset*1000;
+		} else {
+			decalage = offset*1000;
+		}
+		
 		tempsDernierProduitCree = System.currentTimeMillis() + decalage;
 		
 		entrees = new ArrayList<Point>();

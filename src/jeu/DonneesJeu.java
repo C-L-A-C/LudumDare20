@@ -250,7 +250,7 @@ public class DonneesJeu {
 		scores[7] = - scores[3];
 		scores[8] = - scores[4] * 10;
 		
-		scores[0] = scores[5] + scores[6] + scores[7] + scores[8];
+		scores[0] = PApplet.max(0, scores[5] + scores[6] + scores[7] + scores[8]);
 	}
 	
 	public int[] getScores() {
