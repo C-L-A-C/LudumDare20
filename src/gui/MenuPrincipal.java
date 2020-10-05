@@ -128,6 +128,9 @@ public class MenuPrincipal extends Scene {
 			m.afficher(p);
 		
 		selecteur.afficher(p);
+		p.fill(70, 180);
+		p.rect(p.width / 2, p.height / 2, p.width, p.height);
+		p.filter(PApplet.BLUR, 2);
 
 		this.buttonCampaign.afficher(p);
 		this.buttonCredits.afficher(p);
