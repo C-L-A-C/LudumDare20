@@ -17,7 +17,7 @@ public class EcranTitre extends Scene {
 	@Override
 	public void draw() {
 		p.background(0);
-		PLabel titre = new PLabel(p.width / 2, p.height / 2, "TROUVER UN NOM", p);
+		PLabel titre = new PLabel(p.width / 2, p.height / 2 - 50, "CAN'T  STOP  PRODUCING", p);
 		titre.textSize(40);
 		titre.refreshSize(p);
 		titre.setColor(Utils.color(128, 0, 0));
