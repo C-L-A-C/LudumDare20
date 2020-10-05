@@ -132,7 +132,7 @@ public class DonneesJeu {
 		joueur.evoluer(t, this);
 		// changement des vitesses des produits
 		for (Produit p : listeProduits) {
-			p.adhererTapis(this);
+			p.adhererTapis(listeTapis);
 			p.evoluer(t, this);
 		}
 		

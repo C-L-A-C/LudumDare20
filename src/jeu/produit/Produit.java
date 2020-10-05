@@ -1,5 +1,7 @@
 package jeu.produit;
 
+import java.util.List;
+
 import collision.Rectangle;
 import graphiques.Apparence;
 import jeu.DonneesJeu;
@@ -19,7 +21,7 @@ public class Produit extends EntiteMobile {
 
 	public Produit(float x, float y, TypeProduit type) {
 		super(x, y, new AffichageImage(getImage(type)));
-		forme = new Rectangle(pos, 28, 28);
+		forme = new Rectangle(pos, 26, 26);
 		this.setLayer(1);
 		this.type = type;
 		lastDirection = null;
@@ -36,12 +38,12 @@ public class Produit extends EntiteMobile {
 		return type;
 	}
 
-	public void adhererTapis(DonneesJeu donnees) {
+	public void adhererTapis(List<Tapis> listeTapis) {
 
 		boolean shouldStop = true;
 
 		// teste si le produit est sur un tapis, et sette sa vitesse si oui
-		for (Tapis t : donnees.getListeTapis()) {
+		for (Tapis t : listeTapis) {
 
 
 			//if (t instanceof PontTapis) System.out.println(getForme() + " <=> " + t.getForme());
