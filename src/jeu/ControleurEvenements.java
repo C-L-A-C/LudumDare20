@@ -48,32 +48,32 @@ public class ControleurEvenements {
 					
 					// définit les vitesses initiales
 					if(x>=0 && x<tileW && y>=0 && y<tileH) {
-						x += 0.25f*tailleCasePixels;
-						y -= 0.25f*tailleCasePixels;
+//						x += 0.25f*tailleCasePixels;
+//						y -= 0.25f*tailleCasePixels;
 						vitesse.x = 0;
 						vitesse.y = 0;
 					}
 					
 					if(x<0) {
-						x += 0.75f*tailleCasePixels;
-						y += 0.25f*tailleCasePixels;
+//						x += 0.75f*tailleCasePixels;
+//						y += 0.25f*tailleCasePixels;
 						vitesse.x = 50;
 						vitesse.y = 0;
 					} else if(x>y){
-						x -= 0.25f*tailleCasePixels;
-						y += 0.25f*tailleCasePixels;
+//						x -= 0.25f*tailleCasePixels;
+//						y += 0.25f*tailleCasePixels;
 						vitesse.x = -50;
 						vitesse.y = 0;
 					}
 					
 					if(y<0) {
-						x += 0.25f*tailleCasePixels;
-						y += 0.75f*tailleCasePixels;
+//						x += 0.25f*tailleCasePixels;
+//						y += 0.75f*tailleCasePixels;
 						vitesse.x = 0;
 						vitesse.y = 50;
 					} else if(y>x){
-						x += 0.25f*tailleCasePixels;
-						y -= 0.25f*tailleCasePixels;
+//						x += 0.25f*tailleCasePixels;
+//						y -= 0.25f*tailleCasePixels;
 						vitesse.x = 0;
 						vitesse.y = -50;
 					}

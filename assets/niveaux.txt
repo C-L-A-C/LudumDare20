@@ -174,28 +174,30 @@ fin niveau
 
 
 niveau 7
-taille 9 12
-joueur (3;3)
+taille 9 14
+joueur (3;6)
 temps 100
 terrain
-f   vTPout3  f   f  vTPout1  f
-f   vt       f   f   vt      f
-f   vt       f   f   vt      f
-f   vt       f   f   vt      f
-f   vt       f   f   vt      f
-f   vt       f   f   vt      f
-f   vt       f   f   vt      f
-f   vt       f   f   vt      f
-f   vt       f   f   vt      f
-f   vt       f   f   vt      f
-f   vt       f   f   vt      f
-f   vTPin1   f   f   vTPin2  f
-objectifs (CHARBON;1)
+f   f        f   f  f        f   f   f        f
+f   vTPout3  f   f  vTPout1  f   f   vTPout2  f
+f   vt       f   f   vt      f   f   vt       f
+f   vt       f   f   vt      f   f   vt       f
+f   vt       f   >Tol vt     f   f   vt       f
+f   vt       f   f   vt      f   f   vt       f
+f   vt       f   f   vt      f   f   vt       f
+f   vt       f   f   vt      f   >Sci vt       f
+f   vt       f   f   vt      f   f    vt       f
+f   vt       f   f   vt      f   f   vS>     s
+>Fon vt      f   f   vt      f   f   vt       f
+f   vt       f   f   vt      f   f   vt       f
+f   vTPin1   f   f   vTPin2  f   f   vTPin3   f
+f   f        f   f   f       f   f   f        f
+objectifs (RAIL;2)
 gevents 1
 generator METAL spawntime=2 offset=0
-entrees (1;4)
+entrees (1;5)
 generator BOIS spawntime=1 offset=0
-entrees (4;-1)
+entrees (7;5)
 fin niveau
 
 
