@@ -1,6 +1,7 @@
 package jeu.tapis;
 
 import graphiques.Assets;
+import jeu.DonneesJeu;
 import jeu.produit.Produit;
 import processing.core.PApplet;
 import processing.core.PVector;
@@ -11,11 +12,18 @@ public class TeleporteurSortie extends Tapis {
 		super(x, y, direction);
 	}
 
-	public void teleporter(Produit p) {
+	public void teleporter(DonneesJeu j, Produit p) {
 		p.setTaille(Produit.W, Produit.H);
+		p.setVitesse(new PVector());
+		
+		PVector prevPos = p.getPos();
 		p.setX(getX() + getForme().getW() / 2 - Produit.W / 2);
 		p.setY(getY() + getForme().getH() / 2 - Produit.H / 2);
-		p.setVitesse(new PVector());
+		
+		if (j.checkCollision(p) != null) {
+			p.setX(prevPos.x);
+			p.setY(prevPos.y);
+		}
 	}
 	
 	@Override
