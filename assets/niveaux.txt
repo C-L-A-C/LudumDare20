@@ -201,7 +201,7 @@ fin niveau
 niveau 9
 taille 13 14
 joueur (7;7)
-temps 150
+temps 170
 terrain
 f   f   f   f   f   f   f   f   f   f   f   f   f
 f   f   f   f   f   s   vt  f   f   f   f   f   f

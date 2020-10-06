@@ -35,7 +35,7 @@ public class Toleuse extends Machine {
 		recettes.add(r);
 		
 		r = new Recette(5, 10, TypeMiniJeu.RANGE_PRODUITS);
-		r.ajouterIngredient(TypeProduit.METAL_FUSION);
+		r.ajouterIngredient(TypeProduit.TOLE);
 		r.ajouterIngredient(TypeProduit.PLANCHE, 2);
 		r.ajouterProduit(TypeProduit.RAIL);
 		recettes.add(r);
